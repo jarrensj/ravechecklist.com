@@ -43,6 +43,20 @@ const Index: React.FC = () => {
     });
   };
   
+  const handleRemoveItem = (id: string) => {
+    const itemToRemove = checklist.find(item => item.id === id);
+    
+    setChecklist(prev => prev.filter(item => item.id !== id));
+    
+    if (itemToRemove) {
+      toast({
+        title: "Item removed",
+        description: itemToRemove.text,
+        duration: 2000,
+      });
+    }
+  };
+  
   const progressPercentage = Math.round(
     (checklist.filter(item => item.isCompleted).length / checklist.length) * 100
   );
@@ -109,6 +123,7 @@ const Index: React.FC = () => {
               items={checklist}
               onToggleItem={handleToggleItem}
               onAddItem={handleAddItem}
+              onRemoveItem={handleRemoveItem}
             />
           </div>
         </div>

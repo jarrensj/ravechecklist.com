@@ -5,13 +5,16 @@ import { cn } from "@/lib/utils";
 import { ChecklistItem as IChecklistItem } from "@/utils/data";
 import CategoryTag from './CategoryTag';
 import { categories } from '@/utils/data';
+import { Trash2 } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 
 interface ChecklistItemProps {
   item: IChecklistItem;
   onToggle: (id: string) => void;
+  onRemove: (id: string) => void;
 }
 
-const ChecklistItem: React.FC<ChecklistItemProps> = ({ item, onToggle }) => {
+const ChecklistItem: React.FC<ChecklistItemProps> = ({ item, onToggle, onRemove }) => {
   const category = categories.find(c => c.id === item.category);
   
   return (
@@ -37,12 +40,23 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({ item, onToggle }) => {
         </label>
       </div>
       
-      {category && (
-        <CategoryTag 
-          name={category.name}
-          colorClass={category.color}
-        />
-      )}
+      <div className="flex items-center gap-2">
+        {category && (
+          <CategoryTag 
+            name={category.name}
+            colorClass={category.color}
+          />
+        )}
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className="h-7 w-7 text-gray-400 hover:text-red-500 hover:bg-red-50"
+          onClick={() => onRemove(item.id)}
+          title="Remove item"
+        >
+          <Trash2 className="h-4 w-4" />
+        </Button>
+      </div>
     </div>
   );
 };

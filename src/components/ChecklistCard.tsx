@@ -12,12 +12,14 @@ interface ChecklistCardProps {
   items: IChecklistItem[];
   onToggleItem: (id: string) => void;
   onAddItem: (text: string, category: string) => void;
+  onRemoveItem: (id: string) => void;
 }
 
 const ChecklistCard: React.FC<ChecklistCardProps> = ({ 
   items, 
   onToggleItem,
-  onAddItem 
+  onAddItem,
+  onRemoveItem
 }) => {
   const [newItemText, setNewItemText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
@@ -103,6 +105,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                 key={item.id}
                 item={item}
                 onToggle={onToggleItem}
+                onRemove={onRemoveItem}
               />
             ))
           ) : (
