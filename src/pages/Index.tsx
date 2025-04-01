@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, Clock, Airplane } from "lucide-react";
+import { Calendar, Clock, PlaneTakeoff } from "lucide-react";
 import Header from '@/components/Header';
 import ChecklistCard from '@/components/ChecklistCard';
 import { sampleChecklist, sampleTrip, ChecklistItem } from '@/utils/data';
@@ -62,7 +62,7 @@ const Index: React.FC = () => {
               <CardContent>
                 <div className="space-y-4">
                   <div className="flex items-center">
-                    <Airplane className="h-5 w-5 mr-3 text-sky-600" />
+                    <PlaneTakeoff className="h-5 w-5 mr-3 text-sky-600" />
                     <div>
                       <p className="text-lg font-medium">{sampleTrip.destination}</p>
                       <p className="text-sm text-gray-500">Destination</p>

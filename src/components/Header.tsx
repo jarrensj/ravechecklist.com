@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Airplane } from 'lucide-react';
+import { PlaneTakeoff } from 'lucide-react';
 
 const Header: React.FC = () => {
   return (
@@ -8,7 +8,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <Airplane className="h-8 w-8 text-sky-600" />
+            <PlaneTakeoff className="h-8 w-8 text-sky-600" />
             <h1 className="text-2xl font-bold text-gray-900">AirportChecklist</h1>
           </div>
           <nav>
