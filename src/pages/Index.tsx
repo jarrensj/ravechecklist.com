@@ -1,9 +1,10 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, Clock, PlaneTakeoff } from "lucide-react";
+import { Calendar, Clock, MapPin, Music } from "lucide-react";
 import Header from '@/components/Header';
 import ChecklistCard from '@/components/ChecklistCard';
-import { sampleChecklist, sampleTrip, ChecklistItem } from '@/utils/data';
+import { sampleChecklist, sampleEvent, ChecklistItem } from '@/utils/data';
 import { useToast } from "@/hooks/use-toast";
 
 const Index: React.FC = () => {
@@ -69,37 +70,45 @@ const Index: React.FC = () => {
           <div className="md:col-span-1">
             <Card className="animate-fade-in">
               <CardHeader>
-                <CardTitle>Upcoming Trip</CardTitle>
-                <CardDescription>Your flight details</CardDescription>
+                <CardTitle>Event Information</CardTitle>
+                <CardDescription>Your festival details</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div className="flex items-center">
-                    <PlaneTakeoff className="h-5 w-5 mr-3 text-sky-600" />
+                    <Music className="h-5 w-5 mr-3 text-sky-600" />
                     <div>
-                      <p className="text-lg font-medium">{sampleTrip.destination}</p>
-                      <p className="text-sm text-gray-500">Destination</p>
+                      <p className="text-lg font-medium">{sampleEvent.name}</p>
+                      <p className="text-sm text-gray-500">Festival Name</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center">
                     <Calendar className="h-5 w-5 mr-3 text-sky-600" />
                     <div>
-                      <p className="text-lg font-medium">{sampleTrip.date}</p>
-                      <p className="text-sm text-gray-500">Departure Date</p>
+                      <p className="text-lg font-medium">{sampleEvent.date}</p>
+                      <p className="text-sm text-gray-500">Event Dates</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center">
+                    <MapPin className="h-5 w-5 mr-3 text-sky-600" />
+                    <div>
+                      <p className="text-lg font-medium">{sampleEvent.location}</p>
+                      <p className="text-sm text-gray-500">Location</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center">
                     <Clock className="h-5 w-5 mr-3 text-sky-600" />
                     <div>
-                      <p className="text-lg font-medium">{sampleTrip.departureTime}</p>
-                      <p className="text-sm text-gray-500">Departure Time</p>
+                      <p className="text-lg font-medium">{sampleEvent.startTime}</p>
+                      <p className="text-sm text-gray-500">Gates Open</p>
                     </div>
                   </div>
                   
                   <div className="pt-2 border-t">
-                    <p className="font-medium">Flight {sampleTrip.flightNumber}</p>
+                    <p className="font-medium">Packing Progress</p>
                     <div className="mt-3">
                       <div className="h-2 w-full bg-gray-200 rounded-full">
                         <div 
