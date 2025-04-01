@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Clock, PlaneTakeoff } from "lucide-react";
 import Header from '@/components/Header';
 import ChecklistCard from '@/components/ChecklistCard';
 import { sampleChecklist, sampleTrip, ChecklistItem } from '@/utils/data';
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 const Index: React.FC = () => {
   const [checklist, setChecklist] = useState<ChecklistItem[]>(sampleChecklist);

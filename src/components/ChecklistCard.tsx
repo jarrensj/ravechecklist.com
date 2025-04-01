@@ -7,6 +7,7 @@ import { Plus } from "lucide-react";
 import ChecklistItem from './ChecklistItem';
 import CategoryTag from './CategoryTag';
 import { ChecklistItem as IChecklistItem, categories } from '@/utils/data';
+import { Switch } from "@/components/ui/switch";
 
 interface ChecklistCardProps {
   items: IChecklistItem[];
@@ -24,6 +25,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   const [newItemText, setNewItemText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
+  const [isRemoveMode, setIsRemoveMode] = useState(false);
   
   const filteredItems = activeFilter 
     ? items.filter(item => item.category === activeFilter)
@@ -47,9 +49,21 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
       <CardHeader>
         <CardTitle className="flex justify-between items-center">
           <span>Rave Checklist</span>
-          <span className="text-sm font-normal text-gray-500">
-            {items.filter(i => i.isCompleted).length} of {items.length} completed
-          </span>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <Switch
+                id="remove-mode"
+                checked={isRemoveMode}
+                onCheckedChange={setIsRemoveMode}
+              />
+              <label htmlFor="remove-mode" className="text-sm font-normal text-gray-500 cursor-pointer">
+                Edit mode
+              </label>
+            </div>
+            <span className="text-sm font-normal text-gray-500">
+              {items.filter(i => i.isCompleted).length} of {items.length} completed
+            </span>
+          </div>
         </CardTitle>
         <CardDescription>Keep track of all your rave essentials</CardDescription>
       </CardHeader>
@@ -106,6 +120,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                 item={item}
                 onToggle={onToggleItem}
                 onRemove={onRemoveItem}
+                showRemoveButton={isRemoveMode}
               />
             ))
           ) : (

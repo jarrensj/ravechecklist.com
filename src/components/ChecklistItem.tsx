@@ -12,9 +12,10 @@ interface ChecklistItemProps {
   item: IChecklistItem;
   onToggle: (id: string) => void;
   onRemove: (id: string) => void;
+  showRemoveButton: boolean;
 }
 
-const ChecklistItem: React.FC<ChecklistItemProps> = ({ item, onToggle, onRemove }) => {
+const ChecklistItem: React.FC<ChecklistItemProps> = ({ item, onToggle, onRemove, showRemoveButton }) => {
   const category = categories.find(c => c.id === item.category);
   
   return (
@@ -47,15 +48,17 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({ item, onToggle, onRemove 
             colorClass={category.color}
           />
         )}
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className="h-7 w-7 text-gray-400 hover:text-red-500 hover:bg-red-50"
-          onClick={() => onRemove(item.id)}
-          title="Remove item"
-        >
-          <Trash2 className="h-4 w-4" />
-        </Button>
+        {showRemoveButton && (
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="h-7 w-7 text-gray-400 hover:text-red-500 hover:bg-red-50"
+            onClick={() => onRemove(item.id)}
+            title="Remove item"
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        )}
       </div>
     </div>
   );
