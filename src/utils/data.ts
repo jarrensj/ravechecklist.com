@@ -13,6 +13,14 @@ export interface EventInfo {
   startTime: string;
 }
 
+export interface Template {
+  id: string;
+  name: string;
+  event: EventInfo;
+  items: ChecklistItem[];
+  thumbnail: string;
+}
+
 export const categories = [
   { id: "documents", name: "Documents", color: "bg-blue-100 text-blue-800" },
   { id: "clothing", name: "Clothing", color: "bg-green-100 text-green-800" },
@@ -53,4 +61,52 @@ export const sampleChecklist: ChecklistItem[] = [
   { id: "22", text: "Portable Fan", category: "misc", isCompleted: false },
   { id: "23", text: "Sunglasses", category: "misc", isCompleted: false },
   { id: "24", text: "Cash (Small Bills)", category: "misc", isCompleted: false }
+];
+
+// Festival templates
+export const templates: Template[] = [
+  {
+    id: "coachella",
+    name: "Coachella Festival",
+    event: sampleEvent,
+    items: sampleChecklist,
+    thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop"
+  },
+  {
+    id: "outsidelands",
+    name: "Outside Lands",
+    event: {
+      name: "Outside Lands",
+      date: "August 9-11, 2024",
+      location: "Golden Gate Park, San Francisco, CA",
+      startTime: "11:00 AM"
+    },
+    items: [
+      { id: "ol-1", text: "Festival Ticket/Wristband", category: "documents", isCompleted: false },
+      { id: "ol-2", text: "ID/Driver's License", category: "documents", isCompleted: false },
+      { id: "ol-3", text: "Credit/Debit Cards", category: "documents", isCompleted: false },
+      { id: "ol-4", text: "Festival Map & Schedule", category: "documents", isCompleted: false },
+      { id: "ol-5", text: "Warm Layers (SF Fog)", category: "clothing", isCompleted: false },
+      { id: "ol-6", text: "Long Pants/Jeans", category: "clothing", isCompleted: false },
+      { id: "ol-7", text: "Comfortable Shoes", category: "clothing", isCompleted: false },
+      { id: "ol-8", text: "Beanie/Hat", category: "clothing", isCompleted: false },
+      { id: "ol-9", text: "Warm Jacket", category: "clothing", isCompleted: false },
+      { id: "ol-10", text: "Phone Charger", category: "electronics", isCompleted: false },
+      { id: "ol-11", text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
+      { id: "ol-12", text: "Camera", category: "electronics", isCompleted: false },
+      { id: "ol-13", text: "Earplugs", category: "electronics", isCompleted: false },
+      { id: "ol-14", text: "Toothbrush", category: "toiletries", isCompleted: false },
+      { id: "ol-15", text: "Toothpaste", category: "toiletries", isCompleted: false },
+      { id: "ol-16", text: "Deodorant", category: "toiletries", isCompleted: false },
+      { id: "ol-17", text: "Sunscreen", category: "toiletries", isCompleted: false },
+      { id: "ol-18", text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
+      { id: "ol-19", text: "Lip Balm", category: "toiletries", isCompleted: false },
+      { id: "ol-20", text: "Blanket for Sitting", category: "misc", isCompleted: false },
+      { id: "ol-21", text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
+      { id: "ol-22", text: "Portable Hand Warmers", category: "misc", isCompleted: false },
+      { id: "ol-23", text: "Sunglasses", category: "misc", isCompleted: false },
+      { id: "ol-24", text: "Cash (Small Bills)", category: "misc", isCompleted: false }
+    ],
+    thumbnail: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2070&auto=format&fit=crop"
+  }
 ];
