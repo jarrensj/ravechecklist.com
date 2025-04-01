@@ -44,12 +44,12 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
     <Card className="w-full checklist-container">
       <CardHeader>
         <CardTitle className="flex justify-between items-center">
-          <span>Trip Checklist</span>
+          <span>Rave Checklist</span>
           <span className="text-sm font-normal text-gray-500">
             {items.filter(i => i.isCompleted).length} of {items.length} completed
           </span>
         </CardTitle>
-        <CardDescription>Keep track of all your travel essentials</CardDescription>
+        <CardDescription>Keep track of all your rave essentials</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex flex-wrap gap-2 mb-4">

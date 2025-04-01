@@ -9,7 +9,7 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <PlaneTakeoff className="h-8 w-8 text-sky-600" />
-            <h1 className="text-2xl font-bold text-gray-900">AirportChecklist</h1>
+            <h1 className="text-2xl font-bold text-gray-900">RaveChecklist</h1>
           </div>
           <nav>
             <ul className="flex space-x-6">
