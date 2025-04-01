@@ -8,6 +8,7 @@ import ChecklistItem from './ChecklistItem';
 import CategoryTag from './CategoryTag';
 import { ChecklistItem as IChecklistItem, categories } from '@/utils/data';
 import { Switch } from "@/components/ui/switch";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface ChecklistCardProps {
   items: IChecklistItem[];
@@ -51,14 +52,23 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
           <span>Rave Checklist</span>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <Switch
-                id="remove-mode"
-                checked={isRemoveMode}
-                onCheckedChange={setIsRemoveMode}
-              />
-              <label htmlFor="remove-mode" className="text-sm font-normal text-gray-500 cursor-pointer">
-                Edit mode
-              </label>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="flex items-center gap-2">
+                    <Switch
+                      id="remove-mode"
+                      checked={isRemoveMode}
+                      onCheckedChange={setIsRemoveMode}
+                    />
+                    <label htmlFor="remove-mode" className="text-sm font-normal text-gray-500 cursor-pointer">
+                      Edit mode
+                    </label>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Toggle to remove items you don't want on your checklist anymore</p>
+                </TooltipContent>
+              </Tooltip>
             </div>
             <span className="text-sm font-normal text-gray-500">
               {items.filter(i => i.isCompleted).length} of {items.length} completed
