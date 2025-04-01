@@ -5,8 +5,9 @@ import { templates } from '@/utils/data';
 import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
-import { PlusCircle, Music } from 'lucide-react';
+import { PlusCircle, Music, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const Templates: React.FC = () => {
   return (
@@ -18,6 +19,14 @@ const Templates: React.FC = () => {
           <h1 className="text-3xl font-bold mb-2">Festival Checklist Templates</h1>
           <p className="text-gray-600">Choose a pre-made template or create your own custom festival checklist</p>
         </div>
+        
+        <Alert className="mb-6 border-sky-200 bg-sky-50">
+          <Sparkles className="h-5 w-5 text-sky-600" />
+          <AlertTitle className="text-sky-800">Coming Soon!</AlertTitle>
+          <AlertDescription className="text-sky-700">
+            Users can create and share their templates for others to use
+          </AlertDescription>
+        </Alert>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {templates.map(template => (
