@@ -15,13 +15,15 @@ interface ChecklistCardProps {
   onToggleItem: (id: string) => void;
   onAddItem: (text: string, category: string) => void;
   onRemoveItem: (id: string) => void;
+  eventName?: string;
 }
 
 const ChecklistCard: React.FC<ChecklistCardProps> = ({ 
   items, 
   onToggleItem,
   onAddItem,
-  onRemoveItem
+  onRemoveItem,
+  eventName = "Rave"
 }) => {
   const [newItemText, setNewItemText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
@@ -49,7 +51,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
     <Card className="w-full checklist-container">
       <CardHeader>
         <CardTitle className="flex justify-between items-center">
-          <span>Rave Checklist</span>
+          <span>{eventName} Checklist</span>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <Tooltip>
@@ -75,7 +77,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
             </span>
           </div>
         </CardTitle>
-        <CardDescription>Keep track of all your rave essentials</CardDescription>
+        <CardDescription>Keep track of all your festival essentials</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex flex-wrap gap-2 mb-4">

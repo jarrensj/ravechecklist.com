@@ -170,6 +170,7 @@ const TemplateDetail: React.FC = () => {
               onToggleItem={handleToggleItem}
               onAddItem={handleAddItem}
               onRemoveItem={handleRemoveItem}
+              eventName={template.event.name}
             />
           </div>
         </div>
