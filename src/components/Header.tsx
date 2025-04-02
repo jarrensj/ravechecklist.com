@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { PlaneTakeoff } from 'lucide-react';
+import { Music } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Header: React.FC = () => {
@@ -15,7 +15,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-3">
-            <PlaneTakeoff className="h-8 w-8 text-sky-600" />
+            <Music className="h-8 w-8 text-sky-600" />
             <h1 className="text-2xl font-bold text-gray-900">RaveChecklist</h1>
           </Link>
           <nav>
