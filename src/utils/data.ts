@@ -31,7 +31,7 @@ export const categories = [
 
 export const sampleEvent: EventInfo = {
   name: "Coachella",
-  date: "April 12-14 & 19-21, 2024",
+  date: "April 11-13 & 18-20, 2025",
   location: "Empire Polo Club, Indio, CA",
   startTime: "12:00 PM"
 };
