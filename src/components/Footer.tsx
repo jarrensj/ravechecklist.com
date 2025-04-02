@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
             </p>
           </div>
           <div className="flex items-center text-xs text-gray-500">
-            🍣
+            🍣 🦄
           </div>
         </div>
       </div>
