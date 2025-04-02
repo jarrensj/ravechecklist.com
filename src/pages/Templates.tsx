@@ -81,13 +81,18 @@ const Templates: React.FC = () => {
             </Card>
           ))}
           
-          {/* Create Custom Template Card */}
-          <Card className="border-dashed border-2 border-gray-300 flex flex-col items-center justify-center p-8">
+          {/* Create Custom Template Card - Coming Soon */}
+          <Card className="border-dashed border-2 border-gray-300 flex flex-col items-center justify-center p-8 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gray-100 bg-opacity-80 flex items-center justify-center z-10">
+              <div className="bg-sky-600 text-white py-2 px-4 rounded-full font-medium transform -rotate-12 shadow-lg">
+                Coming Soon!
+              </div>
+            </div>
             <PlusCircle className="h-16 w-16 text-gray-400 mb-4" />
             <h3 className="text-xl font-medium text-gray-600 mb-2">Create Custom Template</h3>
             <p className="text-gray-500 text-center mb-6">Build your own festival checklist from scratch</p>
-            <Button variant="outline" asChild>
-              <Link to="/create-template">Get Started</Link>
+            <Button variant="outline" disabled>
+              Get Started
             </Button>
           </Card>
         </div>

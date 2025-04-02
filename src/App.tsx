@@ -8,7 +8,6 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Templates from "./pages/Templates";
 import TemplateDetail from "./pages/TemplateDetail";
-import CreateTemplate from "./pages/CreateTemplate";
 import React from "react";
 
 // Create a client
@@ -26,7 +25,6 @@ const App = () => {
               <Route path="/" element={<Index />} />
               <Route path="/templates" element={<Templates />} />
               <Route path="/templates/:id" element={<TemplateDetail />} />
-              <Route path="/create-template" element={<CreateTemplate />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
