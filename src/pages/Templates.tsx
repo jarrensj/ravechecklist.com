@@ -1,15 +1,18 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { templates } from '@/utils/data';
 import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
-import { PlusCircle, Music, Sparkles } from 'lucide-react';
+import { PlusCircle, Music, Sparkles, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 const Templates: React.FC = () => {
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
+
   // Sort templates by date (closest upcoming events first)
   const sortedTemplates = [...templates].sort((a, b) => {
     // Extract month and year from date strings
@@ -95,27 +98,39 @@ const Templates: React.FC = () => {
                   <div><strong>Gates Open:</strong> {template.event.startTime}</div>
                 </div>
                 
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Category</TableHead>
-                      <TableHead className="text-right">Items</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {Object.entries(
-                      template.items.reduce((acc, item) => {
-                        acc[item.category] = (acc[item.category] || 0) + 1;
-                        return acc;
-                      }, {} as Record<string, number>)
-                    ).map(([category, count]) => (
-                      <TableRow key={category}>
-                        <TableCell className="capitalize">{category}</TableCell>
-                        <TableCell className="text-right">{count}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                <Collapsible 
+                  open={categoriesOpen} 
+                  onOpenChange={setCategoriesOpen}
+                  className="border rounded-md overflow-hidden"
+                >
+                  <CollapsibleTrigger className="flex items-center justify-between w-full px-4 py-3 text-left bg-slate-50">
+                    <span className="font-medium">Categories</span>
+                    <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${categoriesOpen ? 'transform rotate-180' : ''}`} />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="p-3 border-t">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Category</TableHead>
+                          <TableHead className="text-right">Items</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {Object.entries(
+                          template.items.reduce((acc, item) => {
+                            acc[item.category] = (acc[item.category] || 0) + 1;
+                            return acc;
+                          }, {} as Record<string, number>)
+                        ).map(([category, count]) => (
+                          <TableRow key={category}>
+                            <TableCell className="capitalize">{category}</TableCell>
+                            <TableCell className="text-right">{count}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </CollapsibleContent>
+                </Collapsible>
               </CardContent>
               <CardFooter>
                 <Button className="w-full" asChild>

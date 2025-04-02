@@ -3,13 +3,12 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Plus, RotateCcw, ChevronDown } from "lucide-react";
+import { Plus, RotateCcw } from "lucide-react";
 import ChecklistItem from './ChecklistItem';
 import CategoryTag from './CategoryTag';
 import { ChecklistItem as IChecklistItem, categories } from '@/utils/data';
 import { Switch } from "@/components/ui/switch";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 interface ChecklistCardProps {
   items: IChecklistItem[];
@@ -32,7 +31,6 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [isRemoveMode, setIsRemoveMode] = useState(false);
-  const [categoriesOpen, setCategoriesOpen] = useState(false);
   
   const filteredItems = activeFilter 
     ? items.filter(item => item.category === activeFilter)
@@ -103,35 +101,23 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
         <CardDescription>Keep track of all your festival essentials</CardDescription>
       </CardHeader>
       <CardContent>
-        <Collapsible 
-          open={categoriesOpen} 
-          onOpenChange={setCategoriesOpen}
-          className="mb-4 border rounded-md overflow-hidden"
-        >
-          <CollapsibleTrigger className="flex items-center justify-between w-full px-4 py-3 text-left bg-slate-50">
-            <span className="font-medium">Categories</span>
-            <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${categoriesOpen ? 'transform rotate-180' : ''}`} />
-          </CollapsibleTrigger>
-          <CollapsibleContent className="p-3 border-t">
-            <div className="flex flex-wrap gap-2">
-              <CategoryTag 
-                name="All Items" 
-                colorClass="bg-sky-100 text-sky-800"
-                isSelected={activeFilter === null} 
-                onClick={() => setActiveFilter(null)} 
-              />
-              {categories.map(category => (
-                <CategoryTag 
-                  key={category.id}
-                  name={category.name} 
-                  colorClass={category.color}
-                  isSelected={activeFilter === category.id} 
-                  onClick={() => setActiveFilter(category.id)} 
-                />
-              ))}
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
+        <div className="flex flex-wrap gap-2 mb-4">
+          <CategoryTag 
+            name="All Items" 
+            colorClass="bg-sky-100 text-sky-800"
+            isSelected={activeFilter === null} 
+            onClick={() => setActiveFilter(null)} 
+          />
+          {categories.map(category => (
+            <CategoryTag 
+              key={category.id}
+              name={category.name} 
+              colorClass={category.color}
+              isSelected={activeFilter === category.id} 
+              onClick={() => setActiveFilter(category.id)} 
+            />
+          ))}
+        </div>
         
         <div className="flex gap-2 mb-4">
           <Input
