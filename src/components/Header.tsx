@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Music } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Header: React.FC = () => {
@@ -15,7 +14,11 @@ const Header: React.FC = () => {
       <div className="container mx-auto">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-3">
-            <Music className="h-8 w-8 text-sky-600" />
+            <img 
+              src="/lovable-uploads/347c3585-2166-4fdb-9689-dbf603407dea.png" 
+              alt="RaveChecklist Logo" 
+              className="h-8 w-auto" 
+            />
             <h1 className="text-2xl font-bold text-gray-900">RaveChecklist</h1>
           </Link>
           <nav>
