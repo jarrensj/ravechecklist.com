@@ -37,7 +37,7 @@ export const sampleEvent: EventInfo = {
 };
 
 export const sampleChecklist: ChecklistItem[] = [
-  { id: "1", text: "Festival Ticket/Wristband", category: "documents", isCompleted: false },
+  { id: "1", text: "Festival Wristband", category: "documents", isCompleted: false },
   { id: "2", text: "ID/Driver's License", category: "documents", isCompleted: false },
   { id: "3", text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
   { id: "4", text: "Festival Map & Schedule", category: "documents", isCompleted: false },
