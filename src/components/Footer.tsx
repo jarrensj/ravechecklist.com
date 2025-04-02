@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Heart } from 'lucide-react';
 import { Separator } from "@/components/ui/separator";
 
 const Footer: React.FC = () => {
@@ -16,7 +15,7 @@ const Footer: React.FC = () => {
             </p>
           </div>
           <div className="flex items-center text-xs text-gray-500">
-            Made with <Heart className="h-3 w-3 mx-1 text-red-500 inline" /> by RaveChecklist Team
+            🍣
           </div>
         </div>
       </div>
