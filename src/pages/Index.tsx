@@ -57,6 +57,16 @@ const Index: React.FC = () => {
     }
   };
   
+  const handleResetTemplate = () => {
+    setChecklist(sampleChecklist);
+    
+    toast({
+      title: "Template reset",
+      description: "All items have been restored to their original state",
+      duration: 2000,
+    });
+  };
+  
   const progressPercentage = Math.round(
     (checklist.filter(item => item.isCompleted).length / checklist.length) * 100
   );
@@ -146,6 +156,7 @@ const Index: React.FC = () => {
               onToggleItem={handleToggleItem}
               onAddItem={handleAddItem}
               onRemoveItem={handleRemoveItem}
+              onResetTemplate={handleResetTemplate}
             />
           </div>
         </div>

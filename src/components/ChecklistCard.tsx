@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus, RotateCcw } from "lucide-react";
 import ChecklistItem from './ChecklistItem';
 import CategoryTag from './CategoryTag';
 import { ChecklistItem as IChecklistItem, categories } from '@/utils/data';
@@ -15,6 +15,7 @@ interface ChecklistCardProps {
   onToggleItem: (id: string) => void;
   onAddItem: (text: string, category: string) => void;
   onRemoveItem: (id: string) => void;
+  onResetTemplate?: () => void;
   eventName?: string;
 }
 
@@ -23,6 +24,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   onToggleItem,
   onAddItem,
   onRemoveItem,
+  onResetTemplate,
   eventName = "Rave"
 }) => {
   const [newItemText, setNewItemText] = useState("");
@@ -71,6 +73,25 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                   <p>Toggle to remove items you don't want on your checklist anymore</p>
                 </TooltipContent>
               </Tooltip>
+              
+              {isRemoveMode && onResetTemplate && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="ml-2 text-amber-600 border-amber-600 hover:bg-amber-50"
+                      onClick={onResetTemplate}
+                    >
+                      <RotateCcw className="h-3.5 w-3.5 mr-1" />
+                      Reset Template
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Restore the original template items</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
             </div>
             <span className="text-sm font-normal text-gray-500">
               {items.filter(i => i.isCompleted).length} of {items.length} completed
