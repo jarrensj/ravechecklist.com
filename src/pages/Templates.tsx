@@ -15,11 +15,21 @@ const Templates: React.FC = () => {
     // Extract month and year from date strings
     const getDateInfo = (dateStr: string) => {
       const months = {
-        'January': 0, 'February': 1, 'March': 2, 'April': 3, 'May': 4, 'June': 5,
-        'July': 6, 'August': 7, 'September': 8, 'October': 9, 'November': 10, 'December': 11
+        'January': 0, 'Jan': 0,
+        'February': 1, 'Feb': 1,
+        'March': 2, 'Mar': 2,
+        'April': 3, 'Apr': 3,
+        'May': 4,
+        'June': 5, 'Jun': 5,
+        'July': 6, 'Jul': 6,
+        'August': 7, 'Aug': 7,
+        'September': 8, 'Sep': 8,
+        'October': 9, 'Oct': 9,
+        'November': 10, 'Nov': 10,
+        'December': 11, 'Dec': 11
       };
       
-      // Handle date ranges like "April 11-13 & 18-20, 2025" or "May 31 - Jun 1, 2025"
+      // Handle date ranges like "April 11-13 & 18-20, 2025" or "Aug 8-10, 2025"
       const monthMatch = dateStr.match(/^(\w+)/);
       const yearMatch = dateStr.match(/(\d{4})/);
       
