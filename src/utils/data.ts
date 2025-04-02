@@ -39,7 +39,7 @@ export const sampleEvent: EventInfo = {
 export const sampleChecklist: ChecklistItem[] = [
   { id: "1", text: "Festival Ticket/Wristband", category: "documents", isCompleted: false },
   { id: "2", text: "ID/Driver's License", category: "documents", isCompleted: false },
-  { id: "3", text: "Credit/Debit Cards", category: "documents", isCompleted: false },
+  { id: "3", text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
   { id: "4", text: "Festival Map & Schedule", category: "documents", isCompleted: false },
   { id: "8", text: "Bandanas/Masks", category: "clothing", isCompleted: false },
   { id: "9", text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
@@ -49,8 +49,7 @@ export const sampleChecklist: ChecklistItem[] = [
   { id: "18", text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
   { id: "19", text: "Lip Balm", category: "toiletries", isCompleted: false },
   { id: "21", text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
-  { id: "23", text: "Sunglasses", category: "misc", isCompleted: false },
-  { id: "24", text: "Cash (Small Bills)", category: "misc", isCompleted: false }
+  { id: "23", text: "Sunglasses", category: "misc", isCompleted: false }
 ];
 
 // Festival templates
@@ -74,7 +73,7 @@ export const templates: Template[] = [
     items: [
       { id: "ol-1", text: "Festival Ticket/Wristband", category: "documents", isCompleted: false },
       { id: "ol-2", text: "ID/Driver's License", category: "documents", isCompleted: false },
-      { id: "ol-3", text: "Credit/Debit Cards", category: "documents", isCompleted: false },
+      { id: "ol-3", text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
       { id: "ol-4", text: "Festival Map & Schedule", category: "documents", isCompleted: false },
       { id: "ol-5", text: "Warm Layers (SF Fog)", category: "clothing", isCompleted: false },
       { id: "ol-6", text: "Long Pants/Jeans", category: "clothing", isCompleted: false },
@@ -88,8 +87,7 @@ export const templates: Template[] = [
       { id: "ol-20", text: "Blanket for Sitting", category: "misc", isCompleted: false },
       { id: "ol-21", text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
       { id: "ol-22", text: "Portable Hand Warmers", category: "misc", isCompleted: false },
-      { id: "ol-23", text: "Sunglasses", category: "misc", isCompleted: false },
-      { id: "ol-24", text: "Cash (Small Bills)", category: "misc", isCompleted: false }
+      { id: "ol-23", text: "Sunglasses", category: "misc", isCompleted: false }
     ],
     thumbnail: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2070&auto=format&fit=crop"
   }
