@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, Clock, MapPin, Music, ArrowLeft } from "lucide-react";
+import { Calendar, Clock, MapPin, Music, ArrowLeft, AlertTriangle } from "lucide-react";
 import Header from '@/components/Header';
 import ChecklistCard from '@/components/ChecklistCard';
 import { templates, ChecklistItem } from '@/utils/data';
@@ -143,6 +144,22 @@ const TemplateDetail: React.FC = () => {
                       <p className="text-sm text-gray-500">Gates Open</p>
                     </div>
                   </div>
+
+                  {template.id === "coachella" && (
+                    <div className="flex items-center">
+                      <AlertTriangle className="h-5 w-5 mr-3 text-amber-600" />
+                      <div>
+                        <a 
+                          href="https://www.coachella.com/faq" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-sm font-medium text-amber-600 hover:underline"
+                        >
+                          Check Prohibited Items
+                        </a>
+                      </div>
+                    </div>
+                  )}
                   
                   <div className="pt-2 border-t">
                     <p className="font-medium">Packing Progress</p>
