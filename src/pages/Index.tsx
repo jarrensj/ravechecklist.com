@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Clock, MapPin, Music, AlertTriangle } from "lucide-react";
 import Header from '@/components/Header';
@@ -8,13 +8,33 @@ import { sampleChecklist, sampleEvent, ChecklistItem } from '@/utils/data';
 import { useToast } from "@/hooks/use-toast";
 
 const Index: React.FC = () => {
-  const [checklist, setChecklist] = useState<ChecklistItem[]>(sampleChecklist);
+  const [checklist, setChecklist] = useState<ChecklistItem[]>([]);
   const { toast } = useToast();
 
+  // Load checklist from localStorage on component mount
+  useEffect(() => {
+    const savedChecklist = localStorage.getItem('mainChecklist');
+    if (savedChecklist) {
+      setChecklist(JSON.parse(savedChecklist));
+    } else {
+      setChecklist(sampleChecklist);
+    }
+  }, []);
+
+  // Save checklist to localStorage whenever it changes
+  useEffect(() => {
+    if (checklist.length > 0) {
+      localStorage.setItem('mainChecklist', JSON.stringify(checklist));
+    }
+  }, [checklist]);
+
   const handleToggleItem = (id: string) => {
-    setChecklist(prev => prev.map(item => 
-      item.id === id ? { ...item, isCompleted: !item.isCompleted } : item
-    ));
+    setChecklist(prev => {
+      const updated = prev.map(item => 
+        item.id === id ? { ...item, isCompleted: !item.isCompleted } : item
+      );
+      return updated;
+    });
     
     const item = checklist.find(item => item.id === id);
     if (item) {
@@ -59,6 +79,7 @@ const Index: React.FC = () => {
   
   const handleResetTemplate = () => {
     setChecklist(sampleChecklist);
+    localStorage.setItem('mainChecklist', JSON.stringify(sampleChecklist));
     
     toast({
       title: "Template reset",
