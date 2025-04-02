@@ -1,4 +1,3 @@
-
 export interface ChecklistItem {
   id: string;
   text: string;
@@ -49,7 +48,14 @@ export const sampleChecklist: ChecklistItem[] = [
   { id: "18", text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
   { id: "19", text: "Lip Balm", category: "toiletries", isCompleted: false },
   { id: "21", text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
-  { id: "23", text: "Sunglasses", category: "clothing", isCompleted: false }
+  { id: "23", text: "Sunglasses", category: "clothing", isCompleted: false },
+  // Adding the new items
+  { id: "24", text: "Camera", category: "electronics", isCompleted: false },
+  { id: "25", text: "Eye Drops", category: "toiletries", isCompleted: false },
+  { id: "26", text: "Handheld Fan", category: "electronics", isCompleted: false },
+  { id: "27", text: "Fanny Pack", category: "clothing", isCompleted: false },
+  { id: "28", text: "Make-up", category: "toiletries", isCompleted: false },
+  { id: "29", text: "Water Mister (Personal Size)", category: "toiletries", isCompleted: false }
 ];
 
 // Festival templates
