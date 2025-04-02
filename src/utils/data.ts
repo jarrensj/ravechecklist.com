@@ -1,4 +1,3 @@
-
 export interface ChecklistItem {
   id: string;
   text: string;
@@ -41,24 +40,14 @@ export const sampleChecklist: ChecklistItem[] = [
   { id: "2", text: "ID/Driver's License", category: "documents", isCompleted: false },
   { id: "3", text: "Credit/Debit Cards", category: "documents", isCompleted: false },
   { id: "4", text: "Festival Map & Schedule", category: "documents", isCompleted: false },
-  { id: "5", text: "T-shirts", category: "clothing", isCompleted: false },
-  { id: "6", text: "Shorts", category: "clothing", isCompleted: false },
-  { id: "7", text: "Comfortable Shoes", category: "clothing", isCompleted: false },
   { id: "8", text: "Bandanas/Masks", category: "clothing", isCompleted: false },
   { id: "9", text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
-  { id: "10", text: "Phone Charger", category: "electronics", isCompleted: false },
   { id: "11", text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
-  { id: "12", text: "Camera", category: "electronics", isCompleted: false },
   { id: "13", text: "Earplugs", category: "electronics", isCompleted: false },
-  { id: "14", text: "Toothbrush", category: "toiletries", isCompleted: false },
-  { id: "15", text: "Toothpaste", category: "toiletries", isCompleted: false },
-  { id: "16", text: "Deodorant", category: "toiletries", isCompleted: false },
   { id: "17", text: "Sunscreen", category: "toiletries", isCompleted: false },
   { id: "18", text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
   { id: "19", text: "Lip Balm", category: "toiletries", isCompleted: false },
-  { id: "20", text: "Festival Totems/Flags", category: "misc", isCompleted: false },
   { id: "21", text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
-  { id: "22", text: "Portable Fan", category: "misc", isCompleted: false },
   { id: "23", text: "Sunglasses", category: "misc", isCompleted: false },
   { id: "24", text: "Cash (Small Bills)", category: "misc", isCompleted: false }
 ];
