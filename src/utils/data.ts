@@ -97,5 +97,38 @@ export const templates: Template[] = [
       { id: "ol-23", text: "Sunglasses", category: "clothing", isCompleted: false }
     ],
     thumbnail: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2070&auto=format&fit=crop"
+  },
+  {
+    id: "hitc",
+    name: "Head In The Clouds",
+    event: {
+      name: "Head In The Clouds",
+      date: "May 31 - Jun 1, 2025",
+      location: "Brookside at the Rose Bowl, Pasadena, CA",
+      startTime: "1:00 PM"
+    },
+    items: [
+      { id: "hitc-1", text: "Festival Wristband", category: "documents", isCompleted: false },
+      { id: "hitc-2", text: "ID/Driver's License", category: "documents", isCompleted: false },
+      { id: "hitc-3", text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
+      { id: "hitc-4", text: "Portable Phone Charger", category: "electronics", isCompleted: false },
+      { id: "hitc-5", text: "Comfortable Shoes", category: "clothing", isCompleted: false },
+      { id: "hitc-6", text: "Shorts/Light Pants", category: "clothing", isCompleted: false },
+      { id: "hitc-7", text: "T-Shirt/Tank Top", category: "clothing", isCompleted: false },
+      { id: "hitc-8", text: "Light Jacket (for evening)", category: "clothing", isCompleted: false },
+      { id: "hitc-9", text: "Sunglasses", category: "clothing", isCompleted: false },
+      { id: "hitc-10", text: "Hat/Cap", category: "clothing", isCompleted: false },
+      { id: "hitc-11", text: "Sunscreen", category: "toiletries", isCompleted: false },
+      { id: "hitc-12", text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
+      { id: "hitc-13", text: "Lip Balm", category: "toiletries", isCompleted: false },
+      { id: "hitc-14", text: "Deodorant", category: "toiletries", isCompleted: false },
+      { id: "hitc-15", text: "Earplugs", category: "clothing", isCompleted: false },
+      { id: "hitc-16", text: "Water Bottle", category: "misc", isCompleted: false },
+      { id: "hitc-17", text: "Small Backpack/Fanny Pack", category: "clothing", isCompleted: false },
+      { id: "hitc-18", text: "Portable Fan", category: "electronics", isCompleted: false },
+      { id: "hitc-19", text: "Bandaids", category: "toiletries", isCompleted: false },
+      { id: "hitc-20", text: "Blanket (50\" x 70\" or smaller)", category: "misc", isCompleted: false }
+    ],
+    thumbnail: "https://images.unsplash.com/photo-1500673922987-e212871fec22?q=80&w=2070&auto=format&fit=crop"
   }
 ];
