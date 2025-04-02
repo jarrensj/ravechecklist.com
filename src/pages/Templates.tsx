@@ -83,9 +83,9 @@ const Templates: React.FC = () => {
           
           {/* Create Custom Template Card - Coming Soon */}
           <Card className="border-dashed border-2 border-gray-300 flex flex-col items-center justify-center p-8 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gray-100 bg-opacity-80 flex items-center justify-center z-10">
-              <div className="bg-sky-600 text-white py-2 px-4 rounded-full font-medium transform -rotate-12 shadow-lg">
-                Coming Soon!
+            <div className="absolute inset-0 bg-sky-600/80 flex items-center justify-center z-10">
+              <div className="bg-white text-sky-700 py-1 px-8 font-bold text-xl w-full text-center transform rotate-12">
+                COMING SOON
               </div>
             </div>
             <PlusCircle className="h-16 w-16 text-gray-400 mb-4" />
