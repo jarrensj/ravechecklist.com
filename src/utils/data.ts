@@ -1,3 +1,4 @@
+
 export interface ChecklistItem {
   id: string;
   text: string;
@@ -77,16 +78,10 @@ export const templates: Template[] = [
       { id: "ol-4", text: "Festival Map & Schedule", category: "documents", isCompleted: false },
       { id: "ol-5", text: "Warm Layers (SF Fog)", category: "clothing", isCompleted: false },
       { id: "ol-6", text: "Long Pants/Jeans", category: "clothing", isCompleted: false },
-      { id: "ol-7", text: "Comfortable Shoes", category: "clothing", isCompleted: false },
       { id: "ol-8", text: "Beanie/Hat", category: "clothing", isCompleted: false },
       { id: "ol-9", text: "Warm Jacket", category: "clothing", isCompleted: false },
-      { id: "ol-10", text: "Phone Charger", category: "electronics", isCompleted: false },
       { id: "ol-11", text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
-      { id: "ol-12", text: "Camera", category: "electronics", isCompleted: false },
       { id: "ol-13", text: "Earplugs", category: "electronics", isCompleted: false },
-      { id: "ol-14", text: "Toothbrush", category: "toiletries", isCompleted: false },
-      { id: "ol-15", text: "Toothpaste", category: "toiletries", isCompleted: false },
-      { id: "ol-16", text: "Deodorant", category: "toiletries", isCompleted: false },
       { id: "ol-17", text: "Sunscreen", category: "toiletries", isCompleted: false },
       { id: "ol-18", text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
       { id: "ol-19", text: "Lip Balm", category: "toiletries", isCompleted: false },
