@@ -44,12 +44,12 @@ export const sampleChecklist: ChecklistItem[] = [
   { id: "8", text: "Bandanas/Masks", category: "clothing", isCompleted: false },
   { id: "9", text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
   { id: "11", text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
-  { id: "13", text: "Earplugs", category: "electronics", isCompleted: false },
+  { id: "13", text: "Earplugs", category: "clothing", isCompleted: false },
   { id: "17", text: "Sunscreen", category: "toiletries", isCompleted: false },
   { id: "18", text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
   { id: "19", text: "Lip Balm", category: "toiletries", isCompleted: false },
   { id: "21", text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
-  { id: "23", text: "Sunglasses", category: "misc", isCompleted: false }
+  { id: "23", text: "Sunglasses", category: "clothing", isCompleted: false }
 ];
 
 // Festival templates
@@ -80,14 +80,14 @@ export const templates: Template[] = [
       { id: "ol-8", text: "Beanie/Hat", category: "clothing", isCompleted: false },
       { id: "ol-9", text: "Warm Jacket", category: "clothing", isCompleted: false },
       { id: "ol-11", text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
-      { id: "ol-13", text: "Earplugs", category: "electronics", isCompleted: false },
+      { id: "ol-13", text: "Earplugs", category: "clothing", isCompleted: false },
       { id: "ol-17", text: "Sunscreen", category: "toiletries", isCompleted: false },
       { id: "ol-18", text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
       { id: "ol-19", text: "Lip Balm", category: "toiletries", isCompleted: false },
       { id: "ol-20", text: "Blanket for Sitting", category: "misc", isCompleted: false },
       { id: "ol-21", text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
       { id: "ol-22", text: "Portable Hand Warmers", category: "misc", isCompleted: false },
-      { id: "ol-23", text: "Sunglasses", category: "misc", isCompleted: false }
+      { id: "ol-23", text: "Sunglasses", category: "clothing", isCompleted: false }
     ],
     thumbnail: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2070&auto=format&fit=crop"
   }
