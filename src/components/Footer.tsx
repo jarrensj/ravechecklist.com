@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Separator } from "@/components/ui/separator";
-import { Mail, Discord } from "lucide-react";
+import { Mail, MessageCircle } from "lucide-react";
 
 const Footer: React.FC = () => {
   return (
@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
                 <span className="text-xs">Contact</span>
               </a>
               <a href="https://discord.gg/ravechecklist" className="flex items-center gap-1 hover:text-indigo-600 transition-colors">
-                <Discord className="h-4 w-4" />
+                <MessageCircle className="h-4 w-4" />
                 <span className="text-xs">Join Discord</span>
               </a>
             </div>
