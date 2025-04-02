@@ -1,4 +1,3 @@
-
 export interface ChecklistItem {
   id: string;
   text: string;
@@ -74,7 +73,7 @@ export const templates: Template[] = [
     name: "Outside Lands",
     event: {
       name: "Outside Lands",
-      date: "August 9-11, 2024",
+      date: "Aug 8-10, 2025",
       location: "Golden Gate Park, San Francisco, CA",
       startTime: "11:00 AM"
     },
