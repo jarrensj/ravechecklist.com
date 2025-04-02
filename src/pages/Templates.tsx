@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { templates } from '@/utils/data';
@@ -9,6 +10,40 @@ import { Link } from 'react-router-dom';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const Templates: React.FC = () => {
+  // Sort templates by date (closest upcoming events first)
+  const sortedTemplates = [...templates].sort((a, b) => {
+    // Extract month and year from date strings
+    const getDateInfo = (dateStr: string) => {
+      const months = {
+        'January': 0, 'February': 1, 'March': 2, 'April': 3, 'May': 4, 'June': 5,
+        'July': 6, 'August': 7, 'September': 8, 'October': 9, 'November': 10, 'December': 11
+      };
+      
+      // Handle date ranges like "April 11-13 & 18-20, 2025" or "May 31 - Jun 1, 2025"
+      const monthMatch = dateStr.match(/^(\w+)/);
+      const yearMatch = dateStr.match(/(\d{4})/);
+      
+      if (monthMatch && yearMatch) {
+        const monthStr = monthMatch[1];
+        const month = months[monthStr as keyof typeof months] ?? 0;
+        const year = parseInt(yearMatch[1]);
+        return { month, year };
+      }
+      
+      return { month: 0, year: 3000 }; // Default far future date if parsing fails
+    };
+    
+    const dateA = getDateInfo(a.event.date);
+    const dateB = getDateInfo(b.event.date);
+    
+    // Sort by year first, then by month
+    if (dateA.year !== dateB.year) {
+      return dateA.year - dateB.year;
+    }
+    
+    return dateA.month - dateB.month;
+  });
+  
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -28,7 +63,7 @@ const Templates: React.FC = () => {
         </Alert>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {templates.map(template => (
+          {sortedTemplates.map(template => (
             <Card key={template.id} className="overflow-hidden transition-all hover:shadow-md">
               <div className="aspect-video w-full overflow-hidden">
                 <img 
