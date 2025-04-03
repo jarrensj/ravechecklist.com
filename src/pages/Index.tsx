@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, KeyboardEvent } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Clock, MapPin, Music, AlertTriangle, Pencil, Save } from "lucide-react";
 import Header from '@/components/Header';
@@ -104,15 +103,20 @@ const Index: React.FC = () => {
     });
   };
   
+  const saveEventChanges = () => {
+    setEvent(editedEvent);
+    setIsEditingEvent(false);
+    toast({
+      title: "Event updated",
+      description: "Event details have been saved",
+      duration: 2000,
+    });
+  };
+  
   const toggleEditEvent = () => {
     if (isEditingEvent) {
       // Save changes
-      setEvent(editedEvent);
-      toast({
-        title: "Event updated",
-        description: "Event details have been saved",
-        duration: 2000,
-      });
+      saveEventChanges();
     } else {
       // Start editing
       setEditedEvent({...event});
@@ -125,6 +129,12 @@ const Index: React.FC = () => {
       ...prev,
       [field]: value
     }));
+  };
+  
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      saveEventChanges();
+    }
   };
   
   const progressPercentage = Math.round(
@@ -161,6 +171,7 @@ const Index: React.FC = () => {
                         <Input 
                           value={editedEvent.name}
                           onChange={(e) => handleEventChange('name', e.target.value)}
+                          onKeyDown={handleKeyDown}
                           className="mb-1"
                         />
                       ) : (
@@ -177,6 +188,7 @@ const Index: React.FC = () => {
                         <Input 
                           value={editedEvent.date}
                           onChange={(e) => handleEventChange('date', e.target.value)}
+                          onKeyDown={handleKeyDown}
                           className="mb-1"
                         />
                       ) : (
@@ -193,6 +205,7 @@ const Index: React.FC = () => {
                         <Input 
                           value={editedEvent.location}
                           onChange={(e) => handleEventChange('location', e.target.value)}
+                          onKeyDown={handleKeyDown}
                           className="mb-1"
                         />
                       ) : (
@@ -209,6 +222,7 @@ const Index: React.FC = () => {
                         <Input 
                           value={editedEvent.startTime}
                           onChange={(e) => handleEventChange('startTime', e.target.value)}
+                          onKeyDown={handleKeyDown}
                           className="mb-1"
                         />
                       ) : (
