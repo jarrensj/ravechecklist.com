@@ -21,9 +21,9 @@ const Footer: React.FC = () => {
                 <Mail className="h-4 w-4" />
                 <span className="text-xs">Contact</span>
               </a>
-              <a href="https://discord.gg/ravechecklist" className="flex items-center gap-1 hover:text-indigo-600 transition-colors">
+              <a href="https://discord.gg/omakase" className="flex items-center gap-1 hover:text-indigo-600 transition-colors">
                 <MessageCircle className="h-4 w-4" />
-                <span className="text-xs">Join Discord</span>
+                <span className="text-xs">Discord</span>
               </a>
             </div>
             <div className="flex items-center text-xs text-gray-500">
