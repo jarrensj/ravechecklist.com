@@ -1,23 +1,34 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, Clock, MapPin, Music, AlertTriangle } from "lucide-react";
+import { Calendar, Clock, MapPin, Music, AlertTriangle, Pencil, Save } from "lucide-react";
 import Header from '@/components/Header';
 import ChecklistCard from '@/components/ChecklistCard';
-import { sampleChecklist, sampleEvent, ChecklistItem } from '@/utils/data';
+import { sampleChecklist, sampleEvent, ChecklistItem, EventInfo } from '@/utils/data';
 import { useToast } from "@/hooks/use-toast";
+import { Input } from "@/components/ui/input";
 
 const Index: React.FC = () => {
   const [checklist, setChecklist] = useState<ChecklistItem[]>([]);
+  const [event, setEvent] = useState<EventInfo>(sampleEvent);
+  const [isEditingEvent, setIsEditingEvent] = useState(false);
+  const [editedEvent, setEditedEvent] = useState<EventInfo>(sampleEvent);
   const { toast } = useToast();
 
-  // Load checklist from localStorage on component mount
+  // Load checklist and event from localStorage on component mount
   useEffect(() => {
     const savedChecklist = localStorage.getItem('mainChecklist');
+    const savedEvent = localStorage.getItem('eventInfo');
+    
     if (savedChecklist) {
       setChecklist(JSON.parse(savedChecklist));
     } else {
       setChecklist(sampleChecklist);
+    }
+    
+    if (savedEvent) {
+      setEvent(JSON.parse(savedEvent));
+      setEditedEvent(JSON.parse(savedEvent));
     }
   }, []);
 
@@ -27,6 +38,11 @@ const Index: React.FC = () => {
       localStorage.setItem('mainChecklist', JSON.stringify(checklist));
     }
   }, [checklist]);
+  
+  // Save event to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('eventInfo', JSON.stringify(event));
+  }, [event]);
 
   const handleToggleItem = (id: string) => {
     setChecklist(prev => {
@@ -88,6 +104,29 @@ const Index: React.FC = () => {
     });
   };
   
+  const toggleEditEvent = () => {
+    if (isEditingEvent) {
+      // Save changes
+      setEvent(editedEvent);
+      toast({
+        title: "Event updated",
+        description: "Event details have been saved",
+        duration: 2000,
+      });
+    } else {
+      // Start editing
+      setEditedEvent({...event});
+    }
+    setIsEditingEvent(!isEditingEvent);
+  };
+  
+  const handleEventChange = (field: keyof EventInfo, value: string) => {
+    setEditedEvent(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+  
   const progressPercentage = Math.round(
     (checklist.filter(item => item.isCompleted).length / checklist.length) * 100
   );
@@ -101,39 +140,80 @@ const Index: React.FC = () => {
           <div className="md:col-span-1">
             <Card className="animate-fade-in">
               <CardHeader>
-                <CardTitle>Event Information</CardTitle>
+                <CardTitle className="flex justify-between items-center">
+                  Event Information
+                  <button 
+                    onClick={toggleEditEvent}
+                    className="text-sky-600 hover:text-sky-700 p-1 rounded transition-colors"
+                    aria-label={isEditingEvent ? "Save event details" : "Edit event details"}
+                  >
+                    {isEditingEvent ? <Save size={18} /> : <Pencil size={18} />}
+                  </button>
+                </CardTitle>
                 <CardDescription>Your festival details</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center">
-                    <Music className="h-5 w-5 mr-3 text-sky-600" />
-                    <div>
-                      <p className="text-lg font-medium">{sampleEvent.name}</p>
+                  <div className="flex items-start">
+                    <Music className="h-5 w-5 mr-3 text-sky-600 mt-0.5" />
+                    <div className="flex-1">
+                      {isEditingEvent ? (
+                        <Input 
+                          value={editedEvent.name}
+                          onChange={(e) => handleEventChange('name', e.target.value)}
+                          className="mb-1"
+                        />
+                      ) : (
+                        <p className="text-lg font-medium">{event.name}</p>
+                      )}
                       <p className="text-sm text-gray-500">Festival Name</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-center">
-                    <Calendar className="h-5 w-5 mr-3 text-sky-600" />
-                    <div>
-                      <p className="text-lg font-medium">{sampleEvent.date}</p>
+                  <div className="flex items-start">
+                    <Calendar className="h-5 w-5 mr-3 text-sky-600 mt-0.5" />
+                    <div className="flex-1">
+                      {isEditingEvent ? (
+                        <Input 
+                          value={editedEvent.date}
+                          onChange={(e) => handleEventChange('date', e.target.value)}
+                          className="mb-1"
+                        />
+                      ) : (
+                        <p className="text-lg font-medium">{event.date}</p>
+                      )}
                       <p className="text-sm text-gray-500">Event Dates</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-center">
-                    <MapPin className="h-5 w-5 mr-3 text-sky-600" />
-                    <div>
-                      <p className="text-lg font-medium">{sampleEvent.location}</p>
+                  <div className="flex items-start">
+                    <MapPin className="h-5 w-5 mr-3 text-sky-600 mt-0.5" />
+                    <div className="flex-1">
+                      {isEditingEvent ? (
+                        <Input 
+                          value={editedEvent.location}
+                          onChange={(e) => handleEventChange('location', e.target.value)}
+                          className="mb-1"
+                        />
+                      ) : (
+                        <p className="text-lg font-medium">{event.location}</p>
+                      )}
                       <p className="text-sm text-gray-500">Location</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-center">
-                    <Clock className="h-5 w-5 mr-3 text-sky-600" />
-                    <div>
-                      <p className="text-lg font-medium">{sampleEvent.startTime}</p>
+                  <div className="flex items-start">
+                    <Clock className="h-5 w-5 mr-3 text-sky-600 mt-0.5" />
+                    <div className="flex-1">
+                      {isEditingEvent ? (
+                        <Input 
+                          value={editedEvent.startTime}
+                          onChange={(e) => handleEventChange('startTime', e.target.value)}
+                          className="mb-1"
+                        />
+                      ) : (
+                        <p className="text-lg font-medium">{event.startTime}</p>
+                      )}
                       <p className="text-sm text-gray-500">Gates Open</p>
                     </div>
                   </div>
@@ -178,6 +258,7 @@ const Index: React.FC = () => {
               onAddItem={handleAddItem}
               onRemoveItem={handleRemoveItem}
               onResetTemplate={handleResetTemplate}
+              eventName={event.name}
             />
           </div>
         </div>
