@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Separator } from "@/components/ui/separator";
 import { Mail, MessageCircle } from "lucide-react";
@@ -12,12 +11,14 @@ const Footer: React.FC = () => {
           <div className="text-xs text-gray-500 max-w-2xl">
             <p>
               <strong>Disclaimer:</strong> RaveChecklist is not affiliated with, endorsed by, or sponsored by any music festivals or event organizers. 
-              All festival names, logos, and trademarks are the property of their respective owners.
+              All festival names, logos, and trademarks are the property of their respective owners. We are not responsible for the accuracy of this information. 
+              Please always check the official allowed and prohibited items list for your specific festival. If you notice any incorrect information, 
+              please contact us for corrections.
             </p>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-4 text-gray-600">
-              <a href="mailto:contact@ravechecklist.com" className="flex items-center gap-1 hover:text-sky-600 transition-colors">
+              <a href="mailto:omakasemoney@gmail.com" className="flex items-center gap-1 hover:text-sky-600 transition-colors">
                 <Mail className="h-4 w-4" />
                 <span className="text-xs">Contact</span>
               </a>
