@@ -1,6 +1,11 @@
 
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { 
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 const Header: React.FC = () => {
   const location = useLocation();
@@ -38,6 +43,23 @@ const Header: React.FC = () => {
                 >
                   Templates
                 </Link>
+              </li>
+              <li>
+                <HoverCard>
+                  <HoverCardTrigger asChild>
+                    <span className="text-gray-600 hover:text-sky-600 transition-colors cursor-pointer">
+                      Blog
+                    </span>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-auto">
+                    <div className="flex flex-col space-y-1">
+                      <p className="font-medium">Coming Soon!</p>
+                      <p className="text-sm text-muted-foreground">
+                        Our blog is currently under construction.
+                      </p>
+                    </div>
+                  </HoverCardContent>
+                </HoverCard>
               </li>
             </ul>
           </nav>
