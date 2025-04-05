@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -97,22 +98,6 @@ const TemplateDetail: React.FC = () => {
       toast({
         title: "Item removed",
         description: itemToRemove.text,
-        duration: 2000,
-      });
-    }
-  };
-
-  const handleChangeCategory = (id: string, newCategory: string) => {
-    const item = checklist.find(item => item.id === id);
-    
-    setChecklist(prev => prev.map(item => 
-      item.id === id ? { ...item, category: newCategory } : item
-    ));
-    
-    if (item) {
-      toast({
-        title: "Category changed",
-        description: `${item.text} moved to new category`,
         duration: 2000,
       });
     }
@@ -236,7 +221,6 @@ const TemplateDetail: React.FC = () => {
               onToggleItem={handleToggleItem}
               onAddItem={handleAddItem}
               onRemoveItem={handleRemoveItem}
-              onChangeCategory={handleChangeCategory}
               onResetTemplate={handleResetTemplate}
               eventName={template.event.name}
             />

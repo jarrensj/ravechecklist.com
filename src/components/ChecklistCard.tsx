@@ -15,7 +15,6 @@ interface ChecklistCardProps {
   onToggleItem: (id: string) => void;
   onAddItem: (text: string, category: string) => void;
   onRemoveItem: (id: string) => void;
-  onChangeCategory?: (id: string, newCategory: string) => void;
   onResetTemplate?: () => void;
   eventName?: string;
 }
@@ -25,7 +24,6 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   onToggleItem,
   onAddItem,
   onRemoveItem,
-  onChangeCategory,
   onResetTemplate,
   eventName = "Rave"
 }) => {
@@ -72,7 +70,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Toggle to edit, remove, or change item categories</p>
+                  <p>Toggle to remove items you don't want on your checklist anymore</p>
                 </TooltipContent>
               </Tooltip>
               
@@ -155,7 +153,6 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                 item={item}
                 onToggle={onToggleItem}
                 onRemove={onRemoveItem}
-                onChangeCategory={onChangeCategory}
                 showRemoveButton={isRemoveMode}
               />
             ))
