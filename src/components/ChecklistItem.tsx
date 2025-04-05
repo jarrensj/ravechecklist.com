@@ -88,14 +88,14 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
           
           {/* Action buttons visible on hover or in edit mode */}
           <div className={cn(
-            "flex gap-1 transition-opacity", 
+            "flex gap-1 transition-opacity duration-200", 
             (isHovering || showRemoveButton) ? "opacity-100" : "opacity-0"
           )}>
             {onEdit && (
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="h-7 w-7 text-gray-400 hover:text-blue-500 hover:bg-blue-50"
+                className="h-7 w-7 text-gray-400 hover:text-blue-500 hover:bg-blue-50 p-1"
                 onClick={handleEditClick}
                 title="Edit item"
               >
@@ -106,7 +106,7 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
             <Button 
               variant="ghost" 
               size="icon" 
-              className="h-7 w-7 text-gray-400 hover:text-red-500 hover:bg-red-50"
+              className="h-7 w-7 text-gray-400 hover:text-red-500 hover:bg-red-50 p-1"
               onClick={() => onRemove(item.id)}
               title="Remove item"
             >
