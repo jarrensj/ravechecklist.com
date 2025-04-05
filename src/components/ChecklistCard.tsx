@@ -15,6 +15,7 @@ interface ChecklistCardProps {
   onToggleItem: (id: string) => void;
   onAddItem: (text: string, category: string) => void;
   onRemoveItem: (id: string) => void;
+  onEditItem?: (id: string, text: string, category: string) => void;
   onResetTemplate?: () => void;
   eventName?: string;
 }
@@ -24,6 +25,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   onToggleItem,
   onAddItem,
   onRemoveItem,
+  onEditItem,
   onResetTemplate,
   eventName = "Rave"
 }) => {
@@ -153,6 +155,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                 item={item}
                 onToggle={onToggleItem}
                 onRemove={onRemoveItem}
+                onEdit={onEditItem}
                 showRemoveButton={isRemoveMode}
               />
             ))

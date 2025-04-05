@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -101,6 +100,18 @@ const TemplateDetail: React.FC = () => {
         duration: 2000,
       });
     }
+  };
+
+  const handleEditItem = (id: string, text: string, category: string) => {
+    setChecklist(prev => prev.map(item => 
+      item.id === id ? { ...item, text, category } : item
+    ));
+    
+    toast({
+      title: "Item updated",
+      description: text,
+      duration: 2000,
+    });
   };
 
   const handleResetTemplate = () => {
@@ -221,6 +232,7 @@ const TemplateDetail: React.FC = () => {
               onToggleItem={handleToggleItem}
               onAddItem={handleAddItem}
               onRemoveItem={handleRemoveItem}
+              onEditItem={handleEditItem}
               onResetTemplate={handleResetTemplate}
               eventName={template.event.name}
             />
