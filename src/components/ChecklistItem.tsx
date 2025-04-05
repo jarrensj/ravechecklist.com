@@ -78,10 +78,11 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
           </label>
         </div>
         
-        <div className="flex items-center gap-2">
+        <div className="flex items-center">
+          {/* Category tag that moves left when action buttons appear */}
           <div className={cn(
-            "transition-all duration-200",
-            isHovering || showRemoveButton ? "mr-2" : "mr-0"
+            "transition-all duration-200 ml-auto",
+            (isHovering || showRemoveButton) && (onEdit || true) ? "mr-2" : "mr-0"
           )}>
             {category && (
               <CategoryTag 
