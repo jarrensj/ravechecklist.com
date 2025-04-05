@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -140,7 +139,11 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
               ))}
             </select>
           </div>
-          <Button onClick={handleAddItem} className="flex-shrink-0">
+          <Button 
+            onClick={handleAddItem} 
+            className="flex-shrink-0"
+            disabled={!newItemText.trim()}
+          >
             <Plus className="h-4 w-4 mr-1" /> Add
           </Button>
         </div>
