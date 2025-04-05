@@ -74,6 +74,20 @@ export const useChecklist = () => {
     }
   };
   
+  const handleEditItem = (id: string, text: string, category: string) => {
+    setChecklist(prev => prev.map(item => 
+      item.id === id 
+        ? { ...item, text, category } 
+        : item
+    ));
+    
+    toast({
+      title: "Item updated",
+      description: text,
+      duration: 2000,
+    });
+  };
+  
   const handleResetTemplate = () => {
     setChecklist(sampleChecklist);
     localStorage.setItem('mainChecklist', JSON.stringify(sampleChecklist));
@@ -97,6 +111,7 @@ export const useChecklist = () => {
     handleToggleItem,
     handleAddItem,
     handleRemoveItem,
+    handleEditItem,
     handleResetTemplate
   };
 };
