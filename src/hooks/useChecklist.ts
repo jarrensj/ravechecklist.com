@@ -73,6 +73,22 @@ export const useChecklist = () => {
       });
     }
   };
+
+  const handleChangeCategory = (id: string, newCategory: string) => {
+    const item = checklist.find(item => item.id === id);
+    
+    setChecklist(prev => prev.map(item => 
+      item.id === id ? { ...item, category: newCategory } : item
+    ));
+    
+    if (item) {
+      toast({
+        title: "Category changed",
+        description: `${item.text} moved to new category`,
+        duration: 2000,
+      });
+    }
+  };
   
   const handleResetTemplate = () => {
     setChecklist(sampleChecklist);
@@ -97,6 +113,7 @@ export const useChecklist = () => {
     handleToggleItem,
     handleAddItem,
     handleRemoveItem,
+    handleChangeCategory,
     handleResetTemplate
   };
 };

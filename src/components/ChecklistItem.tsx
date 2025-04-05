@@ -1,21 +1,30 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { ChecklistItem as IChecklistItem } from "@/utils/data";
 import CategoryTag from './CategoryTag';
 import { categories } from '@/utils/data';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Check } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface ChecklistItemProps {
   item: IChecklistItem;
   onToggle: (id: string) => void;
   onRemove: (id: string) => void;
   showRemoveButton: boolean;
+  onChangeCategory?: (id: string, newCategory: string) => void;
 }
 
-const ChecklistItem: React.FC<ChecklistItemProps> = ({ item, onToggle, onRemove, showRemoveButton }) => {
+const ChecklistItem: React.FC<ChecklistItemProps> = ({ 
+  item, 
+  onToggle, 
+  onRemove, 
+  showRemoveButton,
+  onChangeCategory 
+}) => {
   const category = categories.find(c => c.id === item.category);
   
   return (
@@ -43,10 +52,31 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({ item, onToggle, onRemove,
       
       <div className="flex items-center gap-2">
         {category && (
-          <CategoryTag 
-            name={category.name}
-            colorClass={category.color}
-          />
+          showRemoveButton && onChangeCategory ? (
+            <Select
+              defaultValue={item.category}
+              onValueChange={(value) => onChangeCategory(item.id, value)}
+            >
+              <SelectTrigger className={cn(
+                "h-7 px-2 py-0 min-w-[100px] text-xs border-none",
+                category.color
+              )}>
+                <SelectValue placeholder={category.name} />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map((cat) => (
+                  <SelectItem key={cat.id} value={cat.id} className="text-xs">
+                    {cat.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          ) : (
+            <CategoryTag 
+              name={category.name}
+              colorClass={category.color}
+            />
+          )
         )}
         {showRemoveButton && (
           <Button 
