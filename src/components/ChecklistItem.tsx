@@ -79,12 +79,17 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
         </div>
         
         <div className="flex items-center gap-2">
-          {category && (
-            <CategoryTag 
-              name={category.name}
-              colorClass={category.color}
-            />
-          )}
+          <div className={cn(
+            "transition-all duration-200",
+            isHovering || showRemoveButton ? "mr-2" : "mr-0"
+          )}>
+            {category && (
+              <CategoryTag 
+                name={category.name}
+                colorClass={category.color}
+              />
+            )}
+          </div>
           
           {/* Action buttons visible on hover or in edit mode */}
           <div className={cn(
