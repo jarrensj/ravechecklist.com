@@ -86,7 +86,7 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
             />
           )}
           
-          {/* Show action buttons on hover or in remove mode */}
+          {/* Action buttons visible on hover or in edit mode */}
           <div className={cn(
             "flex gap-1 transition-opacity", 
             (isHovering || showRemoveButton) ? "opacity-100" : "opacity-0"
