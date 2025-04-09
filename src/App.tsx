@@ -25,7 +25,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/templates/:id" element={<Dashboard />} />
+                <Route path="/templates/:id" element={<TemplateDetail />} />
                 <Route path="/templates" element={<Templates />} />
                 {/* Add redirect for old template detail view */}
                 <Route path="/templates/detail/:id" element={<Navigate to="/templates/:id" replace />} />
