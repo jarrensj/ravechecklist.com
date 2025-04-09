@@ -5,8 +5,18 @@ import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCheck, ListChecks, ArrowRight, Clock, Users, SparkleIcon } from 'lucide-react';
+import JSConfetti from 'js-confetti';
 
 const Home: React.FC = () => {
+  const handleGetStarted = () => {
+    const jsConfetti = new JSConfetti();
+    jsConfetti.addConfetti({
+      emojis: ['✅'],
+      emojiSize: 30,
+      confettiNumber: 50,
+    });
+  };
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       <Header />
@@ -23,7 +33,7 @@ const Home: React.FC = () => {
               Stay organized with customizable checklists and ready-to-use templates.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" asChild>
+              <Button size="lg" asChild onClick={handleGetStarted}>
                 <Link to="/dashboard">
                   Get Started
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -91,7 +101,7 @@ const Home: React.FC = () => {
             <p className="text-xl text-gray-600 mb-8">
               Start using RaveChecklist today and never again arrive at a festival missing something important.
             </p>
-            <Button size="lg" asChild>
+            <Button size="lg" asChild onClick={handleGetStarted}>
               <Link to="/dashboard">
                 Go to Dashboard
                 <ArrowRight className="ml-2 h-5 w-5" />
