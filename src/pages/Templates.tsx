@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { templates } from '@/utils/data';
@@ -63,11 +62,13 @@ const Templates: React.FC = () => {
           {sortedTemplates.map(template => (
             <Card key={template.id} className="overflow-hidden transition-all hover:shadow-md">
               <div className="aspect-video w-full overflow-hidden">
-                <img 
-                  src={template.thumbnail || 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop'} 
-                  alt={template.name}
-                  className="w-full h-full object-cover"
-                />
+                <Link to={`/templates/${template.id}`}>
+                  <img 
+                    src={template.thumbnail || 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop'} 
+                    alt={template.name}
+                    className="w-full h-full object-cover transition-transform hover:scale-105"
+                  />
+                </Link>
               </div>
               <CardHeader className="p-4 sm:p-6">
                 <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
