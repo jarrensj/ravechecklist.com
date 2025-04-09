@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
@@ -6,7 +7,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { useIsMobile } from '@/hooks/use-mobile';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LayoutDashboard, Home, List } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Header: React.FC = () => {
@@ -16,8 +17,11 @@ const Header: React.FC = () => {
   
   const isActive = (path: string) => {
     if (path === '/') {
-      // For home, check that we're either at root or viewing a template
-      return location.pathname === '/' || location.pathname.startsWith('/templates/');
+      return location.pathname === '/';
+    }
+    if (path === '/dashboard') {
+      // For dashboard, check that we're either at dashboard or viewing a template
+      return location.pathname === '/dashboard' || location.pathname.startsWith('/templates/');
     }
     return location.pathname === path || location.pathname.startsWith(path);
   };
@@ -33,12 +37,6 @@ const Header: React.FC = () => {
           <Link 
             to="/" 
             className="flex items-center space-x-2"
-            onClick={(e) => {
-              if (window.location.pathname === '/') {
-                e.preventDefault();
-                window.location.reload();
-              }
-            }}
           >
             <img 
               src="/lovable-uploads/347c3585-2166-4fdb-9689-dbf603407dea.png" 
@@ -65,16 +63,27 @@ const Header: React.FC = () => {
                 <li>
                   <Link 
                     to="/" 
-                    className={`transition-colors ${isActive('/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    className={`transition-colors flex items-center ${isActive('/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
                   >
+                    <Home className="mr-1 h-4 w-4" />
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    to="/dashboard" 
+                    className={`transition-colors flex items-center ${isActive('/dashboard') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                  >
+                    <LayoutDashboard className="mr-1 h-4 w-4" />
                     Dashboard
                   </Link>
                 </li>
                 <li>
                   <Link 
                     to="/templates" 
-                    className={`transition-colors ${isActive('/templates') && !isActive('/templates/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    className={`transition-colors flex items-center ${isActive('/templates') && !isActive('/templates/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
                   >
+                    <List className="mr-1 h-4 w-4" />
                     Templates
                   </Link>
                 </li>
@@ -91,18 +100,30 @@ const Header: React.FC = () => {
                 <li>
                   <Link 
                     to="/" 
-                    className={`block transition-colors ${isActive('/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    className={`block transition-colors flex items-center ${isActive('/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
+                    <Home className="mr-2 h-4 w-4" />
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    to="/dashboard" 
+                    className={`block transition-colors flex items-center ${isActive('/dashboard') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <LayoutDashboard className="mr-2 h-4 w-4" />
                     Dashboard
                   </Link>
                 </li>
                 <li>
                   <Link 
                     to="/templates" 
-                    className={`block transition-colors ${isActive('/templates') && !isActive('/templates/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    className={`block transition-colors flex items-center ${isActive('/templates') && !isActive('/templates/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
+                    <List className="mr-2 h-4 w-4" />
                     Templates
                   </Link>
                 </li>
