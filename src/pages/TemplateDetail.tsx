@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '@/components/Header';
 import ChecklistCard from '@/components/ChecklistCard';
@@ -7,9 +7,11 @@ import { useTemplateDetail } from '@/hooks/useTemplateDetail';
 import TemplateNotFound from '@/components/TemplateNotFound';
 import TemplateHeader from '@/components/TemplateHeader';
 import EventInfoCard from '@/components/EventInfoCard';
+import { useTemplateHistory } from '@/hooks/useTemplateHistory';
 
 const TemplateDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const { addToHistory } = useTemplateHistory();
   
   const {
     template,
@@ -21,6 +23,13 @@ const TemplateDetail: React.FC = () => {
     handleEditItem,
     handleResetTemplate
   } = useTemplateDetail(id);
+  
+  // Record this template view in history
+  useEffect(() => {
+    if (id && template) {
+      addToHistory(id);
+    }
+  }, [id, template, addToHistory]);
   
   if (!template) {
     return <TemplateNotFound />;
