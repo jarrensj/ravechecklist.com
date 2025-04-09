@@ -78,18 +78,21 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
           </label>
         </div>
         
-        <div className="flex items-center gap-2">
-          {category && (
-            <CategoryTag 
-              name={category.name}
-              colorClass={category.color}
-            />
-          )}
+        <div className="flex items-center">
+          {/* Category tag stays on the right, only moves when action buttons appear */}
+          <div className={cn("flex")}>
+            {category && (
+              <CategoryTag 
+                name={category.name}
+                colorClass={category.color}
+              />
+            )}
+          </div>
           
           {/* Action buttons visible on hover or in edit mode */}
           <div className={cn(
-            "flex gap-1 transition-opacity duration-200", 
-            (isHovering || showRemoveButton) ? "opacity-100" : "opacity-0"
+            "flex gap-1 transition-all duration-200", 
+            (isHovering || showRemoveButton) ? "opacity-100 ml-2 w-auto" : "opacity-0 w-0 overflow-hidden"
           )}>
             {onEdit && (
               <Button 

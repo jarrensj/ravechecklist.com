@@ -13,6 +13,7 @@ const Index: React.FC = () => {
     handleToggleItem, 
     handleAddItem, 
     handleRemoveItem, 
+    handleEditItem,
     handleResetTemplate 
   } = useChecklist();
   
@@ -38,6 +39,7 @@ const Index: React.FC = () => {
               onToggleItem={handleToggleItem}
               onAddItem={handleAddItem}
               onRemoveItem={handleRemoveItem}
+              onEditItem={handleEditItem}
               onResetTemplate={handleResetTemplate}
               eventName={event.name}
             />
