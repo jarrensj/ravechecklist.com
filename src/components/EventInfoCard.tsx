@@ -17,6 +17,9 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
   const [isEditingEvent, setIsEditingEvent] = useState(false);
   const [editedEvent, setEditedEvent] = useState<EventInfo>(event);
   const { toast } = useToast();
+  
+  // Check if we're in a template view (when setEvent is a no-op function)
+  const isTemplateView = setEvent.toString().includes("{}") || setEvent.toString().includes("() => {}");
 
   const saveEventChanges = () => {
     setEvent(editedEvent);
@@ -77,13 +80,15 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
       <CardHeader className="p-4 sm:p-6">
         <CardTitle className="flex justify-between items-center text-lg sm:text-xl">
           Event Information
-          <button 
-            onClick={toggleEditEvent}
-            className="text-sky-600 hover:text-sky-700 p-1 rounded transition-colors"
-            aria-label={isEditingEvent ? "Save event details" : "Edit event details"}
-          >
-            {isEditingEvent ? <Save size={18} /> : <Pencil size={18} />}
-          </button>
+          {!isTemplateView && (
+            <button 
+              onClick={toggleEditEvent}
+              className="text-sky-600 hover:text-sky-700 p-1 rounded transition-colors"
+              aria-label={isEditingEvent ? "Save event details" : "Edit event details"}
+            >
+              {isEditingEvent ? <Save size={18} /> : <Pencil size={18} />}
+            </button>
+          )}
         </CardTitle>
         <CardDescription>Your festival details</CardDescription>
       </CardHeader>
