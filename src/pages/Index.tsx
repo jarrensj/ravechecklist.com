@@ -23,8 +23,8 @@ const Index: React.FC = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <main className="container mx-auto pb-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <main className="container max-w-screen-2xl mx-auto px-4 sm:px-6 pb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
           <div className="md:col-span-1">
             <EventInfoCard 
               event={event} 

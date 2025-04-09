@@ -83,6 +83,11 @@
 
   body {
     @apply bg-background text-foreground;
+    min-width: 320px;
+  }
+
+  html, body {
+    @apply overflow-x-hidden;
   }
 }
 
@@ -96,4 +101,12 @@
 
 .checklist-item.completed {
   @apply line-through text-gray-400;
+}
+
+/* Add responsive adjustments */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Separator } from "@/components/ui/separator";
 import { Mail, MessageCircle } from "lucide-react";
@@ -5,7 +6,7 @@ import { Mail, MessageCircle } from "lucide-react";
 const Footer: React.FC = () => {
   return (
     <footer className="bg-white py-4 mt-8">
-      <div className="container mx-auto px-4">
+      <div className="container max-w-screen-2xl mx-auto px-4 sm:px-6">
         <Separator className="mb-4" />
         <div className="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
           <div className="text-xs text-gray-500 max-w-2xl">
