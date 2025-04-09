@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import ChecklistCard from '@/components/ChecklistCard';
 import EventInfoCard from '@/components/EventInfoCard';
@@ -11,11 +11,17 @@ import { useTemplateDetail } from '@/hooks/useTemplateDetail';
 import TemplateSelector from '@/components/TemplateSelector';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import { templates } from '@/utils/data';
 
 const Index: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const urlParams = useParams<{ id?: string }>();
+  const templateId = urlParams.id;
+  
+  // Track if we're showing a template from URL or history
   const [showingTemplate, setShowingTemplate] = useState(false);
-  const { lastViewedTemplate } = useTemplateHistory();
+  const { lastViewedTemplate, addToHistory } = useTemplateHistory();
   
   // Default user checklist (always available)
   const { 
@@ -28,7 +34,9 @@ const Index: React.FC = () => {
     handleResetTemplate: resetUserTemplate 
   } = useChecklist();
   
-  // Template checklist (if we have a last viewed template)
+  // Template checklist (if we have a template ID from URL or from history)
+  const currentTemplateId = templateId || (showingTemplate ? lastViewedTemplate?.id : undefined);
+  
   const {
     template,
     checklist: templateChecklist,
@@ -38,18 +46,23 @@ const Index: React.FC = () => {
     handleRemoveItem: removeTemplateItem,
     handleEditItem: editTemplateItem,
     handleResetTemplate: resetTemplateTemplate
-  } = useTemplateDetail(lastViewedTemplate?.id);
+  } = useTemplateDetail(currentTemplateId);
   
   const { event, setEvent } = useEventInfo();
 
-  // Check if we should force showing the personal checklist
+  // Handle template navigation and history
   useEffect(() => {
-    if (location.state?.showPersonalChecklist) {
+    if (templateId) {
+      setShowingTemplate(true);
+      addToHistory(templateId);
+    } else if (location.state?.showPersonalChecklist) {
       setShowingTemplate(false);
+      // Clear the location state to avoid persisting this preference
+      window.history.replaceState({}, document.title);
     } else if (lastViewedTemplate && template) {
       setShowingTemplate(true);
     }
-  }, [location, lastViewedTemplate, template]);
+  }, [location, lastViewedTemplate, template, templateId, addToHistory]);
 
   // Use either template or user checklist based on state
   const checklist = showingTemplate ? templateChecklist : userChecklist;
@@ -63,7 +76,12 @@ const Index: React.FC = () => {
   // Use template event or user event
   const currentEvent = showingTemplate && template ? template.event : event;
   const currentEventName = showingTemplate && template ? template.event.name : event.name;
-
+  
+  // Handle switching to a specific template
+  const switchToTemplate = (id: string) => {
+    navigate(`/templates/${id}`);
+  };
+  
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -78,7 +96,7 @@ const Index: React.FC = () => {
             {showingTemplate && template && (
               <Button 
                 variant="outline" 
-                onClick={() => setShowingTemplate(false)} 
+                onClick={() => navigate('/', { state: { showPersonalChecklist: true } })} 
                 className="mb-2 sm:mb-0"
               >
                 <ArrowLeft className="mr-2 h-4 w-4" />

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
@@ -16,6 +15,10 @@ const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const isActive = (path: string) => {
+    if (path === '/') {
+      // For home, check that we're either at root or viewing a template
+      return location.pathname === '/' || location.pathname.startsWith('/templates/');
+    }
     return location.pathname === path || location.pathname.startsWith(path);
   };
 
@@ -62,7 +65,7 @@ const Header: React.FC = () => {
                 <li>
                   <Link 
                     to="/" 
-                    className={`transition-colors ${isActive('/') && !isActive('/templates') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    className={`transition-colors ${isActive('/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
                   >
                     Dashboard
                   </Link>
@@ -70,7 +73,7 @@ const Header: React.FC = () => {
                 <li>
                   <Link 
                     to="/templates" 
-                    className={`transition-colors ${isActive('/templates') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    className={`transition-colors ${isActive('/templates') && !isActive('/templates/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
                   >
                     Templates
                   </Link>
@@ -88,7 +91,7 @@ const Header: React.FC = () => {
                 <li>
                   <Link 
                     to="/" 
-                    className={`block transition-colors ${isActive('/') && !isActive('/templates') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    className={`block transition-colors ${isActive('/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Dashboard
@@ -97,7 +100,7 @@ const Header: React.FC = () => {
                 <li>
                   <Link 
                     to="/templates" 
-                    className={`block transition-colors ${isActive('/templates') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    className={`block transition-colors ${isActive('/templates') && !isActive('/templates/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Templates
