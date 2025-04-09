@@ -12,6 +12,8 @@ export interface EventInfo {
   startTime: string;
   startDate?: Date; // New field for sorting
   endDate?: Date;   // New field for sorting
+  secondWeekendStartDate?: Date;
+  secondWeekendEndDate?: Date;
 }
 
 export interface Template {
@@ -37,7 +39,9 @@ export const sampleEvent: EventInfo = {
   location: "Empire Polo Club, Indio, CA",
   startTime: "12:00 PM",
   startDate: new Date(2025, 3, 11), // April 11, 2025
-  endDate: new Date(2025, 3, 20)    // April 20, 2025
+  endDate: new Date(2025, 3, 13),  // April 13, 2025,
+  secondWeekendStartDate: new Date(2025, 3, 18), // April 18, 2025
+  secondWeekendEndDate: new Date(2025, 3, 20) // April 20, 2025
 };
 
 export const sampleChecklist: ChecklistItem[] = [
