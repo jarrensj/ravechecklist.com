@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import ChecklistCard from '@/components/ChecklistCard';
 import EventInfoCard from '@/components/EventInfoCard';
@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { templates } from '@/utils/data';
 
-const Index: React.FC = () => {
+const Dashboard: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const urlParams = useParams<{ id?: string }>();
@@ -108,7 +108,7 @@ const Index: React.FC = () => {
             {showingTemplate && template && (
               <Button 
                 variant="outline" 
-                onClick={() => navigate('/', { 
+                onClick={() => navigate('/dashboard', { 
                   state: { 
                     showPersonalChecklist: true,
                     fromTemplateId: template.id  // Pass the current template ID when going back
@@ -150,4 +150,4 @@ const Index: React.FC = () => {
   );
 };
 
-export default Index;
+export default Dashboard;

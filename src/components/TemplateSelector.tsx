@@ -1,13 +1,6 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,8 +19,21 @@ interface TemplateSelectorProps {
 }
 
 const TemplateSelector: React.FC<TemplateSelectorProps> = ({ className }) => {
-  const { history } = useTemplateHistory();
+  const { history, refreshHistory } = useTemplateHistory();
   const navigate = useNavigate();
+
+  // Ensure history is refreshed when the component mounts and becomes visible
+  useEffect(() => {
+    // Force refresh history when component mounts or becomes visible
+    refreshHistory();
+    
+    // Set up an interval to refresh history data
+    const intervalId = setInterval(() => {
+      refreshHistory();
+    }, 1000); // Refresh every second while dropdown might be open
+    
+    return () => clearInterval(intervalId);
+  }, [refreshHistory]);
 
   const handleSelectTemplate = (templateId: string) => {
     navigate(`/templates/${templateId}`);
