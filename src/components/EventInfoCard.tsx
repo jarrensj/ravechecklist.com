@@ -5,6 +5,7 @@ import { Calendar, Clock, MapPin, Music, AlertTriangle, Pencil, Save } from "luc
 import { EventInfo } from '@/utils/data';
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { format } from 'date-fns';
 
 interface EventInfoCardProps {
   event: EventInfo;
@@ -49,6 +50,26 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
     if (e.key === 'Enter') {
       saveEventChanges();
     }
+  };
+
+  // Format date display
+  const formatDateRange = () => {
+    if (!event.startDate) return event.date;
+    
+    if (!event.endDate || event.startDate.getTime() === event.endDate.getTime()) {
+      return format(event.startDate, 'MMM d, yyyy');
+    }
+    
+    if (event.startDate.getMonth() === event.endDate.getMonth() && 
+        event.startDate.getFullYear() === event.endDate.getFullYear()) {
+      return `${format(event.startDate, 'MMM d')} - ${format(event.endDate, 'd, yyyy')}`;
+    }
+    
+    if (event.startDate.getFullYear() === event.endDate.getFullYear()) {
+      return `${format(event.startDate, 'MMM d')} - ${format(event.endDate, 'MMM d, yyyy')}`;
+    }
+    
+    return `${format(event.startDate, 'MMM d, yyyy')} - ${format(event.endDate, 'MMM d, yyyy')}`;
   };
 
   return (
@@ -96,7 +117,9 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
                   className="mb-1 text-sm"
                 />
               ) : (
-                <p className="text-base sm:text-lg font-medium">{event.date}</p>
+                <p className="text-base sm:text-lg font-medium">
+                  {event.startDate ? formatDateRange() : event.date}
+                </p>
               )}
               <p className="text-xs sm:text-sm text-gray-500">Event Dates</p>
             </div>

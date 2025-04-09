@@ -10,7 +10,22 @@ export const useEventInfo = () => {
     const savedEvent = localStorage.getItem('eventInfo');
     
     if (savedEvent) {
-      setEvent(JSON.parse(savedEvent));
+      try {
+        const parsedEvent = JSON.parse(savedEvent);
+        
+        // Convert date strings back to Date objects if they exist
+        if (parsedEvent.startDate) {
+          parsedEvent.startDate = new Date(parsedEvent.startDate);
+        }
+        if (parsedEvent.endDate) {
+          parsedEvent.endDate = new Date(parsedEvent.endDate);
+        }
+        
+        setEvent(parsedEvent);
+      } catch (error) {
+        console.error("Failed to parse saved event:", error);
+        setEvent(sampleEvent);
+      }
     }
   }, []);
   

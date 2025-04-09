@@ -9,53 +9,37 @@ import { PlusCircle, Music, Sparkles, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { format } from 'date-fns';
 
 const Templates: React.FC = () => {
   const [categoriesOpen, setCategoriesOpen] = useState(false);
 
-  // Sort templates by date (closest upcoming events first)
+  // Sort templates by startDate (closest upcoming events first)
   const sortedTemplates = [...templates].sort((a, b) => {
-    // Extract month and year from date strings
-    const getDateInfo = (dateStr: string) => {
-      const months = {
-        'January': 0, 'Jan': 0,
-        'February': 1, 'Feb': 1,
-        'March': 2, 'Mar': 2,
-        'April': 3, 'Apr': 3,
-        'May': 4,
-        'June': 5, 'Jun': 5,
-        'July': 6, 'Jul': 6,
-        'August': 7, 'Aug': 7,
-        'September': 8, 'Sep': 8,
-        'October': 9, 'Oct': 9,
-        'November': 10, 'Nov': 10,
-        'December': 11, 'Dec': 11
-      };
-      
-      // Handle date ranges like "April 11-13 & 18-20, 2025" or "Aug 8-10, 2025"
-      const monthMatch = dateStr.match(/^(\w+)/);
-      const yearMatch = dateStr.match(/(\d{4})/);
-      
-      if (monthMatch && yearMatch) {
-        const monthStr = monthMatch[1];
-        const month = months[monthStr as keyof typeof months] ?? 0;
-        const year = parseInt(yearMatch[1]);
-        return { month, year };
-      }
-      
-      return { month: 0, year: 3000 }; // Default far future date if parsing fails
-    };
+    if (!a.event.startDate || !b.event.startDate) {
+      return 0; // Handle cases where dates might be missing
+    }
+    return a.event.startDate.getTime() - b.event.startDate.getTime();
+  });
+  
+  // Format date range for display
+  const formatDateRange = (startDate?: Date, endDate?: Date) => {
+    if (!startDate) return "Date TBD";
     
-    const dateA = getDateInfo(a.event.date);
-    const dateB = getDateInfo(b.event.date);
-    
-    // Sort by year first, then by month
-    if (dateA.year !== dateB.year) {
-      return dateA.year - dateB.year;
+    if (!endDate || startDate.getTime() === endDate.getTime()) {
+      return format(startDate, 'MMM d, yyyy');
     }
     
-    return dateA.month - dateB.month;
-  });
+    if (startDate.getMonth() === endDate.getMonth() && startDate.getFullYear() === endDate.getFullYear()) {
+      return `${format(startDate, 'MMM d')} - ${format(endDate, 'd, yyyy')}`;
+    }
+    
+    if (startDate.getFullYear() === endDate.getFullYear()) {
+      return `${format(startDate, 'MMM d')} - ${format(endDate, 'MMM d, yyyy')}`;
+    }
+    
+    return `${format(startDate, 'MMM d, yyyy')} - ${format(endDate, 'MMM d, yyyy')}`;
+  };
   
   return (
     <div className="min-h-screen bg-gray-50">
@@ -80,7 +64,7 @@ const Templates: React.FC = () => {
             <Card key={template.id} className="overflow-hidden transition-all hover:shadow-md">
               <div className="aspect-video w-full overflow-hidden">
                 <img 
-                  src={template.thumbnail} 
+                  src={template.thumbnail || 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop'} 
                   alt={template.name}
                   className="w-full h-full object-cover"
                 />
@@ -94,7 +78,11 @@ const Templates: React.FC = () => {
               </CardHeader>
               <CardContent className="p-4 sm:p-6 pt-0">
                 <div className="text-xs sm:text-sm text-gray-600 mb-4">
-                  <div><strong>When:</strong> {template.event.date}</div>
+                  <div>
+                    <strong>When:</strong> {template.event.startDate && template.event.endDate ? 
+                      formatDateRange(template.event.startDate, template.event.endDate) : 
+                      template.event.date}
+                  </div>
                   <div><strong>Gates Open:</strong> {template.event.startTime}</div>
                 </div>
                 
