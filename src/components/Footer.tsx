@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Separator } from "@/components/ui/separator";
 import { Mail, MessageCircle } from "lucide-react";
@@ -28,9 +27,14 @@ const Footer: React.FC = () => {
                 <span className="text-xs">Discord</span>
               </a>
             </div>
-            <div className="flex items-center text-xs text-gray-500">
+            <a 
+              href="https://instagram.com/jarrensj" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center text-xs text-gray-500"
+            >
               🍣 🦄
-            </div>
+            </a>
           </div>
         </div>
       </div>
