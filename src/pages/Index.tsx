@@ -56,7 +56,14 @@ const Index: React.FC = () => {
       setShowingTemplate(true);
       addToHistory(templateId);
     } else if (location.state?.showPersonalChecklist) {
+      // When navigating back to personal checklist, don't change history
       setShowingTemplate(false);
+      
+      // Important: We still want to update history if we came from a template
+      if (location.state?.fromTemplateId) {
+        addToHistory(location.state.fromTemplateId);
+      }
+      
       // Clear the location state to avoid persisting this preference
       window.history.replaceState({}, document.title);
     } else if (lastViewedTemplate && template) {
@@ -96,7 +103,12 @@ const Index: React.FC = () => {
             {showingTemplate && template && (
               <Button 
                 variant="outline" 
-                onClick={() => navigate('/', { state: { showPersonalChecklist: true } })} 
+                onClick={() => navigate('/', { 
+                  state: { 
+                    showPersonalChecklist: true,
+                    fromTemplateId: template.id  // Pass the current template ID when going back
+                  } 
+                })} 
                 className="mb-2 sm:mb-0"
               >
                 <ArrowLeft className="mr-2 h-4 w-4" />

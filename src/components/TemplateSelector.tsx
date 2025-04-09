@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   DropdownMenu,
@@ -19,8 +19,13 @@ interface TemplateSelectorProps {
 }
 
 const TemplateSelector: React.FC<TemplateSelectorProps> = ({ className }) => {
-  const { history } = useTemplateHistory();
+  const { history, refreshHistory } = useTemplateHistory();
   const navigate = useNavigate();
+
+  // Ensure history is refreshed when the component mounts
+  useEffect(() => {
+    refreshHistory();
+  }, [refreshHistory]);
 
   const handleSelectTemplate = (templateId: string) => {
     navigate(`/templates/${templateId}`);

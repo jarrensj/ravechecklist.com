@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+
+import { useState, useEffect, useCallback } from 'react';
 import { templates, Template } from '@/utils/data';
 
 interface TemplateHistoryItem {
@@ -11,8 +12,8 @@ export const useTemplateHistory = () => {
   const [history, setHistory] = useState<TemplateHistoryItem[]>([]);
   const [lastViewedTemplate, setLastViewedTemplate] = useState<Template | null>(null);
   
-  // Load history from localStorage on component mount
-  useEffect(() => {
+  // Function to load history from localStorage
+  const refreshHistory = useCallback(() => {
     const savedHistory = localStorage.getItem('templateViewHistory');
     
     if (savedHistory) {
@@ -29,6 +30,11 @@ export const useTemplateHistory = () => {
       }
     }
   }, []);
+  
+  // Load history from localStorage on component mount
+  useEffect(() => {
+    refreshHistory();
+  }, [refreshHistory]);
 
   const addToHistory = (templateId: string) => {
     const template = templates.find(t => t.id === templateId);
@@ -65,6 +71,7 @@ export const useTemplateHistory = () => {
   return {
     history,
     lastViewedTemplate,
-    addToHistory
+    addToHistory,
+    refreshHistory
   };
 };
