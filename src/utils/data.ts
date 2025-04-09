@@ -18,6 +18,7 @@ export interface Template {
   event: EventInfo;
   items: ChecklistItem[];
   thumbnail: string;
+  prohibitedItemsLink: string;
 }
 
 export const categories = [
@@ -66,7 +67,8 @@ export const templates: Template[] = [
     name: "Coachella Festival",
     event: sampleEvent,
     items: sampleChecklist, // todo: make Coachella its own checklist
-    thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop"
+    thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
+    prohibitedItemsLink: ""
   },
   {
     id: "outsidelands",
@@ -91,7 +93,8 @@ export const templates: Template[] = [
       { id: "ol-21", text: "Hydration Pack / Water Bottle", category: "misc", isCompleted: false },
       { id: "ol-23", text: "Sunglasses", category: "clothing", isCompleted: false }
     ],
-    thumbnail: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2070&auto=format&fit=crop"
+    thumbnail: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2070&auto=format&fit=crop",
+    prohibitedItemsLink: ""
   },
   {
     id: "hitc",
@@ -118,6 +121,35 @@ export const templates: Template[] = [
       { id: "hitc-17", text: "Small Backpack / Fanny Pack", category: "clothing", isCompleted: false },
       { id: "hitc-19", text: "Bandaids", category: "toiletries", isCompleted: false },
     ],
-    thumbnail: "https://images.unsplash.com/photo-1500673922987-e212871fec22?q=80&w=2070&auto=format&fit=crop"
+    thumbnail: "https://images.unsplash.com/photo-1500673922987-e212871fec22?q=80&w=2070&auto=format&fit=crop",
+    prohibitedItemsLink: ""
+  },
+  {
+    id: "edc-las-vegas",
+    name: "EDC Las Vegas",
+    event: {
+      name: "EDC Las Vegas",
+      date: "May 16 – May 18, 2025",
+      location: "Las Vegas Motor Speedway, Las Vegas, NV",
+      startTime: "7:00 PM"
+    },
+    items: [
+      { id: "edc-1", text: "Festival Wristband", category: "documents", isCompleted: false },
+      { id: "edc-2", text: "ID/Driver's License", category: "documents", isCompleted: false },
+      { id: "edc-3", text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
+      { id: "edc-4", text: "Comfortable Shoes", category: "clothing", isCompleted: false },
+      { id: "edc-5", text: "Portable Phone Charger", category: "electronics", isCompleted: false },
+      { id: "edc-6", text: "Sunglasses", category: "clothing", isCompleted: false },
+      { id: "edc-7", text: "Earplugs", category: "clothing", isCompleted: false },
+      { id: "edc-8", text: "Sunscreen", category: "toiletries", isCompleted: false },
+      { id: "edc-9", text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
+      { id: "edc-10", text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
+      { id: "edc-11", text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
+      { id: "edc-12", text: "Lip Balm", category: "toiletries", isCompleted: false },
+      { id: "edc-13", text: "Fanny Pack", category: "clothing", isCompleted: false },
+      { id: "edc-14", text: "Bandaids", category: "toiletries", isCompleted: false },
+    ],
+    thumbnail: "", 
+    prohibitedItemsLink: "https://lasvegas.electricdaisycarnival.com/guide/hours-and-info/"
   }
 ];
