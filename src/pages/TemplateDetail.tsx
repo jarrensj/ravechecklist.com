@@ -14,7 +14,7 @@ import TemplateSelector from '@/components/TemplateSelector';
 
 const TemplateDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { addToHistory } = useTemplateHistory();
+  const { addToHistory, refreshHistory } = useTemplateHistory();
   const navigate = useNavigate();
   
   const {
@@ -32,8 +32,10 @@ const TemplateDetail: React.FC = () => {
   useEffect(() => {
     if (id && template) {
       addToHistory(id);
+      // Force refresh the history after adding
+      setTimeout(refreshHistory, 100);
     }
-  }, [id, template, addToHistory]);
+  }, [id, template, addToHistory, refreshHistory]);
   
   if (!template) {
     return <TemplateNotFound />;

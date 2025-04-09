@@ -21,7 +21,7 @@ const Index: React.FC = () => {
   
   // Track if we're showing a template from URL or history
   const [showingTemplate, setShowingTemplate] = useState(false);
-  const { lastViewedTemplate, addToHistory } = useTemplateHistory();
+  const { lastViewedTemplate, addToHistory, refreshHistory } = useTemplateHistory();
   
   // Default user checklist (always available)
   const { 
@@ -54,14 +54,19 @@ const Index: React.FC = () => {
   useEffect(() => {
     if (templateId) {
       setShowingTemplate(true);
+      // Explicitly add to history whenever a template ID is in the URL
       addToHistory(templateId);
+      // Force refresh the history after adding
+      setTimeout(refreshHistory, 100);
     } else if (location.state?.showPersonalChecklist) {
-      // When navigating back to personal checklist, don't change history
+      // When navigating back to personal checklist
       setShowingTemplate(false);
       
       // Important: We still want to update history if we came from a template
       if (location.state?.fromTemplateId) {
         addToHistory(location.state.fromTemplateId);
+        // Force refresh after adding
+        setTimeout(refreshHistory, 100);
       }
       
       // Clear the location state to avoid persisting this preference
@@ -69,7 +74,7 @@ const Index: React.FC = () => {
     } else if (lastViewedTemplate && template) {
       setShowingTemplate(true);
     }
-  }, [location, lastViewedTemplate, template, templateId, addToHistory]);
+  }, [location, lastViewedTemplate, template, templateId, addToHistory, refreshHistory]);
 
   // Use either template or user checklist based on state
   const checklist = showingTemplate ? templateChecklist : userChecklist;
