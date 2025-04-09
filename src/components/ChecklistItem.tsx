@@ -54,14 +54,14 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
     <>
       <div 
         className={cn(
-          "flex items-center justify-between p-3 mb-2 bg-white rounded-lg shadow-sm border border-gray-100 transition-all hover:shadow-md",
+          "flex items-center justify-between p-2 sm:p-3 mb-2 bg-white rounded-lg shadow-sm border border-gray-100 transition-all hover:shadow-md",
           "checklist-item relative",
           item.isCompleted ? "bg-gray-50 completed" : ""
         )}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3 flex-1 mr-2">
           <Checkbox 
             id={`item-${item.id}`}
             checked={item.isCompleted}
@@ -70,7 +70,7 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
           <label 
             htmlFor={`item-${item.id}`}
             className={cn(
-              "text-sm font-medium cursor-pointer",
+              "text-xs sm:text-sm font-medium cursor-pointer truncate",
               item.isCompleted ? "line-through text-gray-400" : ""
             )}
           >
@@ -80,7 +80,9 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
         
         <div className="flex items-center">
           {/* Category tag stays on the right, only moves when action buttons appear */}
-          <div className={cn("flex")}>
+          <div className={cn("flex transition-all duration-200", 
+            (isHovering || showRemoveButton) ? "mr-[78px]" : "mr-0"
+          )}>
             {category && (
               <CategoryTag 
                 name={category.name}
@@ -91,29 +93,29 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
           
           {/* Action buttons visible on hover or in edit mode */}
           <div className={cn(
-            "flex gap-1 transition-all duration-200", 
-            (isHovering || showRemoveButton) ? "opacity-100 ml-2 w-auto" : "opacity-0 w-0 overflow-hidden"
+            "flex gap-1 transition-all duration-200 absolute right-2 sm:right-3", 
+            (isHovering || showRemoveButton) ? "opacity-100" : "opacity-0"
           )}>
             {onEdit && (
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="h-7 w-7 text-gray-400 hover:text-blue-500 hover:bg-blue-50 p-1"
+                className="h-6 w-6 sm:h-7 sm:w-7 text-gray-400 hover:text-blue-500 hover:bg-blue-50 p-1"
                 onClick={handleEditClick}
                 title="Edit item"
               >
-                <Pencil className="h-4 w-4" />
+                <Pencil className="h-3 w-3 sm:h-4 sm:w-4" />
               </Button>
             )}
             
             <Button 
               variant="ghost" 
               size="icon" 
-              className="h-7 w-7 text-gray-400 hover:text-red-500 hover:bg-red-50 p-1"
+              className="h-6 w-6 sm:h-7 sm:w-7 text-gray-400 hover:text-red-500 hover:bg-red-50 p-1"
               onClick={() => onRemove(item.id)}
               title="Remove item"
             >
-              <Trash2 className="h-4 w-4" />
+              <Trash2 className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
           </div>
         </div>

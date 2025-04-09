@@ -25,7 +25,7 @@ const Header: React.FC = () => {
   
   return (
     <header className="py-4 mb-6 w-full">
-      <div className="container mx-auto px-4">
+      <div className="container max-w-screen-2xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between">
           <Link 
             to="/" 
@@ -75,23 +75,6 @@ const Header: React.FC = () => {
                     Templates
                   </Link>
                 </li>
-                <li>
-                  <HoverCard>
-                    <HoverCardTrigger asChild>
-                      <span className="text-gray-600 hover:text-sky-600 transition-colors cursor-pointer">
-                        Blog
-                      </span>
-                    </HoverCardTrigger>
-                    <HoverCardContent className="w-auto">
-                      <div className="flex flex-col space-y-1">
-                        <p className="font-medium">Coming Soon!</p>
-                        <p className="text-sm text-muted-foreground">
-                          Our blog is currently under construction.
-                        </p>
-                      </div>
-                    </HoverCardContent>
-                  </HoverCard>
-                </li>
               </ul>
             </nav>
           )}
@@ -119,23 +102,6 @@ const Header: React.FC = () => {
                   >
                     Templates
                   </Link>
-                </li>
-                <li>
-                  <HoverCard>
-                    <HoverCardTrigger asChild>
-                      <span className="block text-gray-600 hover:text-sky-600 transition-colors cursor-pointer">
-                        Blog
-                      </span>
-                    </HoverCardTrigger>
-                    <HoverCardContent className="w-auto">
-                      <div className="flex flex-col space-y-1">
-                        <p className="font-medium">Coming Soon!</p>
-                        <p className="text-sm text-muted-foreground">
-                          Our blog is currently under construction.
-                        </p>
-                      </div>
-                    </HoverCardContent>
-                  </HoverCard>
                 </li>
               </ul>
             </nav>
