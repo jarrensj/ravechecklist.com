@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Header from '@/components/Header';
 import ChecklistCard from '@/components/ChecklistCard';
 import EventInfoCard from '@/components/EventInfoCard';
@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 
 const Index: React.FC = () => {
+  const location = useLocation();
   const [showingTemplate, setShowingTemplate] = useState(false);
   const { lastViewedTemplate } = useTemplateHistory();
   
@@ -41,12 +42,14 @@ const Index: React.FC = () => {
   
   const { event, setEvent } = useEventInfo();
 
-  // Default to showing the template if one exists
+  // Check if we should force showing the personal checklist
   useEffect(() => {
-    if (lastViewedTemplate && template) {
+    if (location.state?.showPersonalChecklist) {
+      setShowingTemplate(false);
+    } else if (lastViewedTemplate && template) {
       setShowingTemplate(true);
     }
-  }, [lastViewedTemplate, template]);
+  }, [location, lastViewedTemplate, template]);
 
   // Use either template or user checklist based on state
   const checklist = showingTemplate ? templateChecklist : userChecklist;
