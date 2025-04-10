@@ -167,7 +167,7 @@ export const templates: Template[] = [
       { id: "hitc-17", text: "Small Backpack / Fanny Pack", category: "clothing", isCompleted: false },
       { id: "hitc-19", text: "Bandaids", category: "toiletries", isCompleted: false },
     ],
-    thumbnail: "https://images.unsplash.com/photo-1500673922987-e212871fec22?q=80&w=2070&auto=format&fit=crop",
+    thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
     prohibitedItemsLink: ""
   }
 ];
