@@ -81,16 +81,19 @@ const Home: React.FC = () => {
             
             <Card className="border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
               <CardHeader>
-                <Clock className="h-12 w-12 text-sky-600 mb-2" />
-                <CardTitle>Recent Templates</CardTitle>
-                <CardDescription>Quick access to your recently used templates</CardDescription>
+                <Users className="h-12 w-12 text-sky-600 mb-2" />
+                <CardTitle>What Others Are Bringing</CardTitle>
+                <CardDescription>
+                  Discover trending items from the community and brand-sponsored checklists and deals
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
-                  Easily pick up where you left off with history tracking for your most frequently used checklists.
+                  Get inspired by what fellow ravers are packing. Browse checklists curated by our friends or popular brands.
                 </p>
               </CardContent>
             </Card>
+
           </div>
         </section>
         
