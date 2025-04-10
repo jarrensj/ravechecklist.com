@@ -173,7 +173,7 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
                   onChange={(e) => handleEventChange('prohibitedItemsLink', e.target.value)}
                   onKeyDown={handleKeyDown}
                   className="mb-1 text-sm"
-                  placeholder="https://www.festival.com/prohibited-items"
+                  placeholder="https://www.kwaji.com/prohibited-items"
                 />
               ) : (
                 event.prohibitedItemsLink ? (
