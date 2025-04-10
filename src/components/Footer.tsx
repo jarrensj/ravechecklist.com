@@ -28,12 +28,12 @@ const Footer: React.FC = () => {
               </a>
             </div>
             <a 
-              href="https://instagram.com/jarrensj" 
+              href="https://kwaji.com" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="flex items-center text-xs text-gray-500"
             >
-              🍣 🦄
+              🍣🦄
             </a>
           </div>
         </div>
