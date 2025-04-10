@@ -76,13 +76,40 @@ export const templates: Template[] = [
     id: "coachella",
     name: "Coachella Festival",
     event: {
-      ...sampleEvent,
+      name: "Coachella",
+      date: "April 11-13 & 18-20, 2025",
+      location: "Empire Polo Club, Indio, CA",
+      startTime: "12:00 PM",
       startDate: new Date(2025, 3, 11), // April 11, 2025
-      endDate: new Date(2025, 3, 20)    // April 20, 2025
+      endDate: new Date(2025, 3, 13),  // April 13, 2025,
+      secondWeekendStartDate: new Date(2025, 3, 18), // April 18, 2025
+      secondWeekendEndDate: new Date(2025, 3, 20), // April 20, 2025
+      prohibitedItemsLink: "https://www.coachella.com/rules"
     },
-    items: sampleChecklist,
+    items: [
+      { id: "1", text: "Festival Wristband", category: "documents", isCompleted: false },
+      { id: "2", text: "ID/Driver's License", category: "documents", isCompleted: false },
+      { id: "3", text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
+      { id: "8", text: "Bandanas/Masks", category: "clothing", isCompleted: false },
+      { id: "9", text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
+      { id: "11", text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
+      { id: "13", text: "Earplugs", category: "clothing", isCompleted: false },
+      { id: "17", text: "Sunscreen", category: "toiletries", isCompleted: false },
+      { id: "18", text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
+      { id: "19", text: "Lip Balm", category: "toiletries", isCompleted: false },
+      { id: "21", text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
+      { id: "23", text: "Sunglasses", category: "clothing", isCompleted: false },
+      { id: "24", text: "Camera", category: "electronics", isCompleted: false },
+      { id: "25", text: "Eye Drops", category: "toiletries", isCompleted: false },
+      { id: "26", text: "Handheld Fan", category: "electronics", isCompleted: false },
+      { id: "27", text: "Fanny Pack", category: "clothing", isCompleted: false },
+      { id: "28", text: "Make-up", category: "toiletries", isCompleted: false },
+      { id: "29", text: "Water Mister (Personal Size)", category: "toiletries", isCompleted: false },
+      { id: "30", text: "Bandaids", category: "toiletries", isCompleted: false },
+      { id: "31", text: "Blanket (50\" x 70\" or smaller)", category: "misc", isCompleted: false }
+    ],
     thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
-    prohibitedItemsLink: ""
+    prohibitedItemsLink: "https://www.coachella.com/rules"
   },
   {
     id: "outsidelands",
