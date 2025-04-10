@@ -169,5 +169,33 @@ export const templates: Template[] = [
     ],
     thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
     prohibitedItemsLink: ""
+  },
+  {
+    id: "beyond-wonderland-gorge",
+    name: "Beyond Wonderland at The Gorge",
+    event: {
+      name: "Beyond Wonderland at The Gorge",
+      date: "June 21-22, 2025",
+      location: "Gorge Amphitheatre, George, WA",
+      startTime: "3:00 PM",
+      startDate: new Date(2025, 5, 21),  // June 21, 2025
+      endDate: new Date(2025, 5, 22)     // June 22, 2025
+    },
+    items: [
+      { id: "bw-1", text: "Festival Wristband", category: "documents", isCompleted: false },
+      { id: "bw-2", text: "ID/Driver's License (18+ event)", category: "documents", isCompleted: false },
+      { id: "bw-3", text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
+      { id: "bw-4", text: "Deodorant", category: "toiletries", isCompleted: false },
+      { id: "bw-6", text: "Reusable Water Bottle (empty upon entry)", category: "misc", isCompleted: false },
+      { id: "bw-9", text: "Hydration Pack (empty upon entry)", category: "misc", isCompleted: false },
+      { id: "bw-10", text: "Sunscreen", category: "toiletries", isCompleted: false },
+      { id: "bw-11", text: "Portable Charger", category: "electronics", isCompleted: false },
+      { id: "bw-14", text: "Earplugs", category: "clothing", isCompleted: false },
+      { id: "bw-16", text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
+      { id: "bw-17", text: "Lip Balm", category: "toiletries", isCompleted: false },
+      { id: "bw-18", text: "Bandaids", category: "toiletries", isCompleted: false }
+    ],
+    thumbnail: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop", 
+    prohibitedItemsLink: "https://pnw.beyondwonderland.com/guide/hours-and-info/"
   }
 ];
