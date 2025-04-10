@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
               <strong>Disclaimer:</strong> RaveChecklist is not affiliated with, endorsed by, or sponsored by any music festivals or event organizers. 
               All festival names, logos, and trademarks are the property of their respective owners. We are not responsible for the accuracy of this information. 
               Please always check the official allowed and prohibited items list for your specific festival. If you notice any incorrect information, 
-              please contact us for corrections.
+              please contact us for corrections. Some links on this site may be affiliate links, and we may earn a commission if you make a purchase through these links.
             </p>
           </div>
           <div className="flex items-center gap-4">
