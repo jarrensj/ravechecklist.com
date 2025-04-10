@@ -14,6 +14,7 @@ export interface EventInfo {
   endDate?: Date;   // New field for sorting
   secondWeekendStartDate?: Date;
   secondWeekendEndDate?: Date;
+  prohibitedItemsLink?: string; // New field for prohibited items link
 }
 
 export interface Template {
@@ -41,7 +42,8 @@ export const sampleEvent: EventInfo = {
   startDate: new Date(2025, 3, 11), // April 11, 2025
   endDate: new Date(2025, 3, 13),  // April 13, 2025,
   secondWeekendStartDate: new Date(2025, 3, 18), // April 18, 2025
-  secondWeekendEndDate: new Date(2025, 3, 20) // April 20, 2025
+  secondWeekendEndDate: new Date(2025, 3, 20), // April 20, 2025
+  prohibitedItemsLink: "https://www.coachella.com/rules"
 };
 
 export const sampleChecklist: ChecklistItem[] = [

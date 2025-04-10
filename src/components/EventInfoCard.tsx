@@ -164,17 +164,32 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
             </div>
           </div>
 
-          <div className="flex items-center">
-            <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-amber-600" />
-            <div>
-              <a 
-                href="https://www.coachella.com/faq" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-xs sm:text-sm font-medium text-amber-600 hover:underline"
-              >
-                Check Prohibited Items
-              </a>
+          <div className="flex items-start">
+            <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-amber-600 mt-0.5" />
+            <div className="flex-1">
+              {isEditingEvent ? (
+                <Input 
+                  value={editedEvent.prohibitedItemsLink || ''}
+                  onChange={(e) => handleEventChange('prohibitedItemsLink', e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  className="mb-1 text-sm"
+                  placeholder="https://www.festival.com/prohibited-items"
+                />
+              ) : (
+                event.prohibitedItemsLink ? (
+                  <a 
+                    href={event.prohibitedItemsLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-base sm:text-lg font-medium text-amber-600 hover:underline"
+                  >
+                    Check Prohibited Items
+                  </a>
+                ) : (
+                  <p className="text-base sm:text-lg font-medium text-amber-600">No link provided</p>
+                )
+              )}
+              <p className="text-xs sm:text-sm text-gray-500">Prohibited Items Link</p>
             </div>
           </div>
           
