@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -6,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCheck, ListChecks, ArrowRight, Clock, Users, SparkleIcon } from 'lucide-react';
 import JSConfetti from 'js-confetti';
+import Unicorn from '@/components/Unicorn';
 
 const Home: React.FC = () => {
   const handleGetStarted = () => {
@@ -25,6 +25,9 @@ const Home: React.FC = () => {
         {/* Hero Section */}
         <section className="py-12 md:py-20 text-center">
           <div className="max-w-3xl mx-auto">
+            <div className="w-32 h-32 mx-auto mb-6">
+              <img src="/public/unicorn.png" alt="Unicorn" className="w-full h-full object-contain" />
+            </div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               Plan Your Perfect Festival Experience
             </h1>
