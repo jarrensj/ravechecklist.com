@@ -226,5 +226,35 @@ export const templates: Template[] = [
     ],
     thumbnail: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop", 
     prohibitedItemsLink: "https://pnw.beyondwonderland.com/guide/hours-and-info/"
+  },
+  {
+    id: "governors-ball",
+    name: "Governor's Ball",
+    event: {
+      name: "Governor's Ball",
+      date: "June 6-8, 2025",
+      location: "Flushing Meadows Corona Park, NY",
+      startTime: "12:00 PM",
+      startDate: new Date(2025, 5, 6),  // June 6, 2025
+      endDate: new Date(2025, 5, 8)     // June 8, 2025
+    },
+    items: [
+      { id: "gb-1", text: "Festival Wristband", category: "documents", isCompleted: false },
+      { id: "gb-2", text: "ID/Driver's License", category: "documents", isCompleted: false },
+      { id: "gb-3", text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
+      { id: "gb-4", text: "Comfortable Shoes", category: "clothing", isCompleted: false },
+      { id: "gb-5", text: "Portable Phone Charger", category: "electronics", isCompleted: false },
+      { id: "gb-6", text: "Sunglasses", category: "clothing", isCompleted: false },
+      { id: "gb-7", text: "Earplugs", category: "clothing", isCompleted: false },
+      { id: "gb-8", text: "Sunscreen", category: "toiletries", isCompleted: false },
+      { id: "gb-9", text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
+      { id: "gb-10", text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
+      { id: "gb-11", text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
+      { id: "gb-12", text: "Lip Balm", category: "toiletries", isCompleted: false },
+      { id: "gb-13", text: "Fanny Pack", category: "clothing", isCompleted: false },
+      { id: "gb-14", text: "Bandaids", category: "toiletries", isCompleted: false },
+    ],
+    thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
+    prohibitedItemsLink: "https://support.govball.com/hc/en-us/articles/11579326819988-What-items-are-allowed-prohibited-at-Gov-Ball"
   }
 ];
