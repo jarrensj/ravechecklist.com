@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { templates } from '@/utils/data';
@@ -13,11 +14,21 @@ import { format } from 'date-fns';
 const Templates: React.FC = () => {
   const [categoriesOpen, setCategoriesOpen] = useState(false);
 
-  // Sort templates by startDate (closest upcoming events first)
+  // Sort templates by startDate - upcoming events first, past events at the end
   const sortedTemplates = [...templates].sort((a, b) => {
     if (!a.event.startDate || !b.event.startDate) {
       return 0; // Handle cases where dates might be missing
     }
+    
+    const now = new Date();
+    const aIsPast = a.event.startDate < now;
+    const bIsPast = b.event.startDate < now;
+    
+    // If one is past and one is upcoming, upcoming comes first
+    if (aIsPast && !bIsPast) return 1;
+    if (!aIsPast && bIsPast) return -1;
+    
+    // If both are upcoming or both are past, sort chronologically
     return a.event.startDate.getTime() - b.event.startDate.getTime();
   });
   
