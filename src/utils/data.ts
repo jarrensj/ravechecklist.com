@@ -179,11 +179,11 @@ export const templates: Template[] = [
     name: "EDC Las Vegas",
     event: {
       name: "EDC Las Vegas",
-      date: "May 16 – May 18, 2025",
+      date: "May 13 – May 15, 2026",
       location: "Las Vegas Motor Speedway, Las Vegas, NV",
       startTime: "7:00 PM",
-      startDate: new Date(2025, 4, 16),  // May 16, 2025
-      endDate: new Date(2025, 4, 18)     // May 18, 2025
+      startDate: new Date(2026, 4, 13),  // May 13, 2026
+      endDate: new Date(2026, 4, 15)     // May 15, 2026
     },
     items: [
       { id: "edc-1", text: "Festival Wristband", category: "documents", isCompleted: false },
@@ -203,93 +203,5 @@ export const templates: Template[] = [
     ],
     thumbnail: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop", 
     prohibitedItemsLink: "https://lasvegas.electricdaisycarnival.com/guide/hours-and-info/"
-  },
-  {
-    id: "hitc",
-    name: "Head In The Clouds",
-    event: {
-      name: "Head In The Clouds",
-      date: "May 31 - Jun 1, 2025",
-      location: "Brookside at the Rose Bowl, Pasadena, CA",
-      startTime: "1:00 PM",
-      startDate: new Date(2025, 4, 31),  // May 31, 2025
-      endDate: new Date(2025, 5, 1)      // June 1, 2025
-    },
-    items: [
-      { id: "hitc-1", text: "Festival Wristband", category: "documents", isCompleted: false },
-      { id: "hitc-2", text: "ID/Driver's License", category: "documents", isCompleted: false },
-      { id: "hitc-3", text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
-      { id: "hitc-4", text: "Portable Phone Charger", category: "electronics", isCompleted: false },
-      { id: "hitc-5", text: "Comfortable Shoes", category: "clothing", isCompleted: false },
-      { id: "hitc-8", text: "Light Jacket (for evening)", category: "clothing", isCompleted: false },
-      { id: "hitc-9", text: "Sunglasses", category: "clothing", isCompleted: false },
-      { id: "hitc-11", text: "Sunscreen", category: "toiletries", isCompleted: false },
-      { id: "hitc-12", text: "Hand Sanitizer / Hand Wipes", category: "toiletries", isCompleted: false },
-      { id: "hitc-13", text: "Lip Balm", category: "toiletries", isCompleted: false },
-      { id: "hitc-15", text: "Earplugs", category: "clothing", isCompleted: false },
-      { id: "hitc-16", text: "Water Bottle", category: "misc", isCompleted: false },
-      { id: "hitc-17", text: "Small Backpack / Fanny Pack", category: "clothing", isCompleted: false },
-      { id: "hitc-19", text: "Bandaids", category: "toiletries", isCompleted: false },
-    ],
-    thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
-    prohibitedItemsLink: ""
-  },
-  {
-    id: "beyond-wonderland-gorge",
-    name: "Beyond Wonderland at The Gorge",
-    event: {
-      name: "Beyond Wonderland at The Gorge",
-      date: "June 21-22, 2025",
-      location: "Gorge Amphitheatre, George, WA",
-      startTime: "3:00 PM",
-      startDate: new Date(2025, 5, 21),  // June 21, 2025
-      endDate: new Date(2025, 5, 22)     // June 22, 2025
-    },
-    items: [
-      { id: "bw-1", text: "Festival Wristband", category: "documents", isCompleted: false },
-      { id: "bw-2", text: "ID/Driver's License (18+ event)", category: "documents", isCompleted: false },
-      { id: "bw-3", text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
-      { id: "bw-4", text: "Deodorant", category: "toiletries", isCompleted: false },
-      { id: "bw-6", text: "Reusable Water Bottle (empty upon entry)", category: "misc", isCompleted: false },
-      { id: "bw-9", text: "Hydration Pack (empty upon entry)", category: "misc", isCompleted: false },
-      { id: "bw-10", text: "Sunscreen", category: "toiletries", isCompleted: false },
-      { id: "bw-11", text: "Portable Charger", category: "electronics", isCompleted: false },
-      { id: "bw-14", text: "Earplugs", category: "clothing", isCompleted: false },
-      { id: "bw-16", text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
-      { id: "bw-17", text: "Lip Balm", category: "toiletries", isCompleted: false },
-      { id: "bw-18", text: "Bandaids", category: "toiletries", isCompleted: false }
-    ],
-    thumbnail: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop", 
-    prohibitedItemsLink: "https://pnw.beyondwonderland.com/guide/hours-and-info/"
-  },
-  {
-    id: "governors-ball",
-    name: "Governor's Ball",
-    event: {
-      name: "Governor's Ball",
-      date: "June 6-8, 2025",
-      location: "Flushing Meadows Corona Park, NY",
-      startTime: "12:00 PM",
-      startDate: new Date(2025, 5, 6),  // June 6, 2025
-      endDate: new Date(2025, 5, 8)     // June 8, 2025
-    },
-    items: [
-      { id: "gb-1", text: "Festival Wristband", category: "documents", isCompleted: false },
-      { id: "gb-2", text: "ID/Driver's License", category: "documents", isCompleted: false },
-      { id: "gb-3", text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
-      { id: "gb-4", text: "Comfortable Shoes", category: "clothing", isCompleted: false },
-      { id: "gb-5", text: "Portable Phone Charger", category: "electronics", isCompleted: false },
-      { id: "gb-6", text: "Sunglasses", category: "clothing", isCompleted: false },
-      { id: "gb-7", text: "Earplugs", category: "clothing", isCompleted: false },
-      { id: "gb-8", text: "Sunscreen", category: "toiletries", isCompleted: false },
-      { id: "gb-9", text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
-      { id: "gb-10", text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
-      { id: "gb-11", text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
-      { id: "gb-12", text: "Lip Balm", category: "toiletries", isCompleted: false },
-      { id: "gb-13", text: "Fanny Pack", category: "clothing", isCompleted: false },
-      { id: "gb-14", text: "Bandaids", category: "toiletries", isCompleted: false },
-    ],
-    thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
-    prohibitedItemsLink: "https://support.govball.com/hc/en-us/articles/11579326819988-What-items-are-allowed-prohibited-at-Gov-Ball"
   }
 ];
