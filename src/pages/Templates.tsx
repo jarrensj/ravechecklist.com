@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { templates } from '@/utils/data';
@@ -51,6 +50,8 @@ const Templates: React.FC = () => {
     return `${format(startDate, 'MMM d, yyyy')} - ${format(endDate, 'MMM d, yyyy')}`;
   };
   
+  const now = new Date();
+  
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -70,75 +71,80 @@ const Templates: React.FC = () => {
         </Alert>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
-          {sortedTemplates.map(template => (
-            <Card key={template.id} className="overflow-hidden transition-all hover:shadow-md">
-              <div className="aspect-video w-full overflow-hidden">
-                <Link to={`/templates/${template.id}`}>
-                  <img 
-                    src={template.thumbnail || 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop'} 
-                    alt={template.name}
-                    className="w-full h-full object-cover transition-transform hover:scale-105"
-                  />
-                </Link>
-              </div>
-              <CardHeader className="p-4 sm:p-6">
-                <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                  <Music className="h-4 w-4 sm:h-5 sm:w-5 text-sky-600" />
-                  {template.name}
-                </CardTitle>
-                <CardDescription>{template.event.location}</CardDescription>
-              </CardHeader>
-              <CardContent className="p-4 sm:p-6 pt-0">
-                <div className="text-xs sm:text-sm text-gray-600 mb-4">
-                  <div>
-                    <strong>When:</strong> {template.event.startDate && template.event.endDate ? 
-                      formatDateRange(template.event.startDate, template.event.endDate) : 
-                      template.event.date}
-                  </div>
-                  <div><strong>Gates Open:</strong> {template.event.startTime}</div>
+          {sortedTemplates.map(template => {
+            const isPast = template.event.startDate && template.event.startDate < now;
+            
+            return (
+              <Card key={template.id} className={`overflow-hidden transition-all hover:shadow-md ${isPast ? 'opacity-60' : ''}`}>
+                <div className="aspect-video w-full overflow-hidden relative">
+                  {isPast && <div className="absolute inset-0 bg-gray-500/20 z-10"></div>}
+                  <Link to={`/templates/${template.id}`}>
+                    <img 
+                      src={template.thumbnail || 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop'} 
+                      alt={template.name}
+                      className="w-full h-full object-cover transition-transform hover:scale-105"
+                    />
+                  </Link>
                 </div>
-                
-                <Collapsible 
-                  open={categoriesOpen} 
-                  onOpenChange={setCategoriesOpen}
-                  className="border rounded-md overflow-hidden"
-                >
-                  <CollapsibleTrigger className="flex items-center justify-between w-full px-3 py-2 sm:px-4 sm:py-3 text-left text-sm bg-slate-50">
-                    <span className="font-medium">Categories</span>
-                    <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${categoriesOpen ? 'transform rotate-180' : ''}`} />
-                  </CollapsibleTrigger>
-                  <CollapsibleContent className="p-3 border-t">
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead className="text-xs">Category</TableHead>
-                          <TableHead className="text-right text-xs">Items</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {Object.entries(
-                          template.items.reduce((acc, item) => {
-                            acc[item.category] = (acc[item.category] || 0) + 1;
-                            return acc;
-                          }, {} as Record<string, number>)
-                        ).map(([category, count]) => (
-                          <TableRow key={category}>
-                            <TableCell className="capitalize text-xs py-2">{category}</TableCell>
-                            <TableCell className="text-right text-xs py-2">{count}</TableCell>
+                <CardHeader className="p-4 sm:p-6">
+                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                    <Music className="h-4 w-4 sm:h-5 sm:w-5 text-sky-600" />
+                    {template.name}
+                  </CardTitle>
+                  <CardDescription>{template.event.location}</CardDescription>
+                </CardHeader>
+                <CardContent className="p-4 sm:p-6 pt-0">
+                  <div className="text-xs sm:text-sm text-gray-600 mb-4">
+                    <div>
+                      <strong>When:</strong> {template.event.startDate && template.event.endDate ? 
+                        formatDateRange(template.event.startDate, template.event.endDate) : 
+                        template.event.date}
+                    </div>
+                    <div><strong>Gates Open:</strong> {template.event.startTime}</div>
+                  </div>
+                  
+                  <Collapsible 
+                    open={categoriesOpen} 
+                    onOpenChange={setCategoriesOpen}
+                    className="border rounded-md overflow-hidden"
+                  >
+                    <CollapsibleTrigger className="flex items-center justify-between w-full px-3 py-2 sm:px-4 sm:py-3 text-left text-sm bg-slate-50">
+                      <span className="font-medium">Categories</span>
+                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${categoriesOpen ? 'transform rotate-180' : ''}`} />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="p-3 border-t">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className="text-xs">Category</TableHead>
+                            <TableHead className="text-right text-xs">Items</TableHead>
                           </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </CollapsibleContent>
-                </Collapsible>
-              </CardContent>
-              <CardFooter className="p-4 sm:p-6 pt-0">
-                <Button className="w-full text-sm" asChild>
-                  <Link to={`/templates/${template.id}`}>Use This Template</Link>
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
+                        </TableHeader>
+                        <TableBody>
+                          {Object.entries(
+                            template.items.reduce((acc, item) => {
+                              acc[item.category] = (acc[item.category] || 0) + 1;
+                              return acc;
+                            }, {} as Record<string, number>)
+                          ).map(([category, count]) => (
+                            <TableRow key={category}>
+                              <TableCell className="capitalize text-xs py-2">{category}</TableCell>
+                              <TableCell className="text-right text-xs py-2">{count}</TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </CollapsibleContent>
+                  </Collapsible>
+                </CardContent>
+                <CardFooter className="p-4 sm:p-6 pt-0">
+                  <Button className="w-full text-sm" asChild>
+                    <Link to={`/templates/${template.id}`}>Use This Template</Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            );
+          })}
           
           {/* Create Custom Template Card - Coming Soon */}
           <Card className="border-dashed border-2 border-gray-300 flex flex-col items-center justify-center p-6 sm:p-8 relative overflow-hidden">

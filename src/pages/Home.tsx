@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCheck, ListChecks, ArrowRight, Clock, Users, SparkleIcon } from 'lucide-react';
 import JSConfetti from 'js-confetti';
-import Unicorn from '@/components/Unicorn';
 
 const Home: React.FC = () => {
   const handleGetStarted = () => {
