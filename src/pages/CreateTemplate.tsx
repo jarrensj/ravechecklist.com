@@ -147,7 +147,7 @@ const CreateTemplate: React.FC = () => {
                         <FormItem>
                           <FormLabel>Template Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Summer Music Festival" {...field} />
+                            <Input placeholder="My Festival Template" {...field} />
                           </FormControl>
                           <FormDescription>
                             This is how your template will appear to others
@@ -167,7 +167,7 @@ const CreateTemplate: React.FC = () => {
                             <FormControl>
                               <div className="flex items-center space-x-2">
                                 <Music className="h-5 w-5 text-gray-400" />
-                                <Input placeholder="EDC Las Vegas" {...field} />
+                                <Input placeholder="Festival Name" {...field} />
                               </div>
                             </FormControl>
                             <FormMessage />
@@ -184,7 +184,7 @@ const CreateTemplate: React.FC = () => {
                             <FormControl>
                               <div className="flex items-center space-x-2">
                                 <Calendar className="h-5 w-5 text-gray-400" />
-                                <Input placeholder="June 10-12, 2024" {...field} />
+                                <Input placeholder="Event Date" {...field} />
                               </div>
                             </FormControl>
                             <FormMessage />
@@ -203,7 +203,7 @@ const CreateTemplate: React.FC = () => {
                             <FormControl>
                               <div className="flex items-center space-x-2">
                                 <MapPin className="h-5 w-5 text-gray-400" />
-                                <Input placeholder="Las Vegas Motor Speedway" {...field} />
+                                <Input placeholder="Event Location" {...field} />
                               </div>
                             </FormControl>
                             <FormMessage />
@@ -220,7 +220,7 @@ const CreateTemplate: React.FC = () => {
                             <FormControl>
                               <div className="flex items-center space-x-2">
                                 <Clock className="h-5 w-5 text-gray-400" />
-                                <Input placeholder="5:00 PM" {...field} />
+                                <Input placeholder="Start Time" {...field} />
                               </div>
                             </FormControl>
                             <FormMessage />

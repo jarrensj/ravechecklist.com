@@ -26,7 +26,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   onRemoveItem,
   onEditItem,
   onResetTemplate,
-  eventName = "Rave"
+  eventName = "Festival"
 }) => {
   const [newItemText, setNewItemText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
