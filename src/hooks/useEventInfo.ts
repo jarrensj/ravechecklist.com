@@ -1,41 +1,29 @@
 
 import { useState, useEffect } from 'react';
-import { EventInfo, sampleEvent } from '@/utils/data';
+import { EventInfo } from '@/utils/data';
+
+const defaultEvent: EventInfo = {
+  name: "My Festival",
+  date: "TBD",
+  location: "TBD",
+  startTime: "TBD"
+};
 
 export const useEventInfo = () => {
-  const [event, setEvent] = useState<EventInfo>(sampleEvent);
-  
-  // Load event from localStorage on component mount
+  const [event, setEvent] = useState<EventInfo>(defaultEvent);
+
+  // Load event info from localStorage on component mount
   useEffect(() => {
     const savedEvent = localStorage.getItem('eventInfo');
-    
     if (savedEvent) {
-      try {
-        const parsedEvent = JSON.parse(savedEvent);
-        
-        // Convert date strings back to Date objects if they exist
-        if (parsedEvent.startDate) {
-          parsedEvent.startDate = new Date(parsedEvent.startDate);
-        }
-        if (parsedEvent.endDate) {
-          parsedEvent.endDate = new Date(parsedEvent.endDate);
-        }
-        
-        setEvent(parsedEvent);
-      } catch (error) {
-        console.error("Failed to parse saved event:", error);
-        setEvent(sampleEvent);
-      }
+      setEvent(JSON.parse(savedEvent));
     }
   }, []);
-  
-  // Save event to localStorage whenever it changes
+
+  // Save event info to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem('eventInfo', JSON.stringify(event));
   }, [event]);
 
-  return {
-    event,
-    setEvent
-  };
+  return { event, setEvent };
 };
