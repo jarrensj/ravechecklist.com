@@ -37,28 +37,10 @@ export const categories = [
   { id: "misc" as CategoryId, name: "Miscellaneous", color: "bg-gray-100 text-gray-800" }
 ];
 
-// Base checklist items - reusable across templates
+// Base checklist items - universal items for ALL festivals
 const baseChecklistItems: Omit<ChecklistItem, 'id'>[] = [
   { text: "Festival Wristband", category: "documents", isCompleted: false },
   { text: "ID/Driver's License", category: "documents", isCompleted: false },
-  { text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
-  { text: "Bandanas/Masks", category: "clothing", isCompleted: false },
-  { text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
-  { text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
-  { text: "Earplugs", category: "clothing", isCompleted: false },
-  { text: "Sunscreen", category: "toiletries", isCompleted: false },
-  { text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
-  { text: "Lip Balm", category: "toiletries", isCompleted: false },
-  { text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
-  { text: "Sunglasses", category: "clothing", isCompleted: false },
-  { text: "Camera", category: "electronics", isCompleted: false },
-  { text: "Eye Drops", category: "toiletries", isCompleted: false },
-  { text: "Handheld Fan", category: "electronics", isCompleted: false },
-  { text: "Fanny Pack", category: "clothing", isCompleted: false },
-  { text: "Make-up", category: "toiletries", isCompleted: false },
-  { text: "Water Mister (Personal Size)", category: "toiletries", isCompleted: false },
-  { text: "Bandaids", category: "toiletries", isCompleted: false },
-  { text: "Blanket (50\" x 70\" or smaller)", category: "misc", isCompleted: false }
 ];
 
 // Helper function to generate unique IDs for checklist items
@@ -102,10 +84,51 @@ export const sampleEvent: EventInfo = {
   prohibitedItemsLink: "https://www.coachella.com/rules"
 };
 
-export const sampleChecklist: ChecklistItem[] = generateChecklistItems("", baseChecklistItems);
+export const sampleChecklist: ChecklistItem[] = generateChecklistItems("", [
+  ...baseChecklistItems,
+  { text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
+  { text: "Bandanas/Masks", category: "clothing", isCompleted: false },
+  { text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
+  { text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
+  { text: "Earplugs", category: "clothing", isCompleted: false },
+  { text: "Sunscreen", category: "toiletries", isCompleted: false },
+  { text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
+  { text: "Lip Balm", category: "toiletries", isCompleted: false },
+  { text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
+  { text: "Sunglasses", category: "clothing", isCompleted: false },
+  { text: "Camera", category: "electronics", isCompleted: false },
+  { text: "Eye Drops", category: "toiletries", isCompleted: false },
+  { text: "Handheld Fan", category: "electronics", isCompleted: false },
+  { text: "Fanny Pack", category: "clothing", isCompleted: false },
+  { text: "Make-up", category: "toiletries", isCompleted: false },
+  { text: "Water Mister (Personal Size)", category: "toiletries", isCompleted: false },
+  { text: "Bandaids", category: "toiletries", isCompleted: false },
+  { text: "Blanket (50\" x 70\" or smaller)", category: "misc", isCompleted: false }
+]);
 
-// Coachella base items
-const coachellaItems = generateChecklistItems("", baseChecklistItems);
+// Coachella-specific items (outdoor desert festival)
+const coachellaItems: Omit<ChecklistItem, 'id'>[] = [
+  { text: "Festival Wristband", category: "documents", isCompleted: false },
+  { text: "ID/Driver's License", category: "documents", isCompleted: false },
+  { text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
+  { text: "Bandanas/Masks", category: "clothing", isCompleted: false },
+  { text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
+  { text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
+  { text: "Earplugs", category: "clothing", isCompleted: false },
+  { text: "Sunscreen", category: "toiletries", isCompleted: false },
+  { text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
+  { text: "Lip Balm", category: "toiletries", isCompleted: false },
+  { text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
+  { text: "Sunglasses", category: "clothing", isCompleted: false },
+  { text: "Camera", category: "electronics", isCompleted: false },
+  { text: "Eye Drops", category: "toiletries", isCompleted: false },
+  { text: "Handheld Fan", category: "electronics", isCompleted: false },
+  { text: "Fanny Pack", category: "clothing", isCompleted: false },
+  { text: "Make-up", category: "toiletries", isCompleted: false },
+  { text: "Water Mister (Personal Size)", category: "toiletries", isCompleted: false },
+  { text: "Bandaids", category: "toiletries", isCompleted: false },
+  { text: "Blanket (50\" x 70\" or smaller)", category: "misc", isCompleted: false }
+];
 
 // Outside Lands specific items
 const outsideLandsItems: Omit<ChecklistItem, 'id'>[] = [
@@ -155,7 +178,7 @@ export const templates: Template[] = [
       endDate: new Date(2026, 3, 12),  // April 12, 2026
       prohibitedItemsLink: "https://www.coachella.com/rules"
     },
-    items: coachellaItems,
+    items: generateChecklistItems("", coachellaItems),
     thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
     prohibitedItemsLink: "https://www.coachella.com/rules"
   },
@@ -171,7 +194,7 @@ export const templates: Template[] = [
       endDate: new Date(2026, 3, 19),  // April 19, 2026
       prohibitedItemsLink: "https://www.coachella.com/rules"
     },
-    items: cloneItemsWithPrefix(coachellaItems, "w2"),
+    items: generateChecklistItems("w2", coachellaItems),
     thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
     prohibitedItemsLink: "https://www.coachella.com/rules"
   },
