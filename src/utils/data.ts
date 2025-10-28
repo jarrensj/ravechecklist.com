@@ -53,6 +53,20 @@ const generateChecklistItems = (prefix: string = "", items: Omit<ChecklistItem, 
   }));
 };
 
+// Helper function to combine base items with festival-specific items (avoiding duplicates)
+const combineChecklistItems = (prefix: string = "", festivalSpecificItems: Omit<ChecklistItem, 'id'>[]): ChecklistItem[] => {
+  // Get set of base item texts to check for duplicates
+  const baseItemTexts = new Set(baseChecklistItems.map(item => item.text));
+  
+  // Filter out any items from festivalSpecificItems that are already in base
+  const uniqueFestivalItems = festivalSpecificItems.filter(item => !baseItemTexts.has(item.text));
+  
+  // Combine base items with unique festival items
+  const allItems = [...baseChecklistItems, ...uniqueFestivalItems];
+  
+  return generateChecklistItems(prefix, allItems);
+};
+
 // Helper function to create a checklist item
 export const createChecklistItem = (
   text: string,
@@ -86,13 +100,10 @@ export const sampleEvent: EventInfo = {
   prohibitedItemsLink: "https://www.coachella.com/rules"
 };
 
-export const sampleChecklist: ChecklistItem[] = generateChecklistItems("", [
-  ...baseChecklistItems,
-  { text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
+export const sampleChecklist: ChecklistItem[] = combineChecklistItems("", [
   { text: "Bandanas/Masks", category: "clothing", isCompleted: false },
   { text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
   { text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
-  { text: "Earplugs", category: "clothing", isCompleted: false },
   { text: "Sunscreen", category: "toiletries", isCompleted: false },
   { text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
   { text: "Lip Balm", category: "toiletries", isCompleted: false },
@@ -108,15 +119,11 @@ export const sampleChecklist: ChecklistItem[] = generateChecklistItems("", [
   { text: "Blanket (50\" x 70\" or smaller)", category: "misc", isCompleted: false }
 ]);
 
-// Coachella-specific items (outdoor desert festival)
-const coachellaItems: Omit<ChecklistItem, 'id'>[] = [
-  { text: "Festival Wristband", category: "documents", isCompleted: false },
-  { text: "ID/Driver's License", category: "documents", isCompleted: false },
-  { text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
+// Coachella-specific items (outdoor desert festival) - base items automatically included
+const coachellaSpecificItems: Omit<ChecklistItem, 'id'>[] = [
   { text: "Bandanas/Masks", category: "clothing", isCompleted: false },
   { text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
   { text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
-  { text: "Earplugs", category: "clothing", isCompleted: false },
   { text: "Sunscreen", category: "toiletries", isCompleted: false },
   { text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
   { text: "Lip Balm", category: "toiletries", isCompleted: false },
@@ -132,14 +139,10 @@ const coachellaItems: Omit<ChecklistItem, 'id'>[] = [
   { text: "Blanket (50\" x 70\" or smaller)", category: "misc", isCompleted: false }
 ];
 
-// Outside Lands specific items
-const outsideLandsItems: Omit<ChecklistItem, 'id'>[] = [
-  { text: "Festival Wristband", category: "documents", isCompleted: false },
-  { text: "ID/Driver's License", category: "documents", isCompleted: false },
-  { text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
+// Outside Lands specific items - base items automatically included
+const outsideLandsSpecificItems: Omit<ChecklistItem, 'id'>[] = [
   { text: "Warm Layers", category: "clothing", isCompleted: false },
   { text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
-  { text: "Earplugs", category: "clothing", isCompleted: false },
   { text: "Sunscreen", category: "toiletries", isCompleted: false },
   { text: "Hand Sanitizer / Hand Wipes", category: "toiletries", isCompleted: false },
   { text: "Lip Balm", category: "toiletries", isCompleted: false },
@@ -148,15 +151,11 @@ const outsideLandsItems: Omit<ChecklistItem, 'id'>[] = [
   { text: "Sunglasses", category: "clothing", isCompleted: false }
 ];
 
-// EDC Las Vegas specific items
-const edcLasVegasItems: Omit<ChecklistItem, 'id'>[] = [
-  { text: "Festival Wristband", category: "documents", isCompleted: false },
-  { text: "ID/Driver's License", category: "documents", isCompleted: false },
-  { text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
+// EDC Las Vegas specific items - base items automatically included
+const edcLasVegasSpecificItems: Omit<ChecklistItem, 'id'>[] = [
   { text: "Comfortable Shoes", category: "clothing", isCompleted: false },
   { text: "Portable Phone Charger", category: "electronics", isCompleted: false },
   { text: "Sunglasses", category: "clothing", isCompleted: false },
-  { text: "Earplugs", category: "clothing", isCompleted: false },
   { text: "Sunscreen", category: "toiletries", isCompleted: false },
   { text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
   { text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
@@ -180,7 +179,7 @@ export const templates: Template[] = [
       endDate: new Date(2026, 3, 12),  // April 12, 2026
       prohibitedItemsLink: "https://www.coachella.com/rules"
     },
-    items: generateChecklistItems("", coachellaItems),
+    items: combineChecklistItems("", coachellaSpecificItems),
     thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
     prohibitedItemsLink: "https://www.coachella.com/rules"
   },
@@ -196,7 +195,7 @@ export const templates: Template[] = [
       endDate: new Date(2026, 3, 19),  // April 19, 2026
       prohibitedItemsLink: "https://www.coachella.com/rules"
     },
-    items: generateChecklistItems("w2", coachellaItems),
+    items: combineChecklistItems("w2", coachellaSpecificItems),
     thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
     prohibitedItemsLink: "https://www.coachella.com/rules"
   },
@@ -211,7 +210,7 @@ export const templates: Template[] = [
       startDate: new Date(2025, 7, 8),  // August 8, 2025
       endDate: new Date(2025, 7, 10)    // August 10, 2025
     },
-    items: generateChecklistItems("ol", outsideLandsItems),
+    items: combineChecklistItems("ol", outsideLandsSpecificItems),
     thumbnail: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2070&auto=format&fit=crop",
     prohibitedItemsLink: ""
   },
@@ -226,7 +225,7 @@ export const templates: Template[] = [
       startDate: new Date(2026, 4, 13),  // May 13, 2026
       endDate: new Date(2026, 4, 15)     // May 15, 2026
     },
-    items: generateChecklistItems("edc", edcLasVegasItems),
+    items: combineChecklistItems("edc", edcLasVegasSpecificItems),
     thumbnail: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop", 
     prohibitedItemsLink: "https://lasvegas.electricdaisycarnival.com/guide/hours-and-info/"
   }
