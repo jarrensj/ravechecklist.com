@@ -17,7 +17,7 @@ const Home: React.FC = () => {
   };
   
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/40 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900 transition-colors">
       <Header />
       
       <main className="container max-w-screen-xl mx-auto px-4 sm:px-6 pb-16">
@@ -27,10 +27,10 @@ const Home: React.FC = () => {
             <div className="w-32 h-32 mx-auto mb-6">
               <img src="/unicorn.png" alt="Unicorn" className="w-full h-full object-contain" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
               Plan Your Perfect Festival Experience
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-muted-foreground mb-8">
               Never forget important items for your next festival, rave, or concert with RaveChecklist. 
               Stay organized with customizable checklists and ready-to-use templates.
             </p>
@@ -52,45 +52,45 @@ const Home: React.FC = () => {
         
         {/* Features Section */}
         <section className="py-12 md:py-16">
-          <h2 className="text-3xl font-bold text-center mb-12">Everything You Need for Festival Prep</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Everything You Need for Festival Prep</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+            <Card className="shadow-sm hover:shadow-md transition-shadow">
               <CardHeader>
-                <CheckCheck className="h-12 w-12 text-sky-600 mb-2" />
+                <CheckCheck className="h-12 w-12 text-primary mb-2" />
                 <CardTitle>Custom Checklists</CardTitle>
                 <CardDescription>Create and manage your own personalized checklist for any event</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">
+                <p className="text-muted-foreground">
                   Add, edit, and organize items by category to make sure you're prepared for any festival experience.
                 </p>
               </CardContent>
             </Card>
             
-            <Card className="border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+            <Card className="shadow-sm hover:shadow-md transition-shadow">
               <CardHeader>
-                <ListChecks className="h-12 w-12 text-sky-600 mb-2" />
+                <ListChecks className="h-12 w-12 text-primary mb-2" />
                 <CardTitle>Ready-to-Use Templates</CardTitle>
                 <CardDescription>Start with professionally curated festival checklists</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">
+                <p className="text-muted-foreground">
                   Browse our collection of templates for different festival types, customize them, and save time on preparation.
                 </p>
               </CardContent>
             </Card>
             
-            <Card className="border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+            <Card className="shadow-sm hover:shadow-md transition-shadow">
               <CardHeader>
-                <Users className="h-12 w-12 text-sky-600 mb-2" />
+                <Users className="h-12 w-12 text-primary mb-2" />
                 <CardTitle>What Others Are Bringing</CardTitle>
                 <CardDescription>
                   Discover trending items from the community and brand-sponsored checklists and deals
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">
+                <p className="text-muted-foreground">
                   Get inspired by what fellow ravers are packing. Browse checklists curated by our friends or popular brands.
                 </p>
               </CardContent>
@@ -103,7 +103,7 @@ const Home: React.FC = () => {
         <section className="py-12 md:py-16 text-center">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold mb-6">Ready to Get Organized?</h2>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-muted-foreground mb-8">
               Start using RaveChecklist today and never again arrive at a festival missing something important.
             </p>
             <Button size="lg" asChild onClick={handleGetStarted}>

@@ -20,7 +20,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter basename="/">
         <TooltipProvider>
-          <div className="flex flex-col min-h-screen bg-gray-50">
+          <div className="flex flex-col min-h-screen bg-background text-foreground transition-colors">
             <div className="flex-grow">
               <Routes>
                 <Route path="/" element={<Home />} />

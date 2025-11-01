@@ -11,8 +11,8 @@ import Header from '@/components/Header';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { ArrowLeft, Calendar, Clock, MapPin, Music, PlusCircle } from 'lucide-react';
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   name: z.string().min(3, {
@@ -111,7 +111,7 @@ const CreateTemplate: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background text-foreground transition-colors">
       <Header />
       
       <main className="container mx-auto pb-12">
@@ -125,7 +125,7 @@ const CreateTemplate: React.FC = () => {
           </Button>
           
           <h1 className="text-3xl font-bold">Create Custom Template</h1>
-          <p className="text-gray-600">Build your perfect festival checklist from scratch</p>
+          <p className="text-muted-foreground">Build your perfect festival checklist from scratch</p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -166,7 +166,7 @@ const CreateTemplate: React.FC = () => {
                             <FormLabel>Event Name</FormLabel>
                             <FormControl>
                               <div className="flex items-center space-x-2">
-                                <Music className="h-5 w-5 text-gray-400" />
+                                <Music className="h-5 w-5 text-muted-foreground" />
                                 <Input placeholder="Festival Name" {...field} />
                               </div>
                             </FormControl>
@@ -183,7 +183,7 @@ const CreateTemplate: React.FC = () => {
                             <FormLabel>Event Date</FormLabel>
                             <FormControl>
                               <div className="flex items-center space-x-2">
-                                <Calendar className="h-5 w-5 text-gray-400" />
+                                <Calendar className="h-5 w-5 text-muted-foreground" />
                                 <Input placeholder="Event Date" {...field} />
                               </div>
                             </FormControl>
@@ -202,7 +202,7 @@ const CreateTemplate: React.FC = () => {
                             <FormLabel>Location</FormLabel>
                             <FormControl>
                               <div className="flex items-center space-x-2">
-                                <MapPin className="h-5 w-5 text-gray-400" />
+                                <MapPin className="h-5 w-5 text-muted-foreground" />
                                 <Input placeholder="Event Location" {...field} />
                               </div>
                             </FormControl>
@@ -219,7 +219,7 @@ const CreateTemplate: React.FC = () => {
                             <FormLabel>Gates Open</FormLabel>
                             <FormControl>
                               <div className="flex items-center space-x-2">
-                                <Clock className="h-5 w-5 text-gray-400" />
+                                <Clock className="h-5 w-5 text-muted-foreground" />
                                 <Input placeholder="Start Time" {...field} />
                               </div>
                             </FormControl>
@@ -278,23 +278,29 @@ const CreateTemplate: React.FC = () => {
                     <div className="mt-4">
                       <h4 className="font-medium mb-2">Current Items ({items.length})</h4>
                       {items.length === 0 ? (
-                        <p className="text-gray-500 italic">No items added yet. Add some items to create your checklist.</p>
+                        <p className="text-muted-foreground italic">No items added yet. Add some items to create your checklist.</p>
                       ) : (
                         <ul className="space-y-2">
                           {items.map((item) => {
                             const category = categories.find(c => c.id === item.category);
                             return (
-                              <li key={item.id} className="flex items-center justify-between p-2 border rounded-md">
+                              <li key={item.id} className="flex items-center justify-between p-2 border border-border rounded-md">
                                 <div className="flex items-center space-x-2">
-                                  <span className={`inline-block w-3 h-3 rounded-full ${category?.color.split(' ')[0]}`}></span>
+                                  <span className={cn(
+                                    "inline-block w-3 h-3 rounded-full border border-border/60",
+                                    category?.color
+                                      .split(" ")
+                                      .filter(cls => cls.startsWith("bg") || cls.startsWith("dark:bg"))
+                                      .join(" ")
+                                  )}></span>
                                   <span>{item.text}</span>
-                                  <span className="text-sm text-gray-500">({category?.name})</span>
+                                  <span className="text-sm text-muted-foreground">({category?.name})</span>
                                 </div>
                                 <Button 
                                   variant="ghost" 
                                   size="sm" 
                                   onClick={() => handleRemoveItem(item.id)}
-                                  className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                                  className="text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-500/10"
                                 >
                                   Remove
                                 </Button>
@@ -329,22 +335,22 @@ const CreateTemplate: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="aspect-video w-full overflow-hidden bg-gray-100 rounded-md flex items-center justify-center">
-                    <Music className="h-16 w-16 text-gray-300" />
+                  <div className="aspect-video w-full overflow-hidden bg-muted/50 rounded-md flex items-center justify-center">
+                    <Music className="h-16 w-16 text-muted-foreground" />
                   </div>
                   
                   <div>
                     <h3 className="font-medium text-lg">{form.watch("name") || "Template Name"}</h3>
-                    <p className="text-sm text-gray-500">{form.watch("location") || "Event Location"}</p>
+                    <p className="text-sm text-muted-foreground">{form.watch("location") || "Event Location"}</p>
                   </div>
                   
                   <div className="text-sm">
                     <div className="flex items-center space-x-2 mb-1">
-                      <Calendar className="h-4 w-4 text-gray-400" />
+                      <Calendar className="h-4 w-4 text-muted-foreground" />
                       <span>{form.watch("date") || "Event Date"}</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Clock className="h-4 w-4 text-gray-400" />
+                      <Clock className="h-4 w-4 text-muted-foreground" />
                       <span>{form.watch("startTime") || "Gates Open"}</span>
                     </div>
                   </div>
@@ -352,7 +358,7 @@ const CreateTemplate: React.FC = () => {
                   <div className="mt-2">
                     <h4 className="font-medium mb-2">Items by Category</h4>
                     {items.length === 0 ? (
-                      <p className="text-gray-500 italic text-sm">No items added yet</p>
+                      <p className="text-muted-foreground italic text-sm">No items added yet</p>
                     ) : (
                       <ul className="space-y-1 text-sm">
                         {Object.entries(
@@ -365,7 +371,7 @@ const CreateTemplate: React.FC = () => {
                           return (
                             <li key={category} className="flex items-center justify-between">
                               <span className="capitalize">{categoryInfo?.name}</span>
-                              <span className="text-gray-500">{count} item{count !== 1 ? 's' : ''}</span>
+                              <span className="text-muted-foreground">{count} item{count !== 1 ? 's' : ''}</span>
                             </li>
                           );
                         })}

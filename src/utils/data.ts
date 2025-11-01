@@ -30,11 +30,11 @@ export interface Template {
 export type CategoryId = "documents" | "clothing" | "electronics" | "toiletries" | "misc";
 
 export const categories = [
-  { id: "documents" as CategoryId, name: "Documents", color: "bg-blue-100 text-blue-800" },
-  { id: "clothing" as CategoryId, name: "Clothing", color: "bg-green-100 text-green-800" },
-  { id: "electronics" as CategoryId, name: "Electronics", color: "bg-purple-100 text-purple-800" },
-  { id: "toiletries" as CategoryId, name: "Toiletries", color: "bg-yellow-100 text-yellow-800" },
-  { id: "misc" as CategoryId, name: "Miscellaneous", color: "bg-gray-100 text-gray-800" }
+  { id: "documents" as CategoryId, name: "Documents", color: "bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-200" },
+  { id: "clothing" as CategoryId, name: "Clothing", color: "bg-green-100 text-green-800 dark:bg-green-500/20 dark:text-green-200" },
+  { id: "electronics" as CategoryId, name: "Electronics", color: "bg-purple-100 text-purple-800 dark:bg-purple-500/20 dark:text-purple-200" },
+  { id: "toiletries" as CategoryId, name: "Toiletries", color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-500/20 dark:text-yellow-200" },
+  { id: "misc" as CategoryId, name: "Miscellaneous", color: "bg-gray-100 text-gray-800 dark:bg-gray-500/20 dark:text-gray-200" }
 ];
 
 // Base checklist items - universal items for ALL festivals
@@ -219,7 +219,7 @@ export const templates: Template[] = [
     name: "EDC Las Vegas",
     event: {
       name: "EDC Las Vegas",
-      date: "May 13 – May 15, 2026",
+      date: "May 13 ? May 15, 2026",
       location: "Las Vegas Motor Speedway, Las Vegas, NV",
       startTime: "7:00 PM",
       startDate: new Date(2026, 4, 13),  // May 13, 2026

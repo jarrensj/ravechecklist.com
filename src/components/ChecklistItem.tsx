@@ -54,9 +54,9 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
     <>
       <div 
         className={cn(
-          "flex items-center justify-between p-2 sm:p-3 mb-2 bg-white rounded-lg shadow-sm border border-gray-100 transition-all hover:shadow-md",
+          "flex items-center justify-between p-2 sm:p-3 mb-2 rounded-lg shadow-sm border border-border bg-card/90 dark:bg-muted/40 transition-all hover:shadow-md",
           "checklist-item relative",
-          item.isCompleted ? "bg-gray-50 completed" : ""
+          item.isCompleted ? "completed" : ""
         )}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
@@ -70,8 +70,8 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
           <label 
             htmlFor={`item-${item.id}`}
             className={cn(
-              "text-xs sm:text-sm font-medium cursor-pointer truncate",
-              item.isCompleted ? "line-through text-gray-400" : ""
+              "text-xs sm:text-sm font-medium cursor-pointer truncate transition-colors",
+              item.isCompleted ? "line-through text-muted-foreground" : ""
             )}
           >
             {item.text}
@@ -100,7 +100,7 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="h-6 w-6 sm:h-7 sm:w-7 text-gray-400 hover:text-blue-500 hover:bg-blue-50 p-1"
+                className="h-6 w-6 sm:h-7 sm:w-7 text-muted-foreground hover:text-primary hover:bg-primary/10 p-1"
                 onClick={handleEditClick}
                 title="Edit item"
               >
@@ -111,7 +111,7 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
             <Button 
               variant="ghost" 
               size="icon" 
-              className="h-6 w-6 sm:h-7 sm:w-7 text-gray-400 hover:text-red-500 hover:bg-red-50 p-1"
+              className="h-6 w-6 sm:h-7 sm:w-7 text-muted-foreground hover:text-destructive hover:bg-destructive/10 p-1"
               onClick={() => onRemove(item.id)}
               title="Remove item"
             >

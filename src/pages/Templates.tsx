@@ -53,19 +53,19 @@ const Templates: React.FC = () => {
   const now = new Date();
   
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background text-foreground transition-colors">
       <Header />
       
       <main className="container max-w-screen-2xl mx-auto px-4 sm:px-6 pb-12">
         <div className="mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold mb-2">Rave and Festival Checklist Templates</h1>
-          <p className="text-gray-600">Choose a pre-made template or <Link to="/dashboard" className="text-sky-600 hover:text-sky-800">create your own custom festival checklist</Link></p>
+          <p className="text-muted-foreground">Choose a pre-made template or <Link to="/dashboard" className="text-primary hover:text-primary/80">create your own custom festival checklist</Link></p>
         </div>
         
-        <Alert className="mb-6 border-sky-200 bg-sky-50">
-          <Sparkles className="h-5 w-5 text-sky-600" />
-          <AlertTitle className="text-sky-800">Coming Soon!</AlertTitle>
-          <AlertDescription className="text-sky-700">
+        <Alert className="mb-6 border-primary/30 bg-primary/10 dark:border-primary/40">
+          <Sparkles className="h-5 w-5 text-primary" />
+          <AlertTitle className="text-primary">Coming Soon!</AlertTitle>
+          <AlertDescription className="text-muted-foreground">
             Users can create and share their templates for others to use
           </AlertDescription>
         </Alert>
@@ -77,7 +77,7 @@ const Templates: React.FC = () => {
             return (
               <Card key={template.id} className={`overflow-hidden transition-all hover:shadow-md ${isPast ? 'opacity-60' : ''}`}>
                 <div className="aspect-video w-full overflow-hidden relative">
-                  {isPast && <div className="absolute inset-0 bg-gray-500/20 z-10"></div>}
+                  {isPast && <div className="absolute inset-0 bg-background/60 z-10"></div>}
                   <Link to={`/templates/${template.id}`}>
                     <img 
                       src={template.thumbnail || 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop'} 
@@ -88,13 +88,13 @@ const Templates: React.FC = () => {
                 </div>
                 <CardHeader className="p-4 sm:p-6">
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <Music className="h-4 w-4 sm:h-5 sm:w-5 text-sky-600" />
+                    <Music className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
                     {template.name}
                   </CardTitle>
                   <CardDescription>{template.event.location}</CardDescription>
                 </CardHeader>
                 <CardContent className="p-4 sm:p-6 pt-0">
-                  <div className="text-xs sm:text-sm text-gray-600 mb-4">
+                  <div className="text-xs sm:text-sm text-muted-foreground mb-4">
                     <div>
                       <strong>When:</strong> {template.event.startDate && template.event.endDate ? 
                         formatDateRange(template.event.startDate, template.event.endDate) : 
@@ -106,13 +106,13 @@ const Templates: React.FC = () => {
                   <Collapsible 
                     open={categoriesOpen} 
                     onOpenChange={setCategoriesOpen}
-                    className="border rounded-md overflow-hidden"
+                    className="border border-border rounded-md overflow-hidden"
                   >
-                    <CollapsibleTrigger className="flex items-center justify-between w-full px-3 py-2 sm:px-4 sm:py-3 text-left text-sm bg-slate-50">
+                    <CollapsibleTrigger className="flex items-center justify-between w-full px-3 py-2 sm:px-4 sm:py-3 text-left text-sm bg-muted/60 dark:bg-muted/30">
                       <span className="font-medium">Categories</span>
                       <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${categoriesOpen ? 'transform rotate-180' : ''}`} />
                     </CollapsibleTrigger>
-                    <CollapsibleContent className="p-3 border-t">
+                    <CollapsibleContent className="p-3 border-t border-border">
                       <Table>
                         <TableHeader>
                           <TableRow>
@@ -147,15 +147,15 @@ const Templates: React.FC = () => {
           })}
           
           {/* Create Custom Template Card - Coming Soon */}
-          <Card className="border-dashed border-2 border-gray-300 flex flex-col items-center justify-center p-6 sm:p-8 relative overflow-hidden">
-            <div className="absolute inset-0 bg-sky-600/80 flex items-center justify-center z-10">
-              <div className="bg-white text-sky-700 py-1 px-4 sm:px-8 font-bold text-lg sm:text-xl w-full text-center transform rotate-12">
+          <Card className="border-dashed border-2 border-border/70 flex flex-col items-center justify-center p-6 sm:p-8 relative overflow-hidden">
+            <div className="absolute inset-0 bg-primary/80 flex items-center justify-center z-10">
+              <div className="bg-background text-primary py-1 px-4 sm:px-8 font-bold text-lg sm:text-xl w-full text-center transform rotate-12">
                 COMING SOON
               </div>
             </div>
-            <PlusCircle className="h-12 w-12 sm:h-16 sm:w-16 text-gray-400 mb-4" />
-            <h3 className="text-lg sm:text-xl font-medium text-gray-600 mb-2">Create Custom Template</h3>
-            <p className="text-sm text-gray-500 text-center mb-6">Build your own festival checklist from scratch</p>
+            <PlusCircle className="h-12 w-12 sm:h-16 sm:w-16 text-muted-foreground mb-4" />
+            <h3 className="text-lg sm:text-xl font-medium text-muted-foreground mb-2">Create Custom Template</h3>
+            <p className="text-sm text-muted-foreground text-center mb-6">Build your own festival checklist from scratch</p>
             <Button variant="outline" disabled>
               Get Started
             </Button>
