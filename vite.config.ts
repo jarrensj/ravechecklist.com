@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => ({
     componentTagger(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'unicorn.png', 'lovable-uploads/*.png'],
+      includeAssets: ['favicon.ico', 'unicorn.png'],
       manifest: {
         name: 'RaveChecklist',
         short_name: 'RaveChecklist',
@@ -32,13 +32,13 @@ export default defineConfig(({ mode }) => ({
         start_url: '/',
         icons: [
           {
-            src: '/lovable-uploads/347c3585-2166-4fdb-9689-dbf603407dea.png',
+            src: '/unicorn.png',
             sizes: '192x192',
             type: 'image/png',
             purpose: 'any maskable'
           },
           {
-            src: '/lovable-uploads/347c3585-2166-4fdb-9689-dbf603407dea.png',
+            src: '/unicorn.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable'
