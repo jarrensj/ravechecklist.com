@@ -26,7 +26,7 @@ interface OutfitItemProps {
   onRemove: (id: string) => void;
   onEdit?: (id: string, text: string, category: string) => void;
   onToggleOutfitSubItem?: (itemId: string, subItemId: string) => void;
-  onAddOutfitSubItem?: (itemId: string, type: 'shoes' | 'top' | 'bottom', text: string) => void;
+  onAddOutfitSubItem?: (itemId: string, type: 'shoes' | 'top' | 'bottom' | 'accessories', text: string) => void;
   onRemoveOutfitSubItem?: (itemId: string, subItemId: string) => void;
   onEditOutfitSubItem?: (itemId: string, subItemId: string, text: string) => void;
   showRemoveButton: boolean;
@@ -51,7 +51,7 @@ const OutfitItem: React.FC<OutfitItemProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isAddingSubItem, setIsAddingSubItem] = useState(false);
   const [newSubItemText, setNewSubItemText] = useState('');
-  const [newSubItemType, setNewSubItemType] = useState<'shoes' | 'top' | 'bottom'>('top');
+  const [newSubItemType, setNewSubItemType] = useState<'shoes' | 'top' | 'bottom' | 'accessories'>('top');
   
   const handleEditClick = () => {
     setEditedText(item.text);
@@ -203,11 +203,12 @@ const OutfitItem: React.FC<OutfitItemProps> = ({
                   <select 
                     className="h-8 rounded-md border border-input bg-background px-2 py-1 text-xs flex-shrink-0"
                     value={newSubItemType}
-                    onChange={(e) => setNewSubItemType(e.target.value as 'shoes' | 'top' | 'bottom')}
+                    onChange={(e) => setNewSubItemType(e.target.value as 'shoes' | 'top' | 'bottom' | 'accessories')}
                   >
                     <option value="top">Top</option>
                     <option value="bottom">Bottom</option>
                     <option value="shoes">Shoes</option>
+                    <option value="accessories">Accessories</option>
                   </select>
                   <Input
                     placeholder="Item description..."

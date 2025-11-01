@@ -118,7 +118,7 @@ export const useTemplateDetail = (templateId: string | undefined) => {
     }));
   };
 
-  const handleAddOutfitSubItem = (itemId: string, type: 'shoes' | 'top' | 'bottom', text: string) => {
+  const handleAddOutfitSubItem = (itemId: string, type: 'shoes' | 'top' | 'bottom' | 'accessories', text: string) => {
     const newSubItem: OutfitSubItem = {
       id: `${itemId}-${Date.now()}`,
       type,

@@ -1,6 +1,6 @@
 export interface OutfitSubItem {
   id: string;
-  type: 'shoes' | 'top' | 'bottom';
+  type: 'shoes' | 'top' | 'bottom' | 'accessories';
   text: string;
   isCompleted: boolean;
 }

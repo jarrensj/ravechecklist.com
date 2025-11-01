@@ -19,7 +19,7 @@ interface ChecklistCardProps {
   onResetTemplate?: () => void;
   eventName?: string;
   onToggleOutfitSubItem?: (itemId: string, subItemId: string) => void;
-  onAddOutfitSubItem?: (itemId: string, type: 'shoes' | 'top' | 'bottom', text: string) => void;
+  onAddOutfitSubItem?: (itemId: string, type: 'shoes' | 'top' | 'bottom' | 'accessories', text: string) => void;
   onRemoveOutfitSubItem?: (itemId: string, subItemId: string) => void;
   onEditOutfitSubItem?: (itemId: string, subItemId: string, text: string) => void;
 }
