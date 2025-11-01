@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => ({
     componentTagger(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'unicorn.png', 'lovable-uploads/*.png'],
+      includeAssets: ['favicon.ico', 'unicorn.png'],
       manifest: {
         name: 'RaveChecklist',
         short_name: 'RaveChecklist',
