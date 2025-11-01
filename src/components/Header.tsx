@@ -9,6 +9,7 @@ import {
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Menu, X, LayoutDashboard, Home, List } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import ThemeToggle from './ThemeToggle';
 
 const Header: React.FC = () => {
   const location = useLocation();
@@ -31,7 +32,7 @@ const Header: React.FC = () => {
   };
   
   return (
-    <header className="py-4 mb-6 w-full">
+    <header className="py-4 mb-6 w-full bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border transition-colors">
       <div className="container max-w-screen-2xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between">
           <Link 
@@ -43,11 +44,12 @@ const Header: React.FC = () => {
               alt="RaveChecklist Logo" 
               className="h-8 w-auto sm:h-10" 
             />
-            <h1 className="text-xl font-bold text-gray-900 sm:text-2xl">RaveChecklist</h1>
+            <h1 className="text-xl font-bold text-foreground sm:text-2xl">RaveChecklist</h1>
           </Link>
           
           {isMobile ? (
-            <div className="flex items-center">
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
               <Button 
                 variant="ghost" 
                 size="icon" 
@@ -58,49 +60,52 @@ const Header: React.FC = () => {
               </Button>
             </div>
           ) : (
-            <nav>
-              <ul className="flex space-x-6">
-                <li>
-                  <Link 
-                    to="/" 
-                    className={`transition-colors flex items-center ${isActive('/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
-                  >
-                    <Home className="mr-1 h-4 w-4" />
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link 
-                    to="/dashboard" 
-                    className={`transition-colors flex items-center ${isActive('/dashboard') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
-                  >
-                    <LayoutDashboard className="mr-1 h-4 w-4" />
-                    Dashboard
-                  </Link>
-                </li>
-                <li>
-                  <Link 
-                    to="/templates" 
-                    className={`transition-colors flex items-center ${isActive('/templates') && !isActive('/templates/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
-                  >
-                    <List className="mr-1 h-4 w-4" />
-                    Templates
-                  </Link>
-                </li>
-              </ul>
-            </nav>
+            <div className="flex items-center gap-6">
+              <nav>
+                <ul className="flex space-x-6">
+                  <li>
+                    <Link 
+                      to="/" 
+                      className={`transition-colors flex items-center ${isActive('/') ? 'text-primary font-medium' : 'text-muted-foreground hover:text-primary'}`}
+                    >
+                      <Home className="mr-1 h-4 w-4" />
+                      Home
+                    </Link>
+                  </li>
+                  <li>
+                    <Link 
+                      to="/dashboard" 
+                      className={`transition-colors flex items-center ${isActive('/dashboard') ? 'text-primary font-medium' : 'text-muted-foreground hover:text-primary'}`}
+                    >
+                      <LayoutDashboard className="mr-1 h-4 w-4" />
+                      Dashboard
+                    </Link>
+                  </li>
+                  <li>
+                    <Link 
+                      to="/templates" 
+                      className={`transition-colors flex items-center ${isActive('/templates') && !isActive('/templates/') ? 'text-primary font-medium' : 'text-muted-foreground hover:text-primary'}`}
+                    >
+                      <List className="mr-1 h-4 w-4" />
+                      Templates
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+              <ThemeToggle />
+            </div>
           )}
         </div>
         
         {/* Mobile Menu */}
         {isMobile && mobileMenuOpen && (
-          <div className="mt-4 py-3 border-t border-gray-200 animate-fade-in">
+          <div className="mt-4 py-3 border-t border-border animate-fade-in">
             <nav>
               <ul className="flex flex-col space-y-4">
                 <li>
                   <Link 
                     to="/" 
-                    className={`block transition-colors flex items-center ${isActive('/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    className={`block transition-colors flex items-center ${isActive('/') ? 'text-primary font-medium' : 'text-muted-foreground hover:text-primary'}`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <Home className="mr-2 h-4 w-4" />
@@ -110,7 +115,7 @@ const Header: React.FC = () => {
                 <li>
                   <Link 
                     to="/dashboard" 
-                    className={`block transition-colors flex items-center ${isActive('/dashboard') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    className={`block transition-colors flex items-center ${isActive('/dashboard') ? 'text-primary font-medium' : 'text-muted-foreground hover:text-primary'}`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <LayoutDashboard className="mr-2 h-4 w-4" />
@@ -120,7 +125,7 @@ const Header: React.FC = () => {
                 <li>
                   <Link 
                     to="/templates" 
-                    className={`block transition-colors flex items-center ${isActive('/templates') && !isActive('/templates/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    className={`block transition-colors flex items-center ${isActive('/templates') && !isActive('/templates/') ? 'text-primary font-medium' : 'text-muted-foreground hover:text-primary'}`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <List className="mr-2 h-4 w-4" />

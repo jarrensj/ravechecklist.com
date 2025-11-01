@@ -8,7 +8,7 @@ const TemplateNotFound: React.FC = () => {
   const navigate = useNavigate();
   
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+    <div className="min-h-screen bg-background text-foreground transition-colors flex items-center justify-center">
       <Card className="w-96">
         <CardHeader>
           <CardTitle>Template Not Found</CardTitle>

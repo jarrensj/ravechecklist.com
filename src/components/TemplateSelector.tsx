@@ -64,7 +64,7 @@ const TemplateSelector: React.FC<TemplateSelectorProps> = ({ className }) => {
             >
               <div className="flex flex-col">
                 <span>{item.name}</span>
-                <span className="text-xs text-gray-500">
+                <span className="text-xs text-muted-foreground">
                   {formatDistanceToNow(new Date(item.timestamp), { addSuffix: true })}
                 </span>
               </div>

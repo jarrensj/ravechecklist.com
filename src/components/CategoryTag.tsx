@@ -18,9 +18,9 @@ const CategoryTag: React.FC<CategoryTagProps> = ({
   return (
     <button
       className={cn(
-        "px-3 py-1 rounded-full text-sm font-medium transition-all",
+        "px-3 py-1 rounded-full text-sm font-medium transition-all ring-offset-2 ring-offset-background border border-transparent",
         colorClass,
-        isSelected ? "ring-2 ring-offset-2 ring-sky-500" : "",
+        isSelected ? "ring-2 ring-primary" : "",
         "hover:opacity-90"
       )}
       onClick={onClick}

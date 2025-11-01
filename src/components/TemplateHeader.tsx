@@ -22,7 +22,7 @@ const TemplateHeader: React.FC<TemplateHeaderProps> = ({ name }) => {
       </Button>
       
       <h1 className="text-3xl font-bold">{name} Checklist</h1>
-      <p className="text-gray-600">Customize this template for your festival trip</p>
+      <p className="text-muted-foreground">Customize this template for your festival trip</p>
     </div>
   );
 };
