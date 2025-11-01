@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCheck, ListChecks, ArrowRight, Clock, Users, SparkleIcon } from 'lucide-react';
+import { CheckCheck, ListChecks, ArrowRight, Clock, Users, SparkleIcon, Smartphone, Download, Zap } from 'lucide-react';
 import JSConfetti from 'js-confetti';
 
 const Home: React.FC = () => {
@@ -96,6 +96,67 @@ const Home: React.FC = () => {
               </CardContent>
             </Card>
 
+          </div>
+        </section>
+
+        {/* Add to Homescreen Section */}
+        <section className="py-12 md:py-16">
+          <div className="max-w-4xl mx-auto">
+            <Card className="border-2 border-sky-200 bg-gradient-to-br from-sky-50 to-blue-50 shadow-lg">
+              <CardHeader className="text-center pb-4">
+                <div className="flex justify-center mb-4">
+                  <div className="bg-sky-600 rounded-full p-4">
+                    <Smartphone className="h-10 w-10 text-white" />
+                  </div>
+                </div>
+                <CardTitle className="text-3xl mb-2">Add to Your Homescreen</CardTitle>
+                <CardDescription className="text-lg text-gray-700">
+                  Access RaveChecklist instantly, even offline! Install our app for the best experience.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                  <div className="text-center">
+                    <div className="bg-white rounded-lg p-4 shadow-sm mb-3">
+                      <Download className="h-8 w-8 text-sky-600 mx-auto mb-2" />
+                      <h3 className="font-semibold mb-1">Easy Install</h3>
+                      <p className="text-sm text-gray-600">One tap to add to your phone</p>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className="bg-white rounded-lg p-4 shadow-sm mb-3">
+                      <Zap className="h-8 w-8 text-sky-600 mx-auto mb-2" />
+                      <h3 className="font-semibold mb-1">Works Offline</h3>
+                      <p className="text-sm text-gray-600">Access your lists anywhere</p>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className="bg-white rounded-lg p-4 shadow-sm mb-3">
+                      <SparkleIcon className="h-8 w-8 text-sky-600 mx-auto mb-2" />
+                      <h3 className="font-semibold mb-1">Native Feel</h3>
+                      <p className="text-sm text-gray-600">App-like experience</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white rounded-lg p-6 shadow-sm">
+                  <h4 className="font-semibold mb-3 text-center">How to Install:</h4>
+                  <div className="space-y-3 text-sm text-gray-700">
+                    <div className="flex items-start gap-3">
+                      <span className="flex-shrink-0 w-6 h-6 bg-sky-600 text-white rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                      <p><strong>iPhone/iPad:</strong> Tap the Share button <span className="inline-block">📤</span>, then "Add to Home Screen"</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="flex-shrink-0 w-6 h-6 bg-sky-600 text-white rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                      <p><strong>Android:</strong> Tap the menu (⋮), then "Add to Home screen" or "Install app"</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="flex-shrink-0 w-6 h-6 bg-sky-600 text-white rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                      <p><strong>Desktop:</strong> Look for the install icon <span className="inline-block">➕</span> in your browser's address bar</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
         
