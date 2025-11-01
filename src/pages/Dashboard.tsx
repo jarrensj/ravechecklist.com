@@ -10,8 +10,8 @@ import { useTemplateHistory } from '@/hooks/useTemplateHistory';
 import { useTemplateDetail } from '@/hooks/useTemplateDetail';
 import TemplateSelector from '@/components/TemplateSelector';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { ArrowLeft } from 'lucide-react';
-import { templates } from '@/utils/data';
 
 const Dashboard: React.FC = () => {
   const location = useLocation();
@@ -99,11 +99,25 @@ const Dashboard: React.FC = () => {
       <Header />
       
       <main className="container max-w-screen-2xl mx-auto px-4 sm:px-6 pb-12">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-          <h1 className="text-2xl font-bold mb-4 sm:mb-0">
-            {showingTemplate && template ? `${template.name} Template` : "My Festival Checklist"}
-          </h1>
-          
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <div className="w-full">
+            <div className="flex flex-col gap-2">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3">
+                <h1 className="text-2xl font-bold">
+                  {showingTemplate && template ? `${template.name} Template` : "My Personal Checklist"}
+                </h1>
+                <Badge variant={showingTemplate ? "secondary" : "default"}>
+                  {showingTemplate ? "Template view" : "Personal checklist"}
+                </Badge>
+              </div>
+              <p className="text-sm text-gray-500">
+                {showingTemplate && template
+                  ? "You're previewing a template. Use it for inspiration without changing your saved checklist."
+                  : "Everything you check off or add here is saved as your own checklist."}
+              </p>
+            </div>
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
             {showingTemplate && template && (
               <Button 
@@ -142,6 +156,7 @@ const Dashboard: React.FC = () => {
               onEditItem={handleEditItem}
               onResetTemplate={handleResetTemplate}
               eventName={currentEventName}
+              isPersonalChecklist={!showingTemplate}
             />
           </div>
         </div>

@@ -5,12 +5,12 @@ import Header from '@/components/Header';
 import ChecklistCard from '@/components/ChecklistCard';
 import { useTemplateDetail } from '@/hooks/useTemplateDetail';
 import TemplateNotFound from '@/components/TemplateNotFound';
-import TemplateHeader from '@/components/TemplateHeader';
 import EventInfoCard from '@/components/EventInfoCard';
 import { useTemplateHistory } from '@/hooks/useTemplateHistory';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import TemplateSelector from '@/components/TemplateSelector';
+import { Badge } from '@/components/ui/badge';
 
 const TemplateDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -46,11 +46,21 @@ const TemplateDetail: React.FC = () => {
       <Header />
       
       <main className="container max-w-screen-2xl mx-auto px-4 sm:px-6 pb-12">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-          <h1 className="text-2xl font-bold mb-4 sm:mb-0">
-            {template.name} Template
-          </h1>
-          
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <div className="w-full">
+            <div className="flex flex-col gap-2">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3">
+                <h1 className="text-2xl font-bold">
+                  {template.name} Template
+                </h1>
+                <Badge variant="secondary">Template view</Badge>
+              </div>
+              <p className="text-sm text-gray-500">
+                You're looking at a template preview. Head back to your dashboard when you're ready to use your personal checklist.
+              </p>
+            </div>
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
             <Button 
               variant="outline" 

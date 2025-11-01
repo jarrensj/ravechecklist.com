@@ -21,6 +21,16 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
   // Check if we're in a template view (when setEvent is a no-op function)
   const isTemplateView = setEvent.toString().includes("{}") || setEvent.toString().includes("() => {}");
 
+  const titleText = isTemplateView ? "Template Information" : "Event Information";
+  const descriptionText = isTemplateView
+    ? "Preview the event details included with this template."
+    : "Keep your event details handy while you customize your checklist.";
+  const nameLabel = isTemplateView ? "Template Name" : "Event Name";
+  const dateLabel = isTemplateView ? "Template Dates" : "Event Dates";
+  const locationLabel = isTemplateView ? "Template Location" : "Event Location";
+  const startTimeLabel = isTemplateView ? "Template Start Time" : "Gates Open";
+  const progressLabel = isTemplateView ? "Template Completion" : "Packing Progress";
+
   const saveEventChanges = () => {
     setEvent(editedEvent);
     setIsEditingEvent(false);
@@ -79,7 +89,7 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
     <Card className="animate-fade-in h-full">
       <CardHeader className="p-4 sm:p-6">
         <CardTitle className="flex justify-between items-center text-lg sm:text-xl">
-          Event Information
+          {titleText}
           {!isTemplateView && (
             <button 
               onClick={toggleEditEvent}
@@ -90,7 +100,7 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
             </button>
           )}
         </CardTitle>
-        <CardDescription>Your festival details</CardDescription>
+        <CardDescription>{descriptionText}</CardDescription>
       </CardHeader>
       <CardContent className="p-4 sm:p-6 pt-0">
         <div className="space-y-4">
@@ -107,7 +117,7 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
               ) : (
                 <p className="text-base sm:text-lg font-medium">{event.name}</p>
               )}
-              <p className="text-xs sm:text-sm text-gray-500">Festival Name</p>
+              <p className="text-xs sm:text-sm text-gray-500">{nameLabel}</p>
             </div>
           </div>
           
@@ -126,7 +136,7 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
                   {event.startDate ? formatDateRange() : event.date}
                 </p>
               )}
-              <p className="text-xs sm:text-sm text-gray-500">Event Dates</p>
+              <p className="text-xs sm:text-sm text-gray-500">{dateLabel}</p>
             </div>
           </div>
           
@@ -143,7 +153,7 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
               ) : (
                 <p className="text-base sm:text-lg font-medium">{event.location}</p>
               )}
-              <p className="text-xs sm:text-sm text-gray-500">Location</p>
+              <p className="text-xs sm:text-sm text-gray-500">{locationLabel}</p>
             </div>
           </div>
           
@@ -160,7 +170,7 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
               ) : (
                 <p className="text-base sm:text-lg font-medium">{event.startTime}</p>
               )}
-              <p className="text-xs sm:text-sm text-gray-500">Gates Open</p>
+              <p className="text-xs sm:text-sm text-gray-500">{startTimeLabel}</p>
             </div>
           </div>
 
@@ -194,7 +204,7 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
           </div>
           
           <div className="pt-2 border-t">
-            <p className="font-medium text-sm sm:text-base">Packing Progress</p>
+            <p className="font-medium text-sm sm:text-base">{progressLabel}</p>
             <div className="mt-2 sm:mt-3">
               <div className="h-2 w-full bg-gray-200 rounded-full">
                 <div 

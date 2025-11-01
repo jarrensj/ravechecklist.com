@@ -17,6 +17,7 @@ interface ChecklistCardProps {
   onEditItem?: (id: string, text: string, category: string) => void;
   onResetTemplate?: () => void;
   eventName?: string;
+  isPersonalChecklist?: boolean;
 }
 
 const ChecklistCard: React.FC<ChecklistCardProps> = ({ 
@@ -26,7 +27,8 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   onRemoveItem,
   onEditItem,
   onResetTemplate,
-  eventName = "Festival"
+  eventName = "Festival",
+  isPersonalChecklist = false
 }) => {
   const [newItemText, setNewItemText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
@@ -36,6 +38,11 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   const filteredItems = activeFilter 
     ? items.filter(item => item.category === activeFilter)
     : items;
+
+  const resetActionLabel = isPersonalChecklist ? "Restore Defaults" : "Reset Template";
+  const resetTooltipText = isPersonalChecklist
+    ? "Bring back the original suggestions for your personal checklist"
+    : "Restore the original template items";
     
   const handleAddItem = () => {
     if (newItemText.trim()) {
@@ -82,13 +89,14 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                       variant="outline" 
                       size="sm" 
                       className="text-amber-600 border-amber-600 hover:bg-amber-50"
+                      onClick={() => onResetTemplate?.()}
                     >
                       <RotateCcw className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />
-                      <span className="text-xs sm:text-sm" onClick={onResetTemplate}>Reset Template</span>
+                      <span className="text-xs sm:text-sm">{resetActionLabel}</span>
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Restore the original template items</p>
+                    <p>{resetTooltipText}</p>
                   </TooltipContent>
                 </Tooltip>
               )}
@@ -98,7 +106,11 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
             </span>
           </div>
         </CardTitle>
-        <CardDescription>Keep track of all your festival essentials</CardDescription>
+        <CardDescription>
+          {isPersonalChecklist
+            ? "This is your personal checklist; everything you change here stays saved for you."
+            : "Template preview; changes here only affect this template."}
+        </CardDescription>
       </CardHeader>
       <CardContent className="p-4 sm:p-6 pt-0">
         <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
