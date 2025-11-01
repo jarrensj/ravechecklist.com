@@ -39,7 +39,7 @@ const Header: React.FC = () => {
             className="flex items-center space-x-2"
           >
             <img 
-              src="/lovable-uploads/347c3585-2166-4fdb-9689-dbf603407dea.png" 
+              src="/unicorn.png" 
               alt="RaveChecklist Logo" 
               className="h-8 w-auto sm:h-10" 
             />
