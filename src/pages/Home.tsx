@@ -25,7 +25,7 @@ const Home: React.FC = () => {
         <section className="py-12 md:py-20 text-center">
           <div className="max-w-3xl mx-auto">
             <div className="w-32 h-32 mx-auto mb-6">
-              <img src="/lovable-uploads/347c3585-2166-4fdb-9689-dbf603407dea.png" alt="Unicorn" className="w-full h-full object-contain" />
+              <img src="/unicorn.png" alt="Unicorn" className="w-full h-full object-contain" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               Plan Your Perfect Festival Experience

@@ -32,13 +32,13 @@ export default defineConfig(({ mode }) => ({
         start_url: '/',
         icons: [
           {
-            src: '/lovable-uploads/347c3585-2166-4fdb-9689-dbf603407dea.png',
+            src: '/unicorn.png',
             sizes: '192x192',
             type: 'image/png',
             purpose: 'any maskable'
           },
           {
-            src: '/lovable-uploads/347c3585-2166-4fdb-9689-dbf603407dea.png',
+            src: '/unicorn.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable'
