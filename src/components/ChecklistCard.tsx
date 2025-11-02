@@ -85,7 +85,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                 </TooltipContent>
               </Tooltip>
               
-              {isRemoveMode && onResetTemplate && (
+              {onResetTemplate && (
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button 
@@ -94,11 +94,11 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                       className="text-amber-600 border-amber-600 hover:bg-amber-50"
                     >
                       <RotateCcw className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />
-                      <span className="text-xs sm:text-sm" onClick={onResetTemplate}>Reset Template</span>
+                      <span className="text-xs sm:text-sm" onClick={onResetTemplate}>Reset this checklist back to template</span>
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Restore the original template items</p>
+                    <p>Reset this checklist back to the original template items</p>
                   </TooltipContent>
                 </Tooltip>
               )}
