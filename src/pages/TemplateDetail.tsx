@@ -25,7 +25,11 @@ const TemplateDetail: React.FC = () => {
     handleAddItem,
     handleRemoveItem,
     handleEditItem,
-    handleResetTemplate
+    handleResetTemplate,
+    handleToggleOutfitSubItem,
+    handleAddOutfitSubItem,
+    handleRemoveOutfitSubItem,
+    handleEditOutfitSubItem
   } = useTemplateDetail(id);
   
   // Record this template view in history
@@ -82,6 +86,10 @@ const TemplateDetail: React.FC = () => {
               onEditItem={handleEditItem}
               onResetTemplate={handleResetTemplate}
               eventName={template.event.name}
+              onToggleOutfitSubItem={handleToggleOutfitSubItem}
+              onAddOutfitSubItem={handleAddOutfitSubItem}
+              onRemoveOutfitSubItem={handleRemoveOutfitSubItem}
+              onEditOutfitSubItem={handleEditOutfitSubItem}
             />
           </div>
         </div>

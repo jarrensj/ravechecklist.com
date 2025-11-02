@@ -31,7 +31,11 @@ const Dashboard: React.FC = () => {
     handleAddItem: addUserItem, 
     handleRemoveItem: removeUserItem, 
     handleEditItem: editUserItem,
-    handleResetTemplate: resetUserTemplate 
+    handleResetTemplate: resetUserTemplate,
+    handleToggleOutfitSubItem: toggleUserOutfitSubItem,
+    handleAddOutfitSubItem: addUserOutfitSubItem,
+    handleRemoveOutfitSubItem: removeUserOutfitSubItem,
+    handleEditOutfitSubItem: editUserOutfitSubItem
   } = useChecklist();
   
   // Template checklist (if we have a template ID from URL or from history)
@@ -45,7 +49,11 @@ const Dashboard: React.FC = () => {
     handleAddItem: addTemplateItem,
     handleRemoveItem: removeTemplateItem,
     handleEditItem: editTemplateItem,
-    handleResetTemplate: resetTemplateTemplate
+    handleResetTemplate: resetTemplateTemplate,
+    handleToggleOutfitSubItem: toggleTemplateOutfitSubItem,
+    handleAddOutfitSubItem: addTemplateOutfitSubItem,
+    handleRemoveOutfitSubItem: removeTemplateOutfitSubItem,
+    handleEditOutfitSubItem: editTemplateOutfitSubItem
   } = useTemplateDetail(currentTemplateId);
   
   const { event, setEvent } = useEventInfo();
@@ -84,6 +92,10 @@ const Dashboard: React.FC = () => {
   const handleRemoveItem = showingTemplate ? removeTemplateItem : removeUserItem;
   const handleEditItem = showingTemplate ? editTemplateItem : editUserItem;
   const handleResetTemplate = showingTemplate ? resetTemplateTemplate : resetUserTemplate;
+  const handleToggleOutfitSubItem = showingTemplate ? toggleTemplateOutfitSubItem : toggleUserOutfitSubItem;
+  const handleAddOutfitSubItem = showingTemplate ? addTemplateOutfitSubItem : addUserOutfitSubItem;
+  const handleRemoveOutfitSubItem = showingTemplate ? removeTemplateOutfitSubItem : removeUserOutfitSubItem;
+  const handleEditOutfitSubItem = showingTemplate ? editTemplateOutfitSubItem : editUserOutfitSubItem;
   
   // Use template event or user event
   const currentEvent = showingTemplate && template ? template.event : event;
@@ -142,6 +154,10 @@ const Dashboard: React.FC = () => {
               onEditItem={handleEditItem}
               onResetTemplate={handleResetTemplate}
               eventName={currentEventName}
+              onToggleOutfitSubItem={handleToggleOutfitSubItem}
+              onAddOutfitSubItem={handleAddOutfitSubItem}
+              onRemoveOutfitSubItem={handleRemoveOutfitSubItem}
+              onEditOutfitSubItem={handleEditOutfitSubItem}
             />
           </div>
         </div>
