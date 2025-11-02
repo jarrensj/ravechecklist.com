@@ -13,7 +13,25 @@ export const useChecklist = () => {
     const savedChecklist = localStorage.getItem('mainChecklist');
     
     if (savedChecklist) {
-      setChecklist(JSON.parse(savedChecklist));
+      const parsed = JSON.parse(savedChecklist);
+      
+      // Migration: Check if outfit item exists, if not, add it
+      const hasOutfitItem = parsed.some((item: ChecklistItem) => item.isOutfit === true);
+      
+      if (!hasOutfitItem) {
+        // Add the outfit item from the base checklist
+        const outfitItem: ChecklistItem = {
+          id: `${Date.now()}-outfit`,
+          text: "Festival Outfit",
+          category: "outfits",
+          isCompleted: false,
+          isOutfit: true,
+          outfitItems: []
+        };
+        setChecklist([...parsed, outfitItem]);
+      } else {
+        setChecklist(parsed);
+      }
     } else {
       setChecklist(sampleChecklist);
     }

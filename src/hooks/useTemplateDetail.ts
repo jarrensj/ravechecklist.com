@@ -16,7 +16,25 @@ export const useTemplateDetail = (templateId: string | undefined) => {
       const storageKey = `template_${template.id}`;
       const savedChecklist = localStorage.getItem(storageKey);
       if (savedChecklist) {
-        setChecklist(JSON.parse(savedChecklist));
+        const parsed = JSON.parse(savedChecklist);
+        
+        // Migration: Check if outfit item exists, if not, add it
+        const hasOutfitItem = parsed.some((item: ChecklistItem) => item.isOutfit === true);
+        
+        if (!hasOutfitItem) {
+          // Add the outfit item from the base checklist
+          const outfitItem: ChecklistItem = {
+            id: `${template.id}-outfit`,
+            text: "Festival Outfit",
+            category: "outfits",
+            isCompleted: false,
+            isOutfit: true,
+            outfitItems: []
+          };
+          setChecklist([...parsed, outfitItem]);
+        } else {
+          setChecklist(parsed);
+        }
       } else {
         setChecklist(template.items);
       }
@@ -32,9 +50,32 @@ export const useTemplateDetail = (templateId: string | undefined) => {
   }, [checklist, template]);
   
   const handleToggleItem = (id: string) => {
-    setChecklist(prev => prev.map(item => 
-      item.id === id ? { ...item, isCompleted: !item.isCompleted } : item
-    ));
+    setChecklist(prev => {
+      const updated = prev.map(item => {
+        if (item.id === id) {
+          // If it's an outfit item with subitems, toggle all subitems
+          if (item.isOutfit && item.outfitItems && item.outfitItems.length > 0) {
+            // Check if all subitems are currently completed
+            const allCompleted = item.outfitItems.every(subItem => subItem.isCompleted);
+            // Toggle all subitems to the opposite state
+            const newCompletionState = !allCompleted;
+            
+            return {
+              ...item,
+              isCompleted: newCompletionState,
+              outfitItems: item.outfitItems.map(subItem => ({
+                ...subItem,
+                isCompleted: newCompletionState
+              }))
+            };
+          }
+          // For regular items, just toggle the item itself
+          return { ...item, isCompleted: !item.isCompleted };
+        }
+        return item;
+      });
+      return updated;
+    });
     
     const item = checklist.find(item => item.id === id);
     if (item) {
