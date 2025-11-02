@@ -43,7 +43,7 @@ const Home: React.FC = () => {
               </Button>
               <Button variant="outline" size="lg" asChild>
                 <Link to="/checklist">
-                  Browse Templates
+                  Browse Checklists
                 </Link>
               </Button>
             </div>
@@ -76,7 +76,7 @@ const Home: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
-                  Browse our collection of templates for different festival types, customize them, and save time on preparation.
+                  Browse our collection of checklists for different festival types, customize them, and save time on preparation.
                 </p>
               </CardContent>
             </Card>

@@ -78,12 +78,12 @@ const TemplatesSidebar: React.FC<TemplatesSidebarProps> = ({
         }`}>
           {isOpen ? (
             <>
-              <h2 className="font-semibold text-lg">Templates</h2>
+              <h2 className="font-semibold text-lg">Checklists</h2>
               <Button
                 onClick={onToggle}
                 variant="ghost"
                 size="icon"
-                aria-label="Collapse templates sidebar"
+                aria-label="Collapse checklists sidebar"
               >
                 <PanelLeftClose className="h-5 w-5" />
               </Button>
@@ -95,13 +95,13 @@ const TemplatesSidebar: React.FC<TemplatesSidebarProps> = ({
                   onClick={onToggle}
                   variant="ghost"
                   size="icon"
-                  aria-label="Expand templates sidebar"
+                  aria-label="Expand checklists sidebar"
                 >
                   <PanelLeft className="h-5 w-5 text-sky-600" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent side="right">
-                <p>Expand Templates</p>
+                <p>Expand Checklists</p>
               </TooltipContent>
             </Tooltip>
           )}
@@ -115,7 +115,7 @@ const TemplatesSidebar: React.FC<TemplatesSidebarProps> = ({
               <Alert className="border-sky-200 bg-sky-50">
                 <AlertCircle className="h-4 w-4 text-sky-600" />
                 <AlertDescription className="text-sm text-sky-700">
-                  Click any template to use it as your checklist
+                  Click any checklist to load it
                 </AlertDescription>
               </Alert>
 
