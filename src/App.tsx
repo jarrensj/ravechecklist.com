@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Templates from "./pages/Templates";
 import TemplateDetail from "./pages/TemplateDetail";
+import Blog from "./pages/Blog";
 import Footer from "./components/Footer";
 import React from "react";
 
@@ -27,6 +28,7 @@ const App = () => {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/templates/:id" element={<TemplateDetail />} />
                 <Route path="/templates" element={<Templates />} />
+                <Route path="/blog" element={<Blog />} />
                 {/* Add redirect for old template detail view */}
                 <Route path="/templates/detail/:id" element={<Navigate to="/templates/:id" replace />} />
                 {/* Redirect the old base path to the new dashboard */}
