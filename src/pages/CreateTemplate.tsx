@@ -104,9 +104,9 @@ const CreateTemplate: React.FC = () => {
       description: "Your custom template has been created successfully!",
     });
     
-    // Navigate back to templates page after a short delay
+    // Navigate back to checklist page after a short delay
     setTimeout(() => {
-      navigate('/templates');
+      navigate('/checklist');
     }, 1500);
   };
 
@@ -119,9 +119,9 @@ const CreateTemplate: React.FC = () => {
           <Button 
             variant="ghost" 
             className="mb-4" 
-            onClick={() => navigate('/templates')}
+            onClick={() => navigate('/checklist')}
           >
-            <ArrowLeft className="h-4 w-4 mr-2" /> Back to Templates
+            <ArrowLeft className="h-4 w-4 mr-2" /> Back to Checklist
           </Button>
           
           <h1 className="text-3xl font-bold">Create Custom Template</h1>
@@ -309,7 +309,7 @@ const CreateTemplate: React.FC = () => {
                 
                 <Card>
                   <CardFooter className="flex justify-between pt-6">
-                    <Button variant="outline" type="button" onClick={() => navigate('/templates')}>
+                    <Button variant="outline" type="button" onClick={() => navigate('/checklist')}>
                       Cancel
                     </Button>
                     <Button type="submit">Create Template</Button>
