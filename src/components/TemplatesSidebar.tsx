@@ -93,12 +93,12 @@ const TemplatesSidebar: React.FC<TemplatesSidebarProps> = ({
         }`}>
           {isOpen ? (
             <>
-              <h2 className="font-semibold text-lg">Templates</h2>
+              <h2 className="font-semibold text-lg">Checklists</h2>
               <Button
                 onClick={onToggle}
                 variant="ghost"
                 size="icon"
-                aria-label="Collapse templates sidebar"
+                aria-label="Collapse checklists sidebar"
               >
                 <PanelLeftClose className="h-5 w-5" />
               </Button>
@@ -110,13 +110,13 @@ const TemplatesSidebar: React.FC<TemplatesSidebarProps> = ({
                   onClick={onToggle}
                   variant="ghost"
                   size="icon"
-                  aria-label="Expand templates sidebar"
+                  aria-label="Expand checklists sidebar"
                 >
                   <PanelLeft className="h-5 w-5 text-sky-600" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent side="right">
-                <p>Expand Templates</p>
+                <p>Expand Checklists</p>
               </TooltipContent>
             </Tooltip>
           )}
@@ -162,7 +162,7 @@ const TemplatesSidebar: React.FC<TemplatesSidebarProps> = ({
               <Alert className="border-sky-200 bg-sky-50">
                 <AlertCircle className="h-4 w-4 text-sky-600" />
                 <AlertDescription className="text-sm text-sky-700">
-                  Click any template to use it as your checklist
+                  Click any checklist to load it
                 </AlertDescription>
               </Alert>
 
@@ -178,19 +178,21 @@ const TemplatesSidebar: React.FC<TemplatesSidebarProps> = ({
                     } ${isActive ? 'ring-2 ring-sky-500 bg-sky-50' : ''}`}
                     onClick={() => onSelectTemplate(template.id)}
                   >
-                    <div className="aspect-video w-full overflow-hidden relative">
-                      {isPast && <div className="absolute inset-0 bg-gray-500/20 z-10"></div>}
-                      {isActive && (
-                        <Badge className="absolute top-2 right-2 z-20 bg-sky-600">
-                          Active
-                        </Badge>
-                      )}
-                      <img 
-                        src={template.thumbnail || 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop'} 
-                        alt={template.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
+                    {template.thumbnail && (
+                      <div className="aspect-video w-full overflow-hidden relative">
+                        {isPast && <div className="absolute inset-0 bg-gray-500/20 z-10"></div>}
+                        {isActive && (
+                          <Badge className="absolute top-2 right-2 z-20 bg-sky-600">
+                            Active
+                          </Badge>
+                        )}
+                        <img 
+                          src={template.thumbnail} 
+                          alt={template.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
                     <CardHeader className="p-3">
                       <CardTitle className="text-sm flex items-center gap-2">
                         {template.name}

@@ -141,8 +141,8 @@ export const useTemplateDetail = (templateId: string | undefined) => {
       localStorage.setItem(storageKey, JSON.stringify(template.items));
       
       toast({
-        title: "Template reset",
-        description: "All items have been restored to their original state",
+        title: "Checklist reset",
+        description: "All items have been reset back to the original checklist template",
         duration: 2000,
       });
     }
