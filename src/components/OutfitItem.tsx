@@ -79,7 +79,10 @@ const OutfitItem: React.FC<OutfitItemProps> = ({
   const totalSubItems = outfitItems.length;
   
   // Update main item completion based on sub-items
-  const allSubItemsCompleted = totalSubItems > 0 && completedSubItems === totalSubItems;
+  // If there are no subitems, use the item's isCompleted state
+  const allSubItemsCompleted = totalSubItems > 0 
+    ? completedSubItems === totalSubItems 
+    : item.isCompleted;
   
   return (
     <>
