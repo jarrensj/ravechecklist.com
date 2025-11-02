@@ -106,7 +106,7 @@ const Dashboard: React.FC = () => {
   
   // Handle switching to a specific template
   const switchToTemplate = (id: string) => {
-    navigate(`/templates/${id}`);
+    navigate(`/checklist/${id}`);
   };
   
   // Handle going back to personal checklist
