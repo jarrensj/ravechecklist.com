@@ -6,6 +6,7 @@ import { EventInfo } from '@/utils/data';
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { format } from 'date-fns';
+import { showUpdateToast } from '@/lib/utils';
 
 interface EventInfoCardProps {
   event: EventInfo;
@@ -22,12 +23,16 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
   const isTemplateView = setEvent.toString().includes("{}") || setEvent.toString().includes("() => {}");
 
   const saveEventChanges = () => {
+    // Check if there are any actual changes
+    const hasChanges = JSON.stringify(event) !== JSON.stringify(editedEvent);
+    
     setEvent(editedEvent);
     setIsEditingEvent(false);
-    toast({
-      title: "Event updated",
-      description: "Event details have been saved",
-      duration: 2000,
+    
+    showUpdateToast(toast, hasChanges, {
+      changedTitle: "Event updated",
+      changedDescription: "Event details have been saved",
+      unchangedDescription: "Event details remain unchanged",
     });
   };
   
