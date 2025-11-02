@@ -15,7 +15,25 @@ export const useTemplateDetail = (templateId: string | undefined) => {
       const storageKey = `template_${template.id}`;
       const savedChecklist = localStorage.getItem(storageKey);
       if (savedChecklist) {
-        setChecklist(JSON.parse(savedChecklist));
+        const parsed = JSON.parse(savedChecklist);
+        
+        // Migration: Check if outfit item exists, if not, add it
+        const hasOutfitItem = parsed.some((item: ChecklistItem) => item.isOutfit === true);
+        
+        if (!hasOutfitItem) {
+          // Add the outfit item from the base checklist
+          const outfitItem: ChecklistItem = {
+            id: `${template.id}-outfit`,
+            text: "Festival Outfit",
+            category: "outfits",
+            isCompleted: false,
+            isOutfit: true,
+            outfitItems: []
+          };
+          setChecklist([...parsed, outfitItem]);
+        } else {
+          setChecklist(parsed);
+        }
       } else {
         setChecklist(template.items);
       }
