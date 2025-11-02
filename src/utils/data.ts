@@ -53,6 +53,7 @@ const baseChecklistItems: Omit<ChecklistItem, 'id'>[] = [
   { text: "ID/Driver's License", category: "documents", isCompleted: false },
   { text: "Credit/Debit Cards & Cash", category: "documents", isCompleted: false },
   { text: "Earplugs", category: "clothing", isCompleted: false },
+  { text: "Festival Outfit", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
 ];
 
 // Helper function to generate unique IDs for checklist items
