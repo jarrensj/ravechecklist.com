@@ -26,6 +26,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/checklist" element={<Dashboard />} />
+                <Route path="/checklist/:id" element={<Dashboard />} />
                 <Route path="/templates/:id" element={<TemplateDetail />} />
                 <Route path="/blog" element={<Blog />} />
                 {/* Redirects for backward compatibility */}

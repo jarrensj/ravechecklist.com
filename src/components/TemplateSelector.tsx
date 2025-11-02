@@ -36,7 +36,7 @@ const TemplateSelector: React.FC<TemplateSelectorProps> = ({ className }) => {
   }, [refreshHistory]);
 
   const handleSelectTemplate = (templateId: string) => {
-    navigate(`/templates/${templateId}`);
+    navigate(`/checklist/${templateId}`);
   };
 
   if (history.length === 0) {

@@ -23,8 +23,16 @@ const Dashboard: React.FC = () => {
   
   // Track if we're showing a template from URL or history
   const [showingTemplate, setShowingTemplate] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(() => {
+    const saved = localStorage.getItem('sidebarOpen');
+    return saved !== null ? JSON.parse(saved) : false;
+  });
   const { lastViewedTemplate, addToHistory, refreshHistory } = useTemplateHistory();
+  
+  // Save sidebar state to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('sidebarOpen', JSON.stringify(sidebarOpen));
+  }, [sidebarOpen]);
   
   // Default user checklist (always available)
   const { 
