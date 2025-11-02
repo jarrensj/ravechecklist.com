@@ -78,10 +78,7 @@ const TemplatesSidebar: React.FC<TemplatesSidebarProps> = ({
         }`}>
           {isOpen ? (
             <>
-              <div className="flex items-center gap-2">
-                <Music className="h-5 w-5 text-sky-600" />
-                <h2 className="font-semibold text-lg">Templates</h2>
-              </div>
+              <h2 className="font-semibold text-lg">Templates</h2>
               <Button
                 onClick={onToggle}
                 variant="ghost"
