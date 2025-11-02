@@ -31,7 +31,11 @@ const Index: React.FC = () => {
     handleAddItem: addUserItem, 
     handleRemoveItem: removeUserItem, 
     handleEditItem: editUserItem,
-    handleResetTemplate: resetUserTemplate 
+    handleResetTemplate: resetUserTemplate,
+    handleToggleOutfitSubItem: toggleUserOutfitSubItem,
+    handleAddOutfitSubItem: addUserOutfitSubItem,
+    handleRemoveOutfitSubItem: removeUserOutfitSubItem,
+    handleEditOutfitSubItem: editUserOutfitSubItem
   } = useChecklist();
   
   // Template checklist (if we have a template ID from URL or from history)
@@ -45,7 +49,11 @@ const Index: React.FC = () => {
     handleAddItem: addTemplateItem,
     handleRemoveItem: removeTemplateItem,
     handleEditItem: editTemplateItem,
-    handleResetTemplate: resetTemplateTemplate
+    handleResetTemplate: resetTemplateTemplate,
+    handleToggleOutfitSubItem: toggleTemplateOutfitSubItem,
+    handleAddOutfitSubItem: addTemplateOutfitSubItem,
+    handleRemoveOutfitSubItem: removeTemplateOutfitSubItem,
+    handleEditOutfitSubItem: editTemplateOutfitSubItem
   } = useTemplateDetail(currentTemplateId);
   
   const { event, setEvent } = useEventInfo();
@@ -84,6 +92,10 @@ const Index: React.FC = () => {
   const handleRemoveItem = showingTemplate ? removeTemplateItem : removeUserItem;
   const handleEditItem = showingTemplate ? editTemplateItem : editUserItem;
   const handleResetTemplate = showingTemplate ? resetTemplateTemplate : resetUserTemplate;
+  const handleToggleOutfitSubItem = showingTemplate ? toggleTemplateOutfitSubItem : toggleUserOutfitSubItem;
+  const handleAddOutfitSubItem = showingTemplate ? addTemplateOutfitSubItem : addUserOutfitSubItem;
+  const handleRemoveOutfitSubItem = showingTemplate ? removeTemplateOutfitSubItem : removeUserOutfitSubItem;
+  const handleEditOutfitSubItem = showingTemplate ? editTemplateOutfitSubItem : editUserOutfitSubItem;
   
   // Use template event or user event
   const currentEvent = showingTemplate && template ? template.event : event;
@@ -141,6 +153,10 @@ const Index: React.FC = () => {
               onRemoveItem={handleRemoveItem}
               onEditItem={handleEditItem}
               onResetTemplate={handleResetTemplate}
+              onToggleOutfitSubItem={handleToggleOutfitSubItem}
+              onAddOutfitSubItem={handleAddOutfitSubItem}
+              onRemoveOutfitSubItem={handleRemoveOutfitSubItem}
+              onEditOutfitSubItem={handleEditOutfitSubItem}
               eventName={currentEventName}
             />
           </div>

@@ -36,13 +36,13 @@ const Home: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild onClick={handleGetStarted}>
-                <Link to="/dashboard">
+                <Link to="/checklist">
                   Get Started
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <Link to="/templates">
+                <Link to="/checklist">
                   Browse Templates
                 </Link>
               </Button>
@@ -168,8 +168,8 @@ const Home: React.FC = () => {
               Start using RaveChecklist today and never again arrive at a festival missing something important.
             </p>
             <Button size="lg" asChild onClick={handleGetStarted}>
-              <Link to="/dashboard">
-                Go to Dashboard
+              <Link to="/checklist">
+                Create My Checklist
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>

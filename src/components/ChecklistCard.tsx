@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Plus, RotateCcw } from "lucide-react";
 import ChecklistItem from './ChecklistItem';
+import OutfitItem from './OutfitItem';
 import CategoryTag from './CategoryTag';
 import { ChecklistItem as IChecklistItem, categories } from '@/utils/data';
 import { Switch } from "@/components/ui/switch";
@@ -12,11 +13,15 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 interface ChecklistCardProps {
   items: IChecklistItem[];
   onToggleItem: (id: string) => void;
-  onAddItem: (text: string, category: string) => void;
+  onAddItem: (text: string, category: string, isOutfit?: boolean) => void;
   onRemoveItem: (id: string) => void;
   onEditItem?: (id: string, text: string, category: string) => void;
   onResetTemplate?: () => void;
   eventName?: string;
+  onToggleOutfitSubItem?: (itemId: string, subItemId: string) => void;
+  onAddOutfitSubItem?: (itemId: string, type: 'shoes' | 'top' | 'bottom' | 'accessories', text: string) => void;
+  onRemoveOutfitSubItem?: (itemId: string, subItemId: string) => void;
+  onEditOutfitSubItem?: (itemId: string, subItemId: string, text: string) => void;
 }
 
 const ChecklistCard: React.FC<ChecklistCardProps> = ({ 
@@ -26,7 +31,11 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   onRemoveItem,
   onEditItem,
   onResetTemplate,
-  eventName = "Festival"
+  eventName = "Festival",
+  onToggleOutfitSubItem,
+  onAddOutfitSubItem,
+  onRemoveOutfitSubItem,
+  onEditOutfitSubItem
 }) => {
   const [newItemText, setNewItemText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
@@ -39,7 +48,8 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
     
   const handleAddItem = () => {
     if (newItemText.trim()) {
-      onAddItem(newItemText, selectedCategory);
+      const isOutfit = selectedCategory === 'outfits';
+      onAddItem(newItemText, selectedCategory, isOutfit);
       setNewItemText("");
     }
   };
@@ -152,14 +162,29 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
         <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1 sm:pr-2">
           {filteredItems.length > 0 ? (
             filteredItems.map(item => (
-              <ChecklistItem
-                key={item.id}
-                item={item}
-                onToggle={onToggleItem}
-                onRemove={onRemoveItem}
-                onEdit={onEditItem}
-                showRemoveButton={isRemoveMode}
-              />
+              item.isOutfit ? (
+                <OutfitItem
+                  key={item.id}
+                  item={item}
+                  onToggle={onToggleItem}
+                  onRemove={onRemoveItem}
+                  onEdit={onEditItem}
+                  onToggleOutfitSubItem={onToggleOutfitSubItem}
+                  onAddOutfitSubItem={onAddOutfitSubItem}
+                  onRemoveOutfitSubItem={onRemoveOutfitSubItem}
+                  onEditOutfitSubItem={onEditOutfitSubItem}
+                  showRemoveButton={isRemoveMode}
+                />
+              ) : (
+                <ChecklistItem
+                  key={item.id}
+                  item={item}
+                  onToggle={onToggleItem}
+                  onRemove={onRemoveItem}
+                  onEdit={onEditItem}
+                  showRemoveButton={isRemoveMode}
+                />
+              )
             ))
           ) : (
             <div className="text-center py-8 text-gray-500 text-sm">
