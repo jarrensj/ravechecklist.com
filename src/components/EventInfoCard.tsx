@@ -22,13 +22,25 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
   const isTemplateView = setEvent.toString().includes("{}") || setEvent.toString().includes("() => {}");
 
   const saveEventChanges = () => {
+    // Check if there are any actual changes
+    const hasChanges = JSON.stringify(event) !== JSON.stringify(editedEvent);
+    
     setEvent(editedEvent);
     setIsEditingEvent(false);
-    toast({
-      title: "Event updated",
-      description: "Event details have been saved",
-      duration: 2000,
-    });
+    
+    if (hasChanges) {
+      toast({
+        title: "Event updated",
+        description: "Event details have been saved",
+        duration: 2000,
+      });
+    } else {
+      toast({
+        title: "No changes made",
+        description: "Event details remain unchanged",
+        duration: 2000,
+      });
+    }
   };
   
   const toggleEditEvent = () => {
