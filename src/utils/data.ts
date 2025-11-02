@@ -65,15 +65,18 @@ const generateChecklistItems = (prefix: string = "", items: Omit<ChecklistItem, 
 };
 
 // Helper function to combine base items with festival-specific items (avoiding duplicates)
-const combineChecklistItems = (prefix: string = "", festivalSpecificItems: Omit<ChecklistItem, 'id'>[]): ChecklistItem[] => {
+const combineChecklistItems = (prefix: string = "", festivalSpecificItems: Omit<ChecklistItem, 'id'>[], excludeBaseItems: string[] = []): ChecklistItem[] => {
   // Get set of base item texts to check for duplicates
   const baseItemTexts = new Set(baseChecklistItems.map(item => item.text));
   
   // Filter out any items from festivalSpecificItems that are already in base
   const uniqueFestivalItems = festivalSpecificItems.filter(item => !baseItemTexts.has(item.text));
   
-  // Combine base items with unique festival items
-  const allItems = [...baseChecklistItems, ...uniqueFestivalItems];
+  // Filter out excluded items from base
+  const filteredBaseItems = baseChecklistItems.filter(item => !excludeBaseItems.includes(item.text));
+  
+  // Combine filtered base items with unique festival items
+  const allItems = [...filteredBaseItems, ...uniqueFestivalItems];
   
   return generateChecklistItems(prefix, allItems);
 };
@@ -112,6 +115,9 @@ export const sampleEvent: EventInfo = {
 };
 
 export const sampleChecklist: ChecklistItem[] = combineChecklistItems("", [
+  { text: "Festival Outfit Day 1", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
+  { text: "Festival Outfit Day 2", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
+  { text: "Festival Outfit Day 3", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
   { text: "Bandanas/Masks", category: "clothing", isCompleted: false },
   { text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
   { text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
@@ -128,10 +134,13 @@ export const sampleChecklist: ChecklistItem[] = combineChecklistItems("", [
   { text: "Water Mister (Personal Size)", category: "toiletries", isCompleted: false },
   { text: "Bandaids", category: "toiletries", isCompleted: false },
   { text: "Blanket (50\" x 70\" or smaller)", category: "misc", isCompleted: false }
-]);
+], ["Festival Outfit"]);
 
 // Coachella-specific items (outdoor desert festival) - base items automatically included
 const coachellaSpecificItems: Omit<ChecklistItem, 'id'>[] = [
+  { text: "Festival Outfit Day 1", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
+  { text: "Festival Outfit Day 2", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
+  { text: "Festival Outfit Day 3", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
   { text: "Bandanas/Masks", category: "clothing", isCompleted: false },
   { text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
   { text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
@@ -190,7 +199,7 @@ export const templates: Template[] = [
       endDate: new Date(2026, 3, 12),  // April 12, 2026
       prohibitedItemsLink: "https://www.coachella.com/rules"
     },
-    items: combineChecklistItems("", coachellaSpecificItems),
+    items: combineChecklistItems("", coachellaSpecificItems, ["Festival Outfit"]),
     thumbnail: "",
     prohibitedItemsLink: "https://www.coachella.com/rules"
   },
@@ -206,7 +215,7 @@ export const templates: Template[] = [
       endDate: new Date(2026, 3, 19),  // April 19, 2026
       prohibitedItemsLink: "https://www.coachella.com/rules"
     },
-    items: combineChecklistItems("w2", coachellaSpecificItems),
+    items: combineChecklistItems("w2", coachellaSpecificItems, ["Festival Outfit"]),
     thumbnail: "",
     prohibitedItemsLink: "https://www.coachella.com/rules"
   },

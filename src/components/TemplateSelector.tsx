@@ -49,7 +49,7 @@ const TemplateSelector: React.FC<TemplateSelectorProps> = ({ className }) => {
         <DropdownMenuTrigger asChild>
           <Button variant="outline" className="w-full md:w-auto">
             <Clock className="mr-2 h-4 w-4" />
-            Recent Templates
+            Recent Checklists
             <ChevronDown className="ml-2 h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
