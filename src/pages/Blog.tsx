@@ -33,7 +33,7 @@ const Blog: React.FC = () => {
                 We're working on bringing you valuable festival tips, guides, and insights. Check back soon!
               </p>
               <Button size="lg" asChild>
-                <Link to="/dashboard">
+                <Link to="/checklist">
                   Start Planning Your Festival
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
