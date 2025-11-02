@@ -9,7 +9,6 @@ import { useEventInfo } from '@/hooks/useEventInfo';
 import { useTemplateHistory } from '@/hooks/useTemplateHistory';
 import { useTemplateDetail } from '@/hooks/useTemplateDetail';
 import TemplateSelector from '@/components/TemplateSelector';
-import TemplatesSidebar from '@/components/TemplatesSidebar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, User } from 'lucide-react';
@@ -23,16 +22,7 @@ const Dashboard: React.FC = () => {
   
   // Track if we're showing a template from URL or history
   const [showingTemplate, setShowingTemplate] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(() => {
-    const saved = localStorage.getItem('sidebarOpen');
-    return saved !== null ? JSON.parse(saved) : false;
-  });
   const { lastViewedTemplate, addToHistory, refreshHistory } = useTemplateHistory();
-  
-  // Save sidebar state to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem('sidebarOpen', JSON.stringify(sidebarOpen));
-  }, [sidebarOpen]);
   
   // Default user checklist (always available)
   const { 
@@ -112,11 +102,6 @@ const Dashboard: React.FC = () => {
   const currentEvent = showingTemplate && template ? template.event : event;
   const currentEventName = showingTemplate && template ? template.event.name : event.name;
   
-  // Handle switching to a specific template
-  const switchToTemplate = (id: string) => {
-    navigate(`/checklist/${id}`);
-  };
-  
   // Handle going back to personal checklist
   const goToPersonalChecklist = () => {
     navigate('/checklist', { 
@@ -129,17 +114,7 @@ const Dashboard: React.FC = () => {
   
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Templates Sidebar */}
-      <TemplatesSidebar 
-        isOpen={sidebarOpen}
-        onToggle={() => setSidebarOpen(!sidebarOpen)}
-        onSelectTemplate={switchToTemplate}
-        currentTemplateId={showingTemplate ? currentTemplateId : undefined}
-      />
-      
-      {/* Main content area with margin for sidebar */}
-      <div className={`transition-all duration-300 ${sidebarOpen ? 'ml-80' : 'ml-16'}`}>
-        <Header />
+      <Header />
         
         <main className="container max-w-screen-2xl mx-auto px-4 sm:px-6 pb-12">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
@@ -167,7 +142,7 @@ const Dashboard: React.FC = () => {
             )}
             {!showingTemplate && (
               <p className="text-sm text-gray-600">
-                <button onClick={() => setSidebarOpen(true)} className="text-sky-600 hover:text-sky-800 underline">Browse templates</button> or customize your own
+                Browse templates from the sidebar or customize your own
               </p>
             )}
           </div>
@@ -203,7 +178,6 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
         </main>
-      </div>
     </div>
   );
 };
