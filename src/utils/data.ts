@@ -200,7 +200,7 @@ export const templates: Template[] = [
       prohibitedItemsLink: "https://www.coachella.com/rules"
     },
     items: combineChecklistItems("", coachellaSpecificItems, ["Festival Outfit"]),
-    thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
+    thumbnail: "",
     prohibitedItemsLink: "https://www.coachella.com/rules"
   },
   {
@@ -216,7 +216,7 @@ export const templates: Template[] = [
       prohibitedItemsLink: "https://www.coachella.com/rules"
     },
     items: combineChecklistItems("w2", coachellaSpecificItems, ["Festival Outfit"]),
-    thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
+    thumbnail: "",
     prohibitedItemsLink: "https://www.coachella.com/rules"
   },
   {
@@ -231,7 +231,7 @@ export const templates: Template[] = [
       endDate: new Date(2025, 7, 10)    // August 10, 2025
     },
     items: combineChecklistItems("ol", outsideLandsSpecificItems),
-    thumbnail: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2070&auto=format&fit=crop",
+    thumbnail: "",
     prohibitedItemsLink: ""
   },
   {
@@ -246,7 +246,7 @@ export const templates: Template[] = [
       endDate: new Date(2026, 4, 15)     // May 15, 2026
     },
     items: combineChecklistItems("edc", edcLasVegasSpecificItems),
-    thumbnail: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop", 
+    thumbnail: "", 
     prohibitedItemsLink: "https://lasvegas.electricdaisycarnival.com/guide/hours-and-info/"
   }
 ];
