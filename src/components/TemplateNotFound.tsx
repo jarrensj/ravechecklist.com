@@ -15,8 +15,8 @@ const TemplateNotFound: React.FC = () => {
           <CardDescription>The template you're looking for doesn't exist.</CardDescription>
         </CardHeader>
         <CardContent>
-          <Button onClick={() => navigate('/templates')} className="w-full">
-            Back to Templates
+          <Button onClick={() => navigate('/checklist')} className="w-full">
+            Browse Templates
           </Button>
         </CardContent>
       </Card>

@@ -59,7 +59,7 @@ const Templates: React.FC = () => {
       <main className="container max-w-screen-2xl mx-auto px-4 sm:px-6 pb-12">
         <div className="mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold mb-2">Rave and Festival Checklist Templates</h1>
-          <p className="text-gray-600">Choose a pre-made template or <Link to="/dashboard" className="text-sky-600 hover:text-sky-800">create your own custom festival checklist</Link></p>
+          <p className="text-gray-600">Choose a pre-made template or <Link to="/checklist" className="text-sky-600 hover:text-sky-800">create your own custom festival checklist</Link></p>
         </div>
         
         <Alert className="mb-6 border-sky-200 bg-sky-50">

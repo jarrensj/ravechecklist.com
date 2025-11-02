@@ -16,9 +16,9 @@ const TemplateHeader: React.FC<TemplateHeaderProps> = ({ name }) => {
       <Button 
         variant="ghost" 
         className="mb-4" 
-        onClick={() => navigate('/templates')}
+        onClick={() => navigate('/checklist')}
       >
-        <ArrowLeft className="h-4 w-4 mr-2" /> Back to Templates
+        <ArrowLeft className="h-4 w-4 mr-2" /> Back to Checklist
       </Button>
       
       <h1 className="text-3xl font-bold">{name} Checklist</h1>
