@@ -58,7 +58,7 @@ const TemplateDetail: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
             <Button 
               variant="outline" 
-              onClick={() => navigate('/dashboard', { state: { showPersonalChecklist: true } })} 
+              onClick={() => navigate('/checklist', { state: { showPersonalChecklist: true } })} 
               className="mb-2 sm:mb-0"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />

@@ -25,14 +25,14 @@ const App = () => {
             <div className="flex-grow">
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/checklist" element={<Dashboard />} />
                 <Route path="/templates/:id" element={<TemplateDetail />} />
-                <Route path="/templates" element={<Templates />} />
                 <Route path="/blog" element={<Blog />} />
-                {/* Add redirect for old template detail view */}
+                {/* Redirects for backward compatibility */}
+                <Route path="/dashboard" element={<Navigate to="/checklist" replace />} />
+                <Route path="/templates" element={<Navigate to="/checklist" replace />} />
                 <Route path="/templates/detail/:id" element={<Navigate to="/templates/:id" replace />} />
-                {/* Redirect the old base path to the new dashboard */}
-                <Route path="/index" element={<Navigate to="/dashboard" replace />} />
+                <Route path="/index" element={<Navigate to="/checklist" replace />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
