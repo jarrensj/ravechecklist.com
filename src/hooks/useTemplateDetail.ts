@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { templates, ChecklistItem, OutfitSubItem } from '@/utils/data';
 import { useToast } from "@/hooks/use-toast";
+import { showUpdateToast } from '@/lib/utils';
 
 export const useTemplateDetail = (templateId: string | undefined) => {
   const [checklist, setChecklist] = useState<ChecklistItem[]>([]);
@@ -86,19 +87,10 @@ export const useTemplateDetail = (templateId: string | undefined) => {
       item.id === id ? { ...item, text, category } : item
     ));
     
-    if (hasChanges) {
-      toast({
-        title: "Item updated",
-        description: text,
-        duration: 2000,
-      });
-    } else {
-      toast({
-        title: "No changes made",
-        description: "Item remains unchanged",
-        duration: 2000,
-      });
-    }
+    showUpdateToast(toast, !!hasChanges, {
+      changedTitle: "Item updated",
+      changedDescription: text,
+    });
   };
 
   const handleResetTemplate = () => {
@@ -188,19 +180,10 @@ export const useTemplateDetail = (templateId: string | undefined) => {
       return item;
     }));
 
-    if (hasChanges) {
-      toast({
-        title: "Item updated",
-        description: text,
-        duration: 2000,
-      });
-    } else {
-      toast({
-        title: "No changes made",
-        description: "Item remains unchanged",
-        duration: 2000,
-      });
-    }
+    showUpdateToast(toast, !!hasChanges, {
+      changedTitle: "Item updated",
+      changedDescription: text,
+    });
   };
   
   const progressPercentage = Math.round(
