@@ -122,8 +122,6 @@ const Dashboard: React.FC = () => {
   
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
-      
       {/* Templates Sidebar */}
       <TemplatesSidebar 
         isOpen={sidebarOpen}
@@ -132,7 +130,11 @@ const Dashboard: React.FC = () => {
         currentTemplateId={showingTemplate ? currentTemplateId : undefined}
       />
       
-      <main className={`container max-w-screen-2xl mx-auto px-4 sm:px-6 pb-12 transition-all ${sidebarOpen ? 'lg:ml-80' : ''}`}>
+      {/* Main content area with margin for sidebar */}
+      <div className={`transition-all duration-300 ${sidebarOpen ? 'ml-80' : 'ml-16'}`}>
+        <Header />
+        
+        <main className="container max-w-screen-2xl mx-auto px-4 sm:px-6 pb-12">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-3">
@@ -193,7 +195,8 @@ const Dashboard: React.FC = () => {
             />
           </div>
         </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 };

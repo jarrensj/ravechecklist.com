@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface TemplatesSidebarProps {
   onSelectTemplate: (templateId: string) => void;
@@ -57,111 +58,166 @@ const TemplatesSidebar: React.FC<TemplatesSidebarProps> = ({
   
   const now = new Date();
 
-  if (!isOpen) {
-    return (
-      <Button
-        onClick={onToggle}
-        variant="outline"
-        size="icon"
-        className="fixed left-4 top-24 z-40 shadow-lg"
-        aria-label="Open templates sidebar"
-      >
-        <PanelLeft className="h-5 w-5" />
-      </Button>
-    );
-  }
-
   return (
-    <>
-      {/* Overlay for mobile */}
-      <div 
-        className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-        onClick={onToggle}
-      />
+    <TooltipProvider>
+      {/* Overlay for mobile when expanded */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={onToggle}
+        />
+      )}
       
-      {/* Sidebar */}
-      <div className="fixed left-0 top-0 h-full w-80 bg-white shadow-xl z-50 flex flex-col">
+      {/* Sidebar - always visible, just changes width */}
+      <div className={`fixed left-0 top-0 h-full bg-white border-r shadow-lg z-50 flex flex-col transition-all duration-300 ${
+        isOpen ? 'w-80' : 'w-16'
+      }`}>
         {/* Header */}
-        <div className="p-4 border-b flex items-center justify-between bg-sky-50">
-          <div className="flex items-center gap-2">
-            <Music className="h-5 w-5 text-sky-600" />
-            <h2 className="font-semibold text-lg">Templates</h2>
-          </div>
-          <Button
-            onClick={onToggle}
-            variant="ghost"
-            size="icon"
-            aria-label="Close templates sidebar"
-          >
-            <PanelLeftClose className="h-5 w-5" />
-          </Button>
+        <div className={`border-b flex items-center bg-sky-50 ${
+          isOpen ? 'p-4 justify-between' : 'p-3 justify-center'
+        }`}>
+          {isOpen ? (
+            <>
+              <div className="flex items-center gap-2">
+                <Music className="h-5 w-5 text-sky-600" />
+                <h2 className="font-semibold text-lg">Templates</h2>
+              </div>
+              <Button
+                onClick={onToggle}
+                variant="ghost"
+                size="icon"
+                aria-label="Collapse templates sidebar"
+              >
+                <PanelLeftClose className="h-5 w-5" />
+              </Button>
+            </>
+          ) : (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  onClick={onToggle}
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Expand templates sidebar"
+                >
+                  <PanelLeft className="h-5 w-5 text-sky-600" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="right">
+                <p>Expand Templates</p>
+              </TooltipContent>
+            </Tooltip>
+          )}
         </div>
 
         {/* Templates List */}
-        <ScrollArea className="flex-1 p-4">
-          <div className="space-y-4">
-            <Alert className="border-sky-200 bg-sky-50">
-              <AlertCircle className="h-4 w-4 text-sky-600" />
-              <AlertDescription className="text-sm text-sky-700">
-                Click any template to use it as your checklist
-              </AlertDescription>
-            </Alert>
+        <ScrollArea className="flex-1">
+          {isOpen ? (
+            // Expanded view - show full cards
+            <div className="p-4 space-y-4">
+              <Alert className="border-sky-200 bg-sky-50">
+                <AlertCircle className="h-4 w-4 text-sky-600" />
+                <AlertDescription className="text-sm text-sky-700">
+                  Click any template to use it as your checklist
+                </AlertDescription>
+              </Alert>
 
-            {sortedTemplates.map(template => {
-              const isPast = template.event.startDate && template.event.startDate < now;
-              const isActive = currentTemplateId === template.id;
-              
-              return (
-                <Card 
-                  key={template.id} 
-                  className={`cursor-pointer transition-all hover:shadow-md ${
-                    isPast ? 'opacity-60' : ''
-                  } ${isActive ? 'ring-2 ring-sky-500 bg-sky-50' : ''}`}
-                  onClick={() => onSelectTemplate(template.id)}
-                >
-                  <div className="aspect-video w-full overflow-hidden relative">
-                    {isPast && <div className="absolute inset-0 bg-gray-500/20 z-10"></div>}
-                    {isActive && (
-                      <Badge className="absolute top-2 right-2 z-20 bg-sky-600">
-                        Active
-                      </Badge>
-                    )}
-                    <img 
-                      src={template.thumbnail || 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop'} 
-                      alt={template.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <CardHeader className="p-3">
-                    <CardTitle className="text-sm flex items-center gap-2">
-                      {template.name}
-                    </CardTitle>
-                    <CardDescription className="text-xs">{template.event.location}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="p-3 pt-0">
-                    <div className="text-xs text-gray-600 space-y-1">
-                      <div>
-                        <strong>When:</strong> {template.event.startDate && template.event.endDate ? 
-                          formatDateRange(template.event.startDate, template.event.endDate) : 
-                          template.event.date}
-                      </div>
-                      <div className="text-gray-500">
-                        {Object.keys(
-                          template.items.reduce((acc, item) => {
-                            acc[item.category] = true;
-                            return acc;
-                          }, {} as Record<string, boolean>)
-                        ).length} categories • {template.items.length} items
-                      </div>
+              {sortedTemplates.map(template => {
+                const isPast = template.event.startDate && template.event.startDate < now;
+                const isActive = currentTemplateId === template.id;
+                
+                return (
+                  <Card 
+                    key={template.id} 
+                    className={`cursor-pointer transition-all hover:shadow-md ${
+                      isPast ? 'opacity-60' : ''
+                    } ${isActive ? 'ring-2 ring-sky-500 bg-sky-50' : ''}`}
+                    onClick={() => onSelectTemplate(template.id)}
+                  >
+                    <div className="aspect-video w-full overflow-hidden relative">
+                      {isPast && <div className="absolute inset-0 bg-gray-500/20 z-10"></div>}
+                      {isActive && (
+                        <Badge className="absolute top-2 right-2 z-20 bg-sky-600">
+                          Active
+                        </Badge>
+                      )}
+                      <img 
+                        src={template.thumbnail || 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop'} 
+                        alt={template.name}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+                    <CardHeader className="p-3">
+                      <CardTitle className="text-sm flex items-center gap-2">
+                        {template.name}
+                      </CardTitle>
+                      <CardDescription className="text-xs">{template.event.location}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="p-3 pt-0">
+                      <div className="text-xs text-gray-600 space-y-1">
+                        <div>
+                          <strong>When:</strong> {template.event.startDate && template.event.endDate ? 
+                            formatDateRange(template.event.startDate, template.event.endDate) : 
+                            template.event.date}
+                        </div>
+                        <div className="text-gray-500">
+                          {Object.keys(
+                            template.items.reduce((acc, item) => {
+                              acc[item.category] = true;
+                              return acc;
+                            }, {} as Record<string, boolean>)
+                          ).length} categories • {template.items.length} items
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          ) : (
+            // Collapsed view - show icon buttons with tooltips
+            <div className="py-4 space-y-2 flex flex-col items-center">
+              {sortedTemplates.map(template => {
+                const isPast = template.event.startDate && template.event.startDate < now;
+                const isActive = currentTemplateId === template.id;
+                const initials = template.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+                
+                return (
+                  <Tooltip key={template.id}>
+                    <TooltipTrigger asChild>
+                      <button
+                        onClick={() => onSelectTemplate(template.id)}
+                        className={`w-12 h-12 rounded-lg flex items-center justify-center text-xs font-bold transition-all relative ${
+                          isActive 
+                            ? 'bg-sky-600 text-white ring-2 ring-sky-400 ring-offset-2' 
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        } ${isPast ? 'opacity-40' : ''}`}
+                      >
+                        {initials}
+                        {isActive && (
+                          <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                        )}
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <div className="max-w-xs">
+                        <p className="font-semibold">{template.name}</p>
+                        <p className="text-xs text-gray-500">{template.event.location}</p>
+                        <p className="text-xs text-gray-500 mt-1">
+                          {template.event.startDate && template.event.endDate ? 
+                            formatDateRange(template.event.startDate, template.event.endDate) : 
+                            template.event.date}
+                        </p>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
+                );
+              })}
+            </div>
+          )}
         </ScrollArea>
       </div>
-    </>
+    </TooltipProvider>
   );
 };
 
