@@ -79,7 +79,10 @@ const OutfitItem: React.FC<OutfitItemProps> = ({
   const totalSubItems = outfitItems.length;
   
   // Update main item completion based on sub-items
-  const allSubItemsCompleted = totalSubItems > 0 && completedSubItems === totalSubItems;
+  // If there are no subitems, use the item's isCompleted state
+  const allSubItemsCompleted = totalSubItems > 0 
+    ? completedSubItems === totalSubItems 
+    : item.isCompleted;
   
   return (
     <>
@@ -94,13 +97,6 @@ const OutfitItem: React.FC<OutfitItemProps> = ({
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2 sm:space-x-3 flex-1 mr-2">
-            <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-              <CollapsibleTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-5 w-5 p-0">
-                  {isOpen ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
-                </Button>
-              </CollapsibleTrigger>
-            </Collapsible>
             <Checkbox 
               id={`item-${item.id}`}
               checked={allSubItemsCompleted}
@@ -115,6 +111,13 @@ const OutfitItem: React.FC<OutfitItemProps> = ({
             >
               {item.text}
             </label>
+            <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+              <CollapsibleTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-5 w-5 p-0 hover:bg-gray-100 flex-shrink-0">
+                  <ChevronDown className={cn("h-4 w-4 transition-transform", isOpen ? "" : "-rotate-90")} />
+                </Button>
+              </CollapsibleTrigger>
+            </Collapsible>
             {totalSubItems > 0 && (
               <span className="text-xs text-gray-500">
                 ({completedSubItems}/{totalSubItems})

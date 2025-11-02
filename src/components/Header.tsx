@@ -7,7 +7,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { useIsMobile } from '@/hooks/use-mobile';
-import { Menu, X, LayoutDashboard, Home, List } from 'lucide-react';
+import { Menu, X, ClipboardList, Home, List, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Header: React.FC = () => {
@@ -19,9 +19,9 @@ const Header: React.FC = () => {
     if (path === '/') {
       return location.pathname === '/';
     }
-    if (path === '/dashboard') {
-      // For dashboard, check that we're either at dashboard or viewing a template
-      return location.pathname === '/dashboard' || location.pathname.startsWith('/templates/');
+    if (path === '/checklist') {
+      // For checklist, check that we're either at checklist or viewing a template
+      return location.pathname === '/checklist' || location.pathname.startsWith('/templates/');
     }
     return location.pathname === path || location.pathname.startsWith(path);
   };
@@ -71,20 +71,20 @@ const Header: React.FC = () => {
                 </li>
                 <li>
                   <Link 
-                    to="/dashboard" 
-                    className={`transition-colors flex items-center ${isActive('/dashboard') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    to="/checklist" 
+                    className={`transition-colors flex items-center ${isActive('/checklist') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
                   >
-                    <LayoutDashboard className="mr-1 h-4 w-4" />
-                    Dashboard
+                    <ClipboardList className="mr-1 h-4 w-4" />
+                    Checklist
                   </Link>
                 </li>
                 <li>
                   <Link 
-                    to="/templates" 
-                    className={`transition-colors flex items-center ${isActive('/templates') && !isActive('/templates/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    to="/blog" 
+                    className={`transition-colors flex items-center ${isActive('/blog') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
                   >
-                    <List className="mr-1 h-4 w-4" />
-                    Templates
+                    <BookOpen className="mr-1 h-4 w-4" />
+                    Blog
                   </Link>
                 </li>
               </ul>
@@ -109,22 +109,22 @@ const Header: React.FC = () => {
                 </li>
                 <li>
                   <Link 
-                    to="/dashboard" 
-                    className={`block transition-colors flex items-center ${isActive('/dashboard') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    to="/checklist" 
+                    className={`block transition-colors flex items-center ${isActive('/checklist') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <LayoutDashboard className="mr-2 h-4 w-4" />
-                    Dashboard
+                    <ClipboardList className="mr-2 h-4 w-4" />
+                    Checklist
                   </Link>
                 </li>
                 <li>
                   <Link 
-                    to="/templates" 
-                    className={`block transition-colors flex items-center ${isActive('/templates') && !isActive('/templates/') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    to="/blog" 
+                    className={`block transition-colors flex items-center ${isActive('/blog') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <List className="mr-2 h-4 w-4" />
-                    Templates
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    Blog
                   </Link>
                 </li>
               </ul>

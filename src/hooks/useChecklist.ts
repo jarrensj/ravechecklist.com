@@ -27,9 +27,29 @@ export const useChecklist = () => {
 
   const handleToggleItem = (id: string) => {
     setChecklist(prev => {
-      const updated = prev.map(item => 
-        item.id === id ? { ...item, isCompleted: !item.isCompleted } : item
-      );
+      const updated = prev.map(item => {
+        if (item.id === id) {
+          // If it's an outfit item with subitems, toggle all subitems
+          if (item.isOutfit && item.outfitItems && item.outfitItems.length > 0) {
+            // Check if all subitems are currently completed
+            const allCompleted = item.outfitItems.every(subItem => subItem.isCompleted);
+            // Toggle all subitems to the opposite state
+            const newCompletionState = !allCompleted;
+            
+            return {
+              ...item,
+              isCompleted: newCompletionState,
+              outfitItems: item.outfitItems.map(subItem => ({
+                ...subItem,
+                isCompleted: newCompletionState
+              }))
+            };
+          }
+          // For regular items, just toggle the item itself
+          return { ...item, isCompleted: !item.isCompleted };
+        }
+        return item;
+      });
       return updated;
     });
     

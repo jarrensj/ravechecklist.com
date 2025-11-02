@@ -9,8 +9,10 @@ import { useEventInfo } from '@/hooks/useEventInfo';
 import { useTemplateHistory } from '@/hooks/useTemplateHistory';
 import { useTemplateDetail } from '@/hooks/useTemplateDetail';
 import TemplateSelector from '@/components/TemplateSelector';
+import TemplatesSidebar from '@/components/TemplatesSidebar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { ArrowLeft, User } from 'lucide-react';
 import { templates } from '@/utils/data';
 
 const Dashboard: React.FC = () => {
@@ -21,6 +23,7 @@ const Dashboard: React.FC = () => {
   
   // Track if we're showing a template from URL or history
   const [showingTemplate, setShowingTemplate] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const { lastViewedTemplate, addToHistory, refreshHistory } = useTemplateHistory();
   
   // Default user checklist (always available)
@@ -103,36 +106,67 @@ const Dashboard: React.FC = () => {
   
   // Handle switching to a specific template
   const switchToTemplate = (id: string) => {
+    setSidebarOpen(false); // Close sidebar when selecting a template
     navigate(`/templates/${id}`);
+  };
+  
+  // Handle going back to personal checklist
+  const goToPersonalChecklist = () => {
+    navigate('/checklist', { 
+      state: { 
+        showPersonalChecklist: true,
+        fromTemplateId: template?.id
+      } 
+    });
   };
   
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
+      {/* Templates Sidebar */}
+      <TemplatesSidebar 
+        isOpen={sidebarOpen}
+        onToggle={() => setSidebarOpen(!sidebarOpen)}
+        onSelectTemplate={switchToTemplate}
+        currentTemplateId={showingTemplate ? currentTemplateId : undefined}
+      />
       
-      <main className="container max-w-screen-2xl mx-auto px-4 sm:px-6 pb-12">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-          <h1 className="text-2xl font-bold mb-4 sm:mb-0">
-            {showingTemplate && template ? `${template.name} Template` : "My Festival Checklist"}
-          </h1>
+      {/* Main content area with margin for sidebar */}
+      <div className={`transition-all duration-300 ${sidebarOpen ? 'ml-80' : 'ml-16'}`}>
+        <Header />
+        
+        <main className="container max-w-screen-2xl mx-auto px-4 sm:px-6 pb-12">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-3">
+              <h1 className="text-2xl font-bold">
+                {showingTemplate && template ? `${template.name}` : "My Festival Checklist"}
+              </h1>
+              {!showingTemplate && (
+                <Badge variant="outline" className="bg-sky-50 text-sky-700 border-sky-200">
+                  <User className="mr-1 h-3 w-3" />
+                  Personal
+                </Badge>
+              )}
+              {showingTemplate && template && (
+                <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
+                  Template
+                </Badge>
+              )}
+            </div>
+            {showingTemplate && template && (
+              <p className="text-sm text-gray-600">
+                Using template • <button onClick={goToPersonalChecklist} className="text-sky-600 hover:text-sky-800 underline">Switch to my personal checklist</button>
+              </p>
+            )}
+            {!showingTemplate && (
+              <p className="text-sm text-gray-600">
+                <button onClick={() => setSidebarOpen(true)} className="text-sky-600 hover:text-sky-800 underline">Browse templates</button> or customize your own
+              </p>
+            )}
+          </div>
           
           <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-            {showingTemplate && template && (
-              <Button 
-                variant="outline" 
-                onClick={() => navigate('/dashboard', { 
-                  state: { 
-                    showPersonalChecklist: true,
-                    fromTemplateId: template.id  // Pass the current template ID when going back
-                  } 
-                })} 
-                className="mb-2 sm:mb-0"
-              >
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to My Checklist
-              </Button>
-            )}
-            <TemplateSelector className={showingTemplate ? "w-full sm:w-auto" : ""} />
+            <TemplateSelector className="w-full sm:w-auto" />
           </div>
         </div>
         
@@ -161,7 +195,8 @@ const Dashboard: React.FC = () => {
             />
           </div>
         </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 };
