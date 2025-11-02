@@ -35,7 +35,8 @@ const Index: React.FC = () => {
     handleToggleOutfitSubItem: toggleUserOutfitSubItem,
     handleAddOutfitSubItem: addUserOutfitSubItem,
     handleRemoveOutfitSubItem: removeUserOutfitSubItem,
-    handleEditOutfitSubItem: editUserOutfitSubItem
+    handleEditOutfitSubItem: editUserOutfitSubItem,
+    hasChanges: userHasChanges
   } = useChecklist();
   
   // Template checklist (if we have a template ID from URL or from history)
@@ -53,7 +54,8 @@ const Index: React.FC = () => {
     handleToggleOutfitSubItem: toggleTemplateOutfitSubItem,
     handleAddOutfitSubItem: addTemplateOutfitSubItem,
     handleRemoveOutfitSubItem: removeTemplateOutfitSubItem,
-    handleEditOutfitSubItem: editTemplateOutfitSubItem
+    handleEditOutfitSubItem: editTemplateOutfitSubItem,
+    hasChanges: templateHasChanges
   } = useTemplateDetail(currentTemplateId);
   
   const { event, setEvent } = useEventInfo();
@@ -96,6 +98,7 @@ const Index: React.FC = () => {
   const handleAddOutfitSubItem = showingTemplate ? addTemplateOutfitSubItem : addUserOutfitSubItem;
   const handleRemoveOutfitSubItem = showingTemplate ? removeTemplateOutfitSubItem : removeUserOutfitSubItem;
   const handleEditOutfitSubItem = showingTemplate ? editTemplateOutfitSubItem : editUserOutfitSubItem;
+  const hasChanges = showingTemplate ? templateHasChanges : userHasChanges;
   
   // Use template event or user event
   const currentEvent = showingTemplate && template ? template.event : event;
@@ -158,6 +161,7 @@ const Index: React.FC = () => {
               onRemoveOutfitSubItem={handleRemoveOutfitSubItem}
               onEditOutfitSubItem={handleEditOutfitSubItem}
               eventName={currentEventName}
+              hasChanges={hasChanges}
             />
           </div>
         </div>

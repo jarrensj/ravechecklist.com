@@ -87,7 +87,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                 </TooltipContent>
               </Tooltip>
               
-              {onResetTemplate && (
+              {onResetTemplate && hasChanges && (
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button 

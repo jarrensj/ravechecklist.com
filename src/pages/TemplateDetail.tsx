@@ -29,7 +29,8 @@ const TemplateDetail: React.FC = () => {
     handleToggleOutfitSubItem,
     handleAddOutfitSubItem,
     handleRemoveOutfitSubItem,
-    handleEditOutfitSubItem
+    handleEditOutfitSubItem,
+    hasChanges
   } = useTemplateDetail(id);
   
   // Record this template view in history
@@ -90,6 +91,7 @@ const TemplateDetail: React.FC = () => {
               onAddOutfitSubItem={handleAddOutfitSubItem}
               onRemoveOutfitSubItem={handleRemoveOutfitSubItem}
               onEditOutfitSubItem={handleEditOutfitSubItem}
+              hasChanges={hasChanges}
             />
           </div>
         </div>

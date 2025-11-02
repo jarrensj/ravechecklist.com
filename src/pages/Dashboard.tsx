@@ -38,7 +38,8 @@ const Dashboard: React.FC = () => {
     handleToggleOutfitSubItem: toggleUserOutfitSubItem,
     handleAddOutfitSubItem: addUserOutfitSubItem,
     handleRemoveOutfitSubItem: removeUserOutfitSubItem,
-    handleEditOutfitSubItem: editUserOutfitSubItem
+    handleEditOutfitSubItem: editUserOutfitSubItem,
+    hasChanges: userHasChanges
   } = useChecklist();
   
   // Template checklist (if we have a template ID from URL or from history)
@@ -56,7 +57,8 @@ const Dashboard: React.FC = () => {
     handleToggleOutfitSubItem: toggleTemplateOutfitSubItem,
     handleAddOutfitSubItem: addTemplateOutfitSubItem,
     handleRemoveOutfitSubItem: removeTemplateOutfitSubItem,
-    handleEditOutfitSubItem: editTemplateOutfitSubItem
+    handleEditOutfitSubItem: editTemplateOutfitSubItem,
+    hasChanges: templateHasChanges
   } = useTemplateDetail(currentTemplateId);
   
   const { event, setEvent } = useEventInfo();
@@ -99,6 +101,7 @@ const Dashboard: React.FC = () => {
   const handleAddOutfitSubItem = showingTemplate ? addTemplateOutfitSubItem : addUserOutfitSubItem;
   const handleRemoveOutfitSubItem = showingTemplate ? removeTemplateOutfitSubItem : removeUserOutfitSubItem;
   const handleEditOutfitSubItem = showingTemplate ? editTemplateOutfitSubItem : editUserOutfitSubItem;
+  const hasChanges = showingTemplate ? templateHasChanges : userHasChanges;
   
   // Use template event or user event
   const currentEvent = showingTemplate && template ? template.event : event;
@@ -192,6 +195,7 @@ const Dashboard: React.FC = () => {
               onAddOutfitSubItem={handleAddOutfitSubItem}
               onRemoveOutfitSubItem={handleRemoveOutfitSubItem}
               onEditOutfitSubItem={handleEditOutfitSubItem}
+              hasChanges={hasChanges}
             />
           </div>
         </div>
