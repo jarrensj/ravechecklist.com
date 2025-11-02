@@ -79,15 +79,26 @@ export const useTemplateDetail = (templateId: string | undefined) => {
   };
 
   const handleEditItem = (id: string, text: string, category: string) => {
+    const originalItem = checklist.find(item => item.id === id);
+    const hasChanges = originalItem && (originalItem.text !== text || originalItem.category !== category);
+    
     setChecklist(prev => prev.map(item => 
       item.id === id ? { ...item, text, category } : item
     ));
     
-    toast({
-      title: "Item updated",
-      description: text,
-      duration: 2000,
-    });
+    if (hasChanges) {
+      toast({
+        title: "Item updated",
+        description: text,
+        duration: 2000,
+      });
+    } else {
+      toast({
+        title: "No changes made",
+        description: "Item remains unchanged",
+        duration: 2000,
+      });
+    }
   };
 
   const handleResetTemplate = () => {
@@ -161,6 +172,10 @@ export const useTemplateDetail = (templateId: string | undefined) => {
   };
 
   const handleEditOutfitSubItem = (itemId: string, subItemId: string, text: string) => {
+    const item = checklist.find(i => i.id === itemId);
+    const originalSubItem = item?.outfitItems?.find(subItem => subItem.id === subItemId);
+    const hasChanges = originalSubItem && originalSubItem.text !== text;
+    
     setChecklist(prev => prev.map(item => {
       if (item.id === itemId && item.outfitItems) {
         return {
@@ -173,11 +188,19 @@ export const useTemplateDetail = (templateId: string | undefined) => {
       return item;
     }));
 
-    toast({
-      title: "Item updated",
-      description: text,
-      duration: 2000,
-    });
+    if (hasChanges) {
+      toast({
+        title: "Item updated",
+        description: text,
+        duration: 2000,
+      });
+    } else {
+      toast({
+        title: "No changes made",
+        description: "Item remains unchanged",
+        duration: 2000,
+      });
+    }
   };
   
   const progressPercentage = Math.round(
