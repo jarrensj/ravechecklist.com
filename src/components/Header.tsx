@@ -7,7 +7,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { useIsMobile } from '@/hooks/use-mobile';
-import { Menu, X, LayoutDashboard, Home, List } from 'lucide-react';
+import { Menu, X, LayoutDashboard, Home, List, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Header: React.FC = () => {
@@ -87,6 +87,15 @@ const Header: React.FC = () => {
                     Templates
                   </Link>
                 </li>
+                <li>
+                  <Link 
+                    to="/blog" 
+                    className={`transition-colors flex items-center ${isActive('/blog') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                  >
+                    <BookOpen className="mr-1 h-4 w-4" />
+                    Blog
+                  </Link>
+                </li>
               </ul>
             </nav>
           )}
@@ -125,6 +134,16 @@ const Header: React.FC = () => {
                   >
                     <List className="mr-2 h-4 w-4" />
                     Templates
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    to="/blog" 
+                    className={`block transition-colors flex items-center ${isActive('/blog') ? 'text-sky-600 font-medium' : 'text-gray-600 hover:text-sky-600'}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    Blog
                   </Link>
                 </li>
               </ul>
