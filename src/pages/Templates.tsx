@@ -80,7 +80,7 @@ const Templates: React.FC = () => {
                   {isPast && <div className="absolute inset-0 bg-gray-500/20 z-10"></div>}
                   <Link to={`/templates/${template.id}`}>
                     <img 
-                      src={template.thumbnail || 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop'} 
+                      src={template.thumbnail || '/placeholder.svg'} 
                       alt={template.name}
                       className="w-full h-full object-cover transition-transform hover:scale-105"
                     />
