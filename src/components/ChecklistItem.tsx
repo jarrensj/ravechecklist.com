@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { ChecklistItem as IChecklistItem } from "@/utils/data";
 import CategoryTag from './CategoryTag';
 import { categories } from '@/utils/data';
-import { Trash2, Pencil } from 'lucide-react';
+import { Trash2, Pencil, Star } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -21,6 +21,7 @@ interface ChecklistItemProps {
   onToggle: (id: string) => void;
   onRemove: (id: string) => void;
   onEdit?: (id: string, text: string, category: string) => void;
+  onToggleFavorite?: (id: string) => void;
   showRemoveButton: boolean;
 }
 
@@ -29,6 +30,7 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
   onToggle, 
   onRemove, 
   onEdit,
+  onToggleFavorite,
   showRemoveButton 
 }) => {
   const category = categories.find(c => c.id === item.category);
@@ -81,7 +83,7 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
         <div className="flex items-center">
           {/* Category tag stays on the right, only moves when action buttons appear */}
           <div className={cn("flex transition-all duration-200", 
-            (isHovering || showRemoveButton) ? "mr-[78px]" : "mr-0"
+            (isHovering || showRemoveButton) ? "mr-[114px]" : "mr-0"
           )}>
             {category && (
               <CategoryTag 
@@ -96,6 +98,23 @@ const ChecklistItem: React.FC<ChecklistItemProps> = ({
             "flex gap-1 transition-all duration-200 absolute right-2 sm:right-3", 
             (isHovering || showRemoveButton) ? "opacity-100" : "opacity-0"
           )}>
+            {onToggleFavorite && (
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className={cn(
+                  "h-6 w-6 sm:h-7 sm:w-7 p-1",
+                  item.isFavorite 
+                    ? "text-yellow-500 hover:text-yellow-600 hover:bg-yellow-50" 
+                    : "text-gray-400 hover:text-yellow-500 hover:bg-yellow-50"
+                )}
+                onClick={() => onToggleFavorite(item.id)}
+                title={item.isFavorite ? "Remove from favorites" : "Add to favorites"}
+              >
+                <Star className={cn("h-3 w-3 sm:h-4 sm:w-4", item.isFavorite && "fill-current")} />
+              </Button>
+            )}
+            
             {onEdit && (
               <Button 
                 variant="ghost" 

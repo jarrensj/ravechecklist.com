@@ -70,7 +70,9 @@ export const useChecklist = () => {
       category,
       isCompleted: false,
       isOutfit,
-      outfitItems: isOutfit ? [] : undefined
+      outfitItems: isOutfit ? [] : undefined,
+      isFavorite: false,
+      lastEdited: Date.now()
     };
     
     setChecklist(prev => [...prev, newItem]);
@@ -99,7 +101,7 @@ export const useChecklist = () => {
   const handleEditItem = (id: string, text: string, category: string) => {
     setChecklist(prev => prev.map(item => 
       item.id === id 
-        ? { ...item, text, category } 
+        ? { ...item, text, category, lastEdited: Date.now() } 
         : item
     ));
     
@@ -108,6 +110,23 @@ export const useChecklist = () => {
       description: text,
       duration: 2000,
     });
+  };
+
+  const handleToggleFavorite = (id: string) => {
+    setChecklist(prev => prev.map(item => 
+      item.id === id 
+        ? { ...item, isFavorite: !item.isFavorite, lastEdited: Date.now() } 
+        : item
+    ));
+    
+    const item = checklist.find(item => item.id === id);
+    if (item) {
+      toast({
+        title: item.isFavorite ? "Removed from favorites" : "Added to favorites",
+        description: item.text,
+        duration: 2000,
+      });
+    }
   };
   
   const handleResetTemplate = () => {
@@ -203,8 +222,20 @@ export const useChecklist = () => {
       : 0
   );
 
+  // Sort checklist: favorites first, then by most recently edited
+  const sortedChecklist = [...checklist].sort((a, b) => {
+    // First, sort by favorite status
+    if (a.isFavorite && !b.isFavorite) return -1;
+    if (!a.isFavorite && b.isFavorite) return 1;
+    
+    // Then sort by most recently edited
+    const aTime = a.lastEdited || 0;
+    const bTime = b.lastEdited || 0;
+    return bTime - aTime;
+  });
+
   return {
-    checklist,
+    checklist: sortedChecklist,
     progressPercentage,
     handleToggleItem,
     handleAddItem,
@@ -214,6 +245,7 @@ export const useChecklist = () => {
     handleToggleOutfitSubItem,
     handleAddOutfitSubItem,
     handleRemoveOutfitSubItem,
-    handleEditOutfitSubItem
+    handleEditOutfitSubItem,
+    handleToggleFavorite
   };
 };

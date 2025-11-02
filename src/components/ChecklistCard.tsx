@@ -16,6 +16,7 @@ interface ChecklistCardProps {
   onAddItem: (text: string, category: string, isOutfit?: boolean) => void;
   onRemoveItem: (id: string) => void;
   onEditItem?: (id: string, text: string, category: string) => void;
+  onToggleFavorite?: (id: string) => void;
   onResetTemplate?: () => void;
   eventName?: string;
   onToggleOutfitSubItem?: (itemId: string, subItemId: string) => void;
@@ -30,6 +31,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   onAddItem,
   onRemoveItem,
   onEditItem,
+  onToggleFavorite,
   onResetTemplate,
   eventName = "Festival",
   onToggleOutfitSubItem,
@@ -45,6 +47,10 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   const filteredItems = activeFilter 
     ? items.filter(item => item.category === activeFilter)
     : items;
+  
+  // Separate favorites and non-favorites from filtered items
+  const favoriteItems = filteredItems.filter(item => item.isFavorite);
+  const nonFavoriteItems = filteredItems.filter(item => !item.isFavorite);
     
   const handleAddItem = () => {
     if (newItemText.trim()) {
@@ -161,31 +167,85 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
         
         <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1 sm:pr-2">
           {filteredItems.length > 0 ? (
-            filteredItems.map(item => (
-              item.isOutfit ? (
-                <OutfitItem
-                  key={item.id}
-                  item={item}
-                  onToggle={onToggleItem}
-                  onRemove={onRemoveItem}
-                  onEdit={onEditItem}
-                  onToggleOutfitSubItem={onToggleOutfitSubItem}
-                  onAddOutfitSubItem={onAddOutfitSubItem}
-                  onRemoveOutfitSubItem={onRemoveOutfitSubItem}
-                  onEditOutfitSubItem={onEditOutfitSubItem}
-                  showRemoveButton={isRemoveMode}
-                />
-              ) : (
-                <ChecklistItem
-                  key={item.id}
-                  item={item}
-                  onToggle={onToggleItem}
-                  onRemove={onRemoveItem}
-                  onEdit={onEditItem}
-                  showRemoveButton={isRemoveMode}
-                />
-              )
-            ))
+            <>
+              {/* Favorites Section */}
+              {favoriteItems.length > 0 && (
+                <div className="mb-4">
+                  <div className="flex items-center gap-2 mb-2 px-1">
+                    <h3 className="text-sm font-semibold text-yellow-600 flex items-center gap-1">
+                      <span className="text-yellow-500">?</span> Favorites
+                    </h3>
+                    <div className="flex-1 h-px bg-yellow-200"></div>
+                  </div>
+                  {favoriteItems.map(item => (
+                    item.isOutfit ? (
+                      <OutfitItem
+                        key={item.id}
+                        item={item}
+                        onToggle={onToggleItem}
+                        onRemove={onRemoveItem}
+                        onEdit={onEditItem}
+                        onToggleFavorite={onToggleFavorite}
+                        onToggleOutfitSubItem={onToggleOutfitSubItem}
+                        onAddOutfitSubItem={onAddOutfitSubItem}
+                        onRemoveOutfitSubItem={onRemoveOutfitSubItem}
+                        onEditOutfitSubItem={onEditOutfitSubItem}
+                        showRemoveButton={isRemoveMode}
+                      />
+                    ) : (
+                      <ChecklistItem
+                        key={item.id}
+                        item={item}
+                        onToggle={onToggleItem}
+                        onRemove={onRemoveItem}
+                        onEdit={onEditItem}
+                        onToggleFavorite={onToggleFavorite}
+                        showRemoveButton={isRemoveMode}
+                      />
+                    )
+                  ))}
+                </div>
+              )}
+              
+              {/* All Items Section */}
+              {nonFavoriteItems.length > 0 && (
+                <div>
+                  {favoriteItems.length > 0 && (
+                    <div className="flex items-center gap-2 mb-2 px-1">
+                      <h3 className="text-sm font-semibold text-gray-600">All Items</h3>
+                      <div className="flex-1 h-px bg-gray-200"></div>
+                    </div>
+                  )}
+                  {nonFavoriteItems.map(item => (
+                    item.isOutfit ? (
+                      <OutfitItem
+                        key={item.id}
+                        item={item}
+                        onToggle={onToggleItem}
+                        onRemove={onRemoveItem}
+                        onEdit={onEditItem}
+                        onToggleFavorite={onToggleFavorite}
+                        onToggleOutfitSubItem={onToggleOutfitSubItem}
+                        onAddOutfitSubItem={onAddOutfitSubItem}
+                        onRemoveOutfitSubItem={onRemoveOutfitSubItem}
+                        onEditOutfitSubItem={onEditOutfitSubItem}
+                        showRemoveButton={isRemoveMode}
+                      />
+                    ) : (
+                      <ChecklistItem
+                        key={item.id}
+                        item={item}
+                        onToggle={onToggleItem}
+                        onRemove={onRemoveItem}
+                        onEdit={onEditItem}
+                        onToggleFavorite={onToggleFavorite}
+                        showRemoveButton={isRemoveMode}
+                      />
+                    )
+                  ))}
+                </div>
+              )}
+            </>
           ) : (
             <div className="text-center py-8 text-gray-500 text-sm">
               No items in this category yet

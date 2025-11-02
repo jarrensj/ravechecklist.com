@@ -12,6 +12,8 @@ export interface ChecklistItem {
   isCompleted: boolean;
   isOutfit?: boolean;
   outfitItems?: OutfitSubItem[];
+  isFavorite?: boolean;
+  lastEdited?: number;
 }
 
 export interface EventInfo {

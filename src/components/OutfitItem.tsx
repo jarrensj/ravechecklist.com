@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { ChecklistItem as IChecklistItem, OutfitSubItem } from "@/utils/data";
 import CategoryTag from './CategoryTag';
 import { categories } from '@/utils/data';
-import { Trash2, Pencil, ChevronDown, ChevronRight, Plus } from 'lucide-react';
+import { Trash2, Pencil, ChevronDown, ChevronRight, Plus, Star } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -25,6 +25,7 @@ interface OutfitItemProps {
   onToggle: (id: string) => void;
   onRemove: (id: string) => void;
   onEdit?: (id: string, text: string, category: string) => void;
+  onToggleFavorite?: (id: string) => void;
   onToggleOutfitSubItem?: (itemId: string, subItemId: string) => void;
   onAddOutfitSubItem?: (itemId: string, type: 'shoes' | 'top' | 'bottom' | 'accessories', text: string) => void;
   onRemoveOutfitSubItem?: (itemId: string, subItemId: string) => void;
@@ -37,6 +38,7 @@ const OutfitItem: React.FC<OutfitItemProps> = ({
   onToggle, 
   onRemove, 
   onEdit,
+  onToggleFavorite,
   onToggleOutfitSubItem,
   onAddOutfitSubItem,
   onRemoveOutfitSubItem,
@@ -127,7 +129,7 @@ const OutfitItem: React.FC<OutfitItemProps> = ({
           
           <div className="flex items-center">
             <div className={cn("flex transition-all duration-200", 
-              (isHovering || showRemoveButton) ? "mr-[78px]" : "mr-0"
+              (isHovering || showRemoveButton) ? "mr-[114px]" : "mr-0"
             )}>
               {category && (
                 <CategoryTag 
@@ -141,6 +143,23 @@ const OutfitItem: React.FC<OutfitItemProps> = ({
               "flex gap-1 transition-all duration-200 absolute right-2 sm:right-3", 
               (isHovering || showRemoveButton) ? "opacity-100" : "opacity-0"
             )}>
+              {onToggleFavorite && (
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className={cn(
+                    "h-6 w-6 sm:h-7 sm:w-7 p-1",
+                    item.isFavorite 
+                      ? "text-yellow-500 hover:text-yellow-600 hover:bg-yellow-50" 
+                      : "text-gray-400 hover:text-yellow-500 hover:bg-yellow-50"
+                  )}
+                  onClick={() => onToggleFavorite(item.id)}
+                  title={item.isFavorite ? "Remove from favorites" : "Add to favorites"}
+                >
+                  <Star className={cn("h-3 w-3 sm:h-4 sm:w-4", item.isFavorite && "fill-current")} />
+                </Button>
+              )}
+              
               {onEdit && (
                 <Button 
                   variant="ghost" 
