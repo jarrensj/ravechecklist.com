@@ -131,19 +131,21 @@ const TemplatesSidebar: React.FC<TemplatesSidebarProps> = ({
                     } ${isActive ? 'ring-2 ring-sky-500 bg-sky-50' : ''}`}
                     onClick={() => onSelectTemplate(template.id)}
                   >
-                    <div className="aspect-video w-full overflow-hidden relative">
-                      {isPast && <div className="absolute inset-0 bg-gray-500/20 z-10"></div>}
-                      {isActive && (
-                        <Badge className="absolute top-2 right-2 z-20 bg-sky-600">
-                          Active
-                        </Badge>
-                      )}
-                      <img 
-                        src={template.thumbnail || '/placeholder.svg'} 
-                        alt={template.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
+                    {template.thumbnail && (
+                      <div className="aspect-video w-full overflow-hidden relative">
+                        {isPast && <div className="absolute inset-0 bg-gray-500/20 z-10"></div>}
+                        {isActive && (
+                          <Badge className="absolute top-2 right-2 z-20 bg-sky-600">
+                            Active
+                          </Badge>
+                        )}
+                        <img 
+                          src={template.thumbnail} 
+                          alt={template.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
                     <CardHeader className="p-3">
                       <CardTitle className="text-sm flex items-center gap-2">
                         {template.name}

@@ -76,16 +76,18 @@ const Templates: React.FC = () => {
             
             return (
               <Card key={template.id} className={`overflow-hidden transition-all hover:shadow-md ${isPast ? 'opacity-60' : ''}`}>
-                <div className="aspect-video w-full overflow-hidden relative">
-                  {isPast && <div className="absolute inset-0 bg-gray-500/20 z-10"></div>}
-                  <Link to={`/templates/${template.id}`}>
-                    <img 
-                      src={template.thumbnail || '/placeholder.svg'} 
-                      alt={template.name}
-                      className="w-full h-full object-cover transition-transform hover:scale-105"
-                    />
-                  </Link>
-                </div>
+                {template.thumbnail && (
+                  <div className="aspect-video w-full overflow-hidden relative">
+                    {isPast && <div className="absolute inset-0 bg-gray-500/20 z-10"></div>}
+                    <Link to={`/templates/${template.id}`}>
+                      <img 
+                        src={template.thumbnail} 
+                        alt={template.name}
+                        className="w-full h-full object-cover transition-transform hover:scale-105"
+                      />
+                    </Link>
+                  </div>
+                )}
                 <CardHeader className="p-4 sm:p-6">
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                     <Music className="h-4 w-4 sm:h-5 sm:w-5 text-sky-600" />

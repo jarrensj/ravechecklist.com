@@ -191,7 +191,7 @@ export const templates: Template[] = [
       prohibitedItemsLink: "https://www.coachella.com/rules"
     },
     items: combineChecklistItems("", coachellaSpecificItems),
-    thumbnail: "/placeholder.svg",
+    thumbnail: "",
     prohibitedItemsLink: "https://www.coachella.com/rules"
   },
   {
@@ -207,7 +207,7 @@ export const templates: Template[] = [
       prohibitedItemsLink: "https://www.coachella.com/rules"
     },
     items: combineChecklistItems("w2", coachellaSpecificItems),
-    thumbnail: "/placeholder.svg",
+    thumbnail: "",
     prohibitedItemsLink: "https://www.coachella.com/rules"
   },
   {
@@ -222,7 +222,7 @@ export const templates: Template[] = [
       endDate: new Date(2025, 7, 10)    // August 10, 2025
     },
     items: combineChecklistItems("ol", outsideLandsSpecificItems),
-    thumbnail: "/placeholder.svg",
+    thumbnail: "",
     prohibitedItemsLink: ""
   },
   {
@@ -237,7 +237,7 @@ export const templates: Template[] = [
       endDate: new Date(2026, 4, 15)     // May 15, 2026
     },
     items: combineChecklistItems("edc", edcLasVegasSpecificItems),
-    thumbnail: "/placeholder.svg", 
+    thumbnail: "", 
     prohibitedItemsLink: "https://lasvegas.electricdaisycarnival.com/guide/hours-and-info/"
   }
 ];
