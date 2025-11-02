@@ -31,9 +31,25 @@ export const useTemplateDetail = (templateId: string | undefined) => {
   }, [checklist, template]);
   
   const handleToggleItem = (id: string) => {
-    setChecklist(prev => prev.map(item => 
-      item.id === id ? { ...item, isCompleted: !item.isCompleted } : item
-    ));
+    setChecklist(prev => prev.map(item => {
+      if (item.id === id) {
+        // If it's an outfit, toggle all sub-items
+        if (item.isOutfit && item.outfitItems) {
+          const allCompleted = item.outfitItems.every(subItem => subItem.isCompleted);
+          const newCompletedState = !allCompleted;
+          return {
+            ...item,
+            isCompleted: newCompletedState,
+            outfitItems: item.outfitItems.map(subItem => ({
+              ...subItem,
+              isCompleted: newCompletedState
+            }))
+          };
+        }
+        return { ...item, isCompleted: !item.isCompleted };
+      }
+      return item;
+    }));
     
     const item = checklist.find(item => item.id === id);
     if (item) {
@@ -45,7 +61,7 @@ export const useTemplateDetail = (templateId: string | undefined) => {
     }
   };
 
-  const handleAddItem = (text: string, category: string, isOutfit: boolean = false) => {
+  const handleAddItem = (text: string, category: string, isOutfit: boolean = false): string => {
     const newItem: ChecklistItem = {
       id: Date.now().toString(),
       text,
@@ -62,6 +78,8 @@ export const useTemplateDetail = (templateId: string | undefined) => {
       description: text,
       duration: 2000,
     });
+    
+    return newItem.id;
   };
   
   const handleRemoveItem = (id: string) => {

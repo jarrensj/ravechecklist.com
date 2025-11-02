@@ -6,14 +6,22 @@ import { Plus, RotateCcw } from "lucide-react";
 import ChecklistItem from './ChecklistItem';
 import OutfitItem from './OutfitItem';
 import CategoryTag from './CategoryTag';
-import { ChecklistItem as IChecklistItem, categories } from '@/utils/data';
+import { ChecklistItem as IChecklistItem, categories, CategoryId } from '@/utils/data';
 import { Switch } from "@/components/ui/switch";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface ChecklistCardProps {
   items: IChecklistItem[];
   onToggleItem: (id: string) => void;
-  onAddItem: (text: string, category: string, isOutfit?: boolean) => void;
+  onAddItem: (text: string, category: string, isOutfit?: boolean) => string;
   onRemoveItem: (id: string) => void;
   onEditItem?: (id: string, text: string, category: string) => void;
   onResetTemplate?: () => void;
@@ -38,20 +46,81 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   onEditOutfitSubItem
 }) => {
   const [newItemText, setNewItemText] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
+  const [selectedCategory, setSelectedCategory] = useState<CategoryId>(categories[0].id);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [isRemoveMode, setIsRemoveMode] = useState(false);
+  const [showOutfitDialog, setShowOutfitDialog] = useState(false);
+  const [pendingClothingItem, setPendingClothingItem] = useState("");
+  const [selectedOutfit, setSelectedOutfit] = useState("");
+  const [newOutfitName, setNewOutfitName] = useState("");
   
-  const filteredItems = activeFilter 
-    ? items.filter(item => item.category === activeFilter)
-    : items;
+  // Create flattened list for clothing filter - show sub-items as individual items
+  const getFilteredItems = () => {
+    if (!activeFilter) return items;
+    
+    if (activeFilter === 'clothing') {
+      // For clothing, show outfit sub-items as individual items
+      const clothingItems: any[] = [];
+      items.forEach(item => {
+        if (item.isOutfit && item.outfitItems && item.outfitItems.length > 0) {
+          // Add each sub-item as if it were a regular item
+          item.outfitItems.forEach(subItem => {
+            clothingItems.push({
+              id: subItem.id,
+              text: subItem.text,
+              category: 'clothing',
+              isCompleted: subItem.isCompleted,
+              isOutfit: false,
+              parentOutfitId: item.id, // Track which outfit this belongs to
+              subItemId: subItem.id
+            });
+          });
+        }
+      });
+      return clothingItems;
+    }
+    
+    // For other categories, normal filtering
+    return items.filter(item => item.category === activeFilter);
+  };
+  
+  const filteredItems = getFilteredItems();
+  
+  // Get all existing outfits
+  const existingOutfits = items.filter(item => item.isOutfit);
     
   const handleAddItem = () => {
     if (newItemText.trim()) {
-      const isOutfit = selectedCategory === 'outfits';
-      onAddItem(newItemText, selectedCategory, isOutfit);
-      setNewItemText("");
+      // If adding clothing, show outfit selection dialog
+      if (selectedCategory === 'clothing') {
+        setPendingClothingItem(newItemText);
+        setShowOutfitDialog(true);
+      } else {
+        const isOutfit = selectedCategory === 'outfits';
+        onAddItem(newItemText, selectedCategory, isOutfit);
+        setNewItemText("");
+      }
     }
+  };
+
+  const handleConfirmOutfitSelection = () => {
+    if (selectedOutfit === 'new' && newOutfitName.trim()) {
+      // Create new outfit and add clothing to it
+      const newOutfitId = onAddItem(newOutfitName, 'outfits', true);
+      if (onAddOutfitSubItem && newOutfitId) {
+        onAddOutfitSubItem(newOutfitId, 'top', pendingClothingItem);
+      }
+    } else if (selectedOutfit && onAddOutfitSubItem) {
+      // Add to existing outfit
+      onAddOutfitSubItem(selectedOutfit, 'top', pendingClothingItem);
+    }
+    
+    // Reset and close
+    setShowOutfitDialog(false);
+    setNewItemText("");
+    setPendingClothingItem("");
+    setSelectedOutfit("");
+    setNewOutfitName("");
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -141,7 +210,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
             <select 
               className="h-10 rounded-md border border-input bg-background px-3 py-2 text-xs sm:text-sm w-full sm:w-auto"
               value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
+              onChange={(e) => setSelectedCategory(e.target.value as CategoryId)}
             >
               {categories.map(category => (
                 <option key={category.id} value={category.id}>
@@ -161,21 +230,51 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
         
         <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1 sm:pr-2">
           {filteredItems.length > 0 ? (
-            filteredItems.map(item => (
-              item.isOutfit ? (
-                <OutfitItem
-                  key={item.id}
-                  item={item}
-                  onToggle={onToggleItem}
-                  onRemove={onRemoveItem}
-                  onEdit={onEditItem}
-                  onToggleOutfitSubItem={onToggleOutfitSubItem}
-                  onAddOutfitSubItem={onAddOutfitSubItem}
-                  onRemoveOutfitSubItem={onRemoveOutfitSubItem}
-                  onEditOutfitSubItem={onEditOutfitSubItem}
-                  showRemoveButton={isRemoveMode}
-                />
-              ) : (
+            filteredItems.map(item => {
+              // Handle flattened clothing items (from outfit sub-items)
+              if ((item as any).parentOutfitId && (item as any).subItemId) {
+                return (
+                  <ChecklistItem
+                    key={item.id}
+                    item={item}
+                    onToggle={(id) => {
+                      // Toggle the sub-item within its parent outfit
+                      if (onToggleOutfitSubItem) {
+                        onToggleOutfitSubItem((item as any).parentOutfitId, (item as any).subItemId);
+                      }
+                    }}
+                    onRemove={(id) => {
+                      // Remove the sub-item from its parent outfit
+                      if (onRemoveOutfitSubItem) {
+                        onRemoveOutfitSubItem((item as any).parentOutfitId, (item as any).subItemId);
+                      }
+                    }}
+                    onEdit={undefined} // Disable editing for flattened items
+                    showRemoveButton={isRemoveMode}
+                  />
+                );
+              }
+              
+              // Handle regular outfit items
+              if (item.isOutfit) {
+                return (
+                  <OutfitItem
+                    key={item.id}
+                    item={item}
+                    onToggle={onToggleItem}
+                    onRemove={onRemoveItem}
+                    onEdit={onEditItem}
+                    onToggleOutfitSubItem={onToggleOutfitSubItem}
+                    onAddOutfitSubItem={onAddOutfitSubItem}
+                    onRemoveOutfitSubItem={onRemoveOutfitSubItem}
+                    onEditOutfitSubItem={onEditOutfitSubItem}
+                    showRemoveButton={isRemoveMode}
+                  />
+                );
+              }
+              
+              // Handle regular checklist items
+              return (
                 <ChecklistItem
                   key={item.id}
                   item={item}
@@ -184,8 +283,8 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                   onEdit={onEditItem}
                   showRemoveButton={isRemoveMode}
                 />
-              )
-            ))
+              );
+            })
           ) : (
             <div className="text-center py-8 text-gray-500 text-sm">
               No items in this category yet
@@ -193,6 +292,86 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
           )}
         </div>
       </CardContent>
+
+      {/* Outfit Selection Dialog */}
+      <Dialog open={showOutfitDialog} onOpenChange={setShowOutfitDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Add to Outfit</DialogTitle>
+            <DialogDescription>
+              Which outfit is this clothing item for?
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="grid gap-4 py-4">
+            <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+              <p className="text-sm text-gray-700">
+                <span className="font-semibold">Item:</span> {pendingClothingItem}
+              </p>
+            </div>
+
+            <div className="grid gap-2">
+              <label className="text-sm font-medium">Select Outfit</label>
+              <select 
+                className="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm"
+                value={selectedOutfit}
+                onChange={(e) => {
+                  setSelectedOutfit(e.target.value);
+                  if (e.target.value !== 'new') {
+                    setNewOutfitName("");
+                  }
+                }}
+              >
+                <option value="">Choose an outfit...</option>
+                {existingOutfits.map(outfit => (
+                  <option key={outfit.id} value={outfit.id}>
+                    {outfit.text}
+                  </option>
+                ))}
+                <option value="new">➕ Create New Outfit</option>
+              </select>
+            </div>
+            
+            {selectedOutfit === 'new' && (
+              <div className="grid gap-2">
+                <label className="text-sm font-medium">New Outfit Name</label>
+                <Input
+                  placeholder="e.g., Day 1 Outfit, Saturday Night..."
+                  value={newOutfitName}
+                  onChange={(e) => setNewOutfitName(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && newOutfitName.trim()) {
+                      handleConfirmOutfitSelection();
+                    }
+                  }}
+                  autoFocus
+                />
+              </div>
+            )}
+          </div>
+          
+          <DialogFooter>
+            <Button 
+              variant="outline" 
+              onClick={() => {
+                setShowOutfitDialog(false);
+                setNewItemText("");
+                setPendingClothingItem("");
+                setSelectedOutfit("");
+                setNewOutfitName("");
+              }}
+            >
+              Cancel
+            </Button>
+            <Button 
+              onClick={handleConfirmOutfitSelection}
+              disabled={!selectedOutfit || (selectedOutfit === 'new' && !newOutfitName.trim())}
+            >
+              Add to Outfit
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 };
