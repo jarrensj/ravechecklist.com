@@ -48,9 +48,6 @@ const TemplatesSidebar: React.FC<TemplatesSidebarProps> = ({
         fromTemplateId: currentTemplateId
       } 
     });
-    if (isOpen) {
-      onToggle(); // Close sidebar on mobile after navigation
-    }
   };
   
   const formatDateRange = (startDate?: Date, endDate?: Date) => {

@@ -106,7 +106,6 @@ const Dashboard: React.FC = () => {
   
   // Handle switching to a specific template
   const switchToTemplate = (id: string) => {
-    setSidebarOpen(false); // Close sidebar when selecting a template
     navigate(`/templates/${id}`);
   };
   
