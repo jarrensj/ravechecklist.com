@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { templates } from '@/utils/data';
 import { Button } from '@/components/ui/button';
-import { Music, X, PanelLeftClose, PanelLeft, AlertCircle } from 'lucide-react';
+import { Music, X, PanelLeftClose, PanelLeft, AlertCircle, User } from 'lucide-react';
 import { format } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useNavigate } from 'react-router-dom';
 
 interface TemplatesSidebarProps {
   onSelectTemplate: (templateId: string) => void;
@@ -22,6 +23,8 @@ const TemplatesSidebar: React.FC<TemplatesSidebarProps> = ({
   isOpen,
   onToggle
 }) => {
+  const navigate = useNavigate();
+  
   // Sort templates by startDate - upcoming events first, past events at the end
   const sortedTemplates = [...templates].sort((a, b) => {
     if (!a.event.startDate || !b.event.startDate) {
@@ -37,6 +40,18 @@ const TemplatesSidebar: React.FC<TemplatesSidebarProps> = ({
     
     return a.event.startDate.getTime() - b.event.startDate.getTime();
   });
+  
+  const handleGoToPersonalChecklist = () => {
+    navigate('/checklist', { 
+      state: { 
+        showPersonalChecklist: true,
+        fromTemplateId: currentTemplateId
+      } 
+    });
+    if (isOpen) {
+      onToggle(); // Close sidebar on mobile after navigation
+    }
+  };
   
   const formatDateRange = (startDate?: Date, endDate?: Date) => {
     if (!startDate) return "Date TBD";
@@ -112,6 +127,38 @@ const TemplatesSidebar: React.FC<TemplatesSidebarProps> = ({
           {isOpen ? (
             // Expanded view - show full cards
             <div className="p-4 space-y-4">
+              {/* Personal Checklist Card */}
+              <Card 
+                className={`cursor-pointer transition-all hover:shadow-md ${
+                  !currentTemplateId ? 'ring-2 ring-sky-500 bg-sky-50' : ''
+                }`}
+                onClick={handleGoToPersonalChecklist}
+              >
+                <CardHeader className="p-4">
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <User className="h-5 w-5 text-sky-600" />
+                    My Personal Checklist
+                    {!currentTemplateId && (
+                      <Badge className="ml-auto bg-sky-600">
+                        Active
+                      </Badge>
+                    )}
+                  </CardTitle>
+                  <CardDescription className="text-sm">
+                    Your custom festival checklist
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+              
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-white px-2 text-gray-500">Templates</span>
+                </div>
+              </div>
+
               <Alert className="border-sky-200 bg-sky-50">
                 <AlertCircle className="h-4 w-4 text-sky-600" />
                 <AlertDescription className="text-sm text-sky-700">
@@ -163,7 +210,7 @@ const TemplatesSidebar: React.FC<TemplatesSidebarProps> = ({
                               acc[item.category] = true;
                               return acc;
                             }, {} as Record<string, boolean>)
-                          ).length} categories • {template.items.length} items
+                          ).length} categories ? {template.items.length} items
                         </div>
                       </div>
                     </CardContent>
@@ -174,6 +221,34 @@ const TemplatesSidebar: React.FC<TemplatesSidebarProps> = ({
           ) : (
             // Collapsed view - show icon buttons with tooltips
             <div className="py-4 space-y-2 flex flex-col items-center">
+              {/* Personal Checklist Icon Button */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    onClick={handleGoToPersonalChecklist}
+                    className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all relative ${
+                      !currentTemplateId 
+                        ? 'bg-sky-600 text-white ring-2 ring-sky-400 ring-offset-2' 
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    <User className="h-5 w-5" />
+                    {!currentTemplateId && (
+                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                    )}
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="right">
+                  <div className="max-w-xs">
+                    <p className="font-semibold">My Personal Checklist</p>
+                    <p className="text-xs text-gray-500">Your custom festival checklist</p>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+              
+              {/* Separator */}
+              <div className="w-8 h-px bg-gray-300 my-2"></div>
+              
               {sortedTemplates.map(template => {
                 const isPast = template.event.startDate && template.event.startDate < now;
                 const isActive = currentTemplateId === template.id;
