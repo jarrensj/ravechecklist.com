@@ -1,7 +1,44 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { ChecklistItem, sampleChecklist, OutfitSubItem } from '@/utils/data';
 import { useToast } from "@/hooks/use-toast";
+
+// Helper function to compare two checklists and detect changes
+const hasChecklistChanges = (current: ChecklistItem[], original: ChecklistItem[]): boolean => {
+  // Quick check: different lengths mean changes
+  if (current.length !== original.length) return true;
+  
+  // Create a map of original items by ID for efficient lookup
+  const originalMap = new Map(original.map(item => [item.id, item]));
+  
+  // Check each current item against original
+  for (const currentItem of current) {
+    const originalItem = originalMap.get(currentItem.id);
+    
+    // Item not in original = new item added
+    if (!originalItem) return true;
+    
+    // Check if text or category changed
+    if (currentItem.text !== originalItem.text || currentItem.category !== originalItem.category) {
+      return true;
+    }
+    
+    // Check outfit sub-items if it's an outfit
+    if (currentItem.isOutfit && currentItem.outfitItems && originalItem.outfitItems) {
+      if (currentItem.outfitItems.length !== originalItem.outfitItems.length) return true;
+      
+      const originalSubMap = new Map(originalItem.outfitItems.map(sub => [sub.id, sub]));
+      for (const currentSub of currentItem.outfitItems) {
+        const originalSub = originalSubMap.get(currentSub.id);
+        if (!originalSub || currentSub.text !== originalSub.text || currentSub.type !== originalSub.type) {
+          return true;
+        }
+      }
+    }
+  }
+  
+  return false;
+};
 
 export const useChecklist = () => {
   const [checklist, setChecklist] = useState<ChecklistItem[]>([]);
@@ -203,6 +240,11 @@ export const useChecklist = () => {
       : 0
   );
 
+  // Check if there are any changes from the original template
+  const hasChanges = useMemo(() => {
+    return hasChecklistChanges(checklist, sampleChecklist);
+  }, [checklist]);
+
   return {
     checklist,
     progressPercentage,
@@ -214,6 +256,7 @@ export const useChecklist = () => {
     handleToggleOutfitSubItem,
     handleAddOutfitSubItem,
     handleRemoveOutfitSubItem,
-    handleEditOutfitSubItem
+    handleEditOutfitSubItem,
+    hasChanges
   };
 };

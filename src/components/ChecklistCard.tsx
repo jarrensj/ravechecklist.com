@@ -22,6 +22,7 @@ interface ChecklistCardProps {
   onAddOutfitSubItem?: (itemId: string, type: 'shoes' | 'top' | 'bottom' | 'accessories', text: string) => void;
   onRemoveOutfitSubItem?: (itemId: string, subItemId: string) => void;
   onEditOutfitSubItem?: (itemId: string, subItemId: string, text: string) => void;
+  hasChanges?: boolean;
 }
 
 const ChecklistCard: React.FC<ChecklistCardProps> = ({ 
@@ -35,7 +36,8 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   onToggleOutfitSubItem,
   onAddOutfitSubItem,
   onRemoveOutfitSubItem,
-  onEditOutfitSubItem
+  onEditOutfitSubItem,
+  hasChanges = false
 }) => {
   const [newItemText, setNewItemText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
