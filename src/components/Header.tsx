@@ -19,10 +19,6 @@ const Header: React.FC = () => {
     if (path === '/') {
       return location.pathname === '/';
     }
-    if (path === '/checklist') {
-      // For checklist, check that we're either at checklist or viewing a template
-      return location.pathname === '/checklist' || location.pathname.startsWith('/templates/');
-    }
     return location.pathname === path || location.pathname.startsWith(path);
   };
 

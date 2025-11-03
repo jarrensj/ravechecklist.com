@@ -117,72 +117,28 @@ export const sampleEvent: EventInfo = {
 export const sampleChecklist: ChecklistItem[] = combineChecklistItems("", [
   { text: "Festival Outfit Day 1", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
   { text: "Festival Outfit Day 2", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
-  { text: "Festival Outfit Day 3", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
-  { text: "Bandanas/Masks", category: "clothing", isCompleted: false },
-  { text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
-  { text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
-  { text: "Sunscreen", category: "toiletries", isCompleted: false },
-  { text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
-  { text: "Lip Balm", category: "toiletries", isCompleted: false },
-  { text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
-  { text: "Sunglasses", category: "clothing", isCompleted: false },
-  { text: "Camera", category: "electronics", isCompleted: false },
-  { text: "Eye Drops", category: "toiletries", isCompleted: false },
-  { text: "Handheld Fan", category: "electronics", isCompleted: false },
-  { text: "Fanny Pack", category: "clothing", isCompleted: false },
-  { text: "Make-up", category: "toiletries", isCompleted: false },
-  { text: "Water Mister (Personal Size)", category: "toiletries", isCompleted: false },
-  { text: "Bandaids", category: "toiletries", isCompleted: false },
-  { text: "Blanket (50\" x 70\" or smaller)", category: "misc", isCompleted: false }
+  { text: "Festival Outfit Day 3", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] }
 ], ["Festival Outfit"]);
 
 // Coachella-specific items (outdoor desert festival) - base items automatically included
 const coachellaSpecificItems: Omit<ChecklistItem, 'id'>[] = [
   { text: "Festival Outfit Day 1", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
   { text: "Festival Outfit Day 2", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
-  { text: "Festival Outfit Day 3", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
-  { text: "Bandanas/Masks", category: "clothing", isCompleted: false },
-  { text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
-  { text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
-  { text: "Sunscreen", category: "toiletries", isCompleted: false },
-  { text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
-  { text: "Lip Balm", category: "toiletries", isCompleted: false },
-  { text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
-  { text: "Sunglasses", category: "clothing", isCompleted: false },
-  { text: "Camera", category: "electronics", isCompleted: false },
-  { text: "Eye Drops", category: "toiletries", isCompleted: false },
-  { text: "Handheld Fan", category: "electronics", isCompleted: false },
-  { text: "Fanny Pack", category: "clothing", isCompleted: false },
-  { text: "Make-up", category: "toiletries", isCompleted: false },
-  { text: "Water Mister (Personal Size)", category: "toiletries", isCompleted: false },
-  { text: "Bandaids", category: "toiletries", isCompleted: false },
-  { text: "Blanket (50\" x 70\" or smaller)", category: "misc", isCompleted: false }
+  { text: "Festival Outfit Day 3", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] }
 ];
 
 // Outside Lands specific items - base items automatically included
 const outsideLandsSpecificItems: Omit<ChecklistItem, 'id'>[] = [
-  { text: "Warm Layers", category: "clothing", isCompleted: false },
-  { text: "Portable Charger/Power Bank", category: "electronics", isCompleted: false },
-  { text: "Sunscreen", category: "toiletries", isCompleted: false },
-  { text: "Hand Sanitizer / Hand Wipes", category: "toiletries", isCompleted: false },
-  { text: "Lip Balm", category: "toiletries", isCompleted: false },
-  { text: "Blanket for Sitting", category: "misc", isCompleted: false },
-  { text: "Hydration Pack / Water Bottle", category: "misc", isCompleted: false },
-  { text: "Sunglasses", category: "clothing", isCompleted: false }
+  { text: "Festival Outfit Day 1", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
+  { text: "Festival Outfit Day 2", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
+  { text: "Festival Outfit Day 3", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] }
 ];
 
 // EDC Las Vegas specific items - base items automatically included
 const edcLasVegasSpecificItems: Omit<ChecklistItem, 'id'>[] = [
-  { text: "Comfortable Shoes", category: "clothing", isCompleted: false },
-  { text: "Portable Phone Charger", category: "electronics", isCompleted: false },
-  { text: "Sunglasses", category: "clothing", isCompleted: false },
-  { text: "Sunscreen", category: "toiletries", isCompleted: false },
-  { text: "Hydration Pack/Water Bottle", category: "misc", isCompleted: false },
-  { text: "Light Jacket/Hoodie", category: "clothing", isCompleted: false },
-  { text: "Hand Sanitizer", category: "toiletries", isCompleted: false },
-  { text: "Lip Balm", category: "toiletries", isCompleted: false },
-  { text: "Fanny Pack", category: "clothing", isCompleted: false },
-  { text: "Bandaids", category: "toiletries", isCompleted: false },
+  { text: "Festival Outfit Day 1", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
+  { text: "Festival Outfit Day 2", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
+  { text: "Festival Outfit Day 3", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] }
 ];
 
 // Festival templates

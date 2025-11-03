@@ -1,10 +1,10 @@
 
 import { useState, useEffect } from 'react';
-import { ChecklistItem, sampleChecklist, OutfitSubItem } from '@/utils/data';
+import { ChecklistItem, sampleChecklist, OutfitSubItem, templates, EventInfo } from '@/utils/data';
 import { useToast } from "@/hooks/use-toast";
 import { showUpdateToast } from '@/lib/utils';
 
-export const useChecklist = () => {
+export const useChecklist = (setEventInfo?: (event: EventInfo) => void) => {
   const [checklist, setChecklist] = useState<ChecklistItem[]>([]);
   const { toast } = useToast();
 
@@ -221,6 +221,62 @@ export const useChecklist = () => {
     });
   };
 
+  const handleAutofillFromTemplate = (templateId: string) => {
+    const template = templates.find(t => t.id === templateId);
+    
+    if (!template) {
+      toast({
+        title: "Template not found",
+        description: "Could not load the selected template",
+        duration: 2000,
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    // Update event information
+    if (setEventInfo) {
+      setEventInfo(template.event);
+    }
+    
+    // Get existing item texts to avoid duplicates
+    const existingItemTexts = new Set(checklist.map(item => item.text.toLowerCase()));
+    
+    // Filter out items that already exist in the checklist
+    const newItems = template.items.filter(
+      item => !existingItemTexts.has(item.text.toLowerCase())
+    );
+    
+    if (newItems.length === 0) {
+      toast({
+        title: "Template loaded",
+        description: `Event info updated. All items from ${template.name} were already in your checklist.`,
+        duration: 3000,
+      });
+      return;
+    }
+    
+    // Add new items to checklist with fresh IDs
+    const itemsToAdd = newItems.map(item => ({
+      ...item,
+      id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      isCompleted: false,
+      outfitItems: item.outfitItems?.map(subItem => ({
+        ...subItem,
+        id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        isCompleted: false
+      }))
+    }));
+    
+    setChecklist(prev => [...prev, ...itemsToAdd]);
+    
+    toast({
+      title: "Template loaded successfully",
+      description: `Added ${newItems.length} new item${newItems.length > 1 ? 's' : ''} and updated event info for ${template.name}`,
+      duration: 3000,
+    });
+  };
+
   const progressPercentage = Math.round(
     checklist.length > 0 
       ? (checklist.filter(item => item.isCompleted).length / checklist.length) * 100
@@ -238,6 +294,7 @@ export const useChecklist = () => {
     handleToggleOutfitSubItem,
     handleAddOutfitSubItem,
     handleRemoveOutfitSubItem,
-    handleEditOutfitSubItem
+    handleEditOutfitSubItem,
+    handleAutofillFromTemplate
   };
 };
