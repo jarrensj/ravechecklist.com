@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { ChecklistItem, sampleChecklist, OutfitSubItem, templates, EventInfo } from '@/utils/data';
+import { ChecklistItem, sampleChecklist, OutfitSubItem, templates, EventInfo, getBaseChecklist } from '@/utils/data';
 import { useToast } from "@/hooks/use-toast";
 import { showUpdateToast } from '@/lib/utils';
 
@@ -277,6 +277,29 @@ export const useChecklist = (setEventInfo?: (event: EventInfo) => void) => {
     });
   };
 
+  const handleLoadBaseChecklist = () => {
+    const baseChecklist = getBaseChecklist();
+    setChecklist(baseChecklist);
+    localStorage.setItem('mainChecklist', JSON.stringify(baseChecklist));
+    
+    // Reset event info to default
+    if (setEventInfo) {
+      const defaultEvent: EventInfo = {
+        name: "My Festival",
+        date: "TBD",
+        location: "TBD",
+        startTime: "TBD"
+      };
+      setEventInfo(defaultEvent);
+    }
+    
+    toast({
+      title: "Base checklist loaded",
+      description: "Checklist and event info have been reset to base defaults",
+      duration: 3000,
+    });
+  };
+
   const progressPercentage = Math.round(
     checklist.length > 0 
       ? (checklist.filter(item => item.isCompleted).length / checklist.length) * 100
@@ -295,6 +318,7 @@ export const useChecklist = (setEventInfo?: (event: EventInfo) => void) => {
     handleAddOutfitSubItem,
     handleRemoveOutfitSubItem,
     handleEditOutfitSubItem,
-    handleAutofillFromTemplate
+    handleAutofillFromTemplate,
+    handleLoadBaseChecklist
   };
 };

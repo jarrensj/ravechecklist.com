@@ -56,6 +56,11 @@ const baseChecklistItems: Omit<ChecklistItem, 'id'>[] = [
   { text: "Festival Outfit", category: "outfits", isCompleted: false, isOutfit: true, outfitItems: [] },
 ];
 
+// Export a function to get base checklist with unique IDs
+export const getBaseChecklist = (): ChecklistItem[] => {
+  return generateChecklistItems("base", baseChecklistItems);
+};
+
 // Helper function to generate unique IDs for checklist items
 const generateChecklistItems = (prefix: string = "", items: Omit<ChecklistItem, 'id'>[]): ChecklistItem[] => {
   return items.map((item, index) => ({
