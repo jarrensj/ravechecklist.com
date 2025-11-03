@@ -221,6 +221,59 @@ export const useChecklist = () => {
     });
   };
 
+  const handleAutofillFromTemplate = (templateId: string) => {
+    // Import templates dynamically to avoid circular dependency
+    const { templates } = require('@/utils/data');
+    const template = templates.find((t: any) => t.id === templateId);
+    
+    if (!template) {
+      toast({
+        title: "Template not found",
+        description: "Could not load the selected template",
+        duration: 2000,
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    // Get existing item texts to avoid duplicates
+    const existingItemTexts = new Set(checklist.map(item => item.text.toLowerCase()));
+    
+    // Filter out items that already exist in the checklist
+    const newItems = template.items.filter(
+      (item: ChecklistItem) => !existingItemTexts.has(item.text.toLowerCase())
+    );
+    
+    if (newItems.length === 0) {
+      toast({
+        title: "No new items to add",
+        description: "All items from this template are already in your checklist",
+        duration: 2000,
+      });
+      return;
+    }
+    
+    // Add new items to checklist with fresh IDs
+    const itemsToAdd = newItems.map((item: ChecklistItem) => ({
+      ...item,
+      id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      isCompleted: false,
+      outfitItems: item.outfitItems?.map((subItem: any) => ({
+        ...subItem,
+        id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        isCompleted: false
+      }))
+    }));
+    
+    setChecklist(prev => [...prev, ...itemsToAdd]);
+    
+    toast({
+      title: "Items added from template",
+      description: `Added ${newItems.length} new item${newItems.length > 1 ? 's' : ''} from ${template.name}`,
+      duration: 3000,
+    });
+  };
+
   const progressPercentage = Math.round(
     checklist.length > 0 
       ? (checklist.filter(item => item.isCompleted).length / checklist.length) * 100
@@ -238,6 +291,7 @@ export const useChecklist = () => {
     handleToggleOutfitSubItem,
     handleAddOutfitSubItem,
     handleRemoveOutfitSubItem,
-    handleEditOutfitSubItem
+    handleEditOutfitSubItem,
+    handleAutofillFromTemplate
   };
 };

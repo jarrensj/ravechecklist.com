@@ -32,7 +32,7 @@ const Home: React.FC = () => {
             </h1>
             <p className="text-xl text-gray-600 mb-8">
               Never forget important items for your next festival, rave, or concert with RaveChecklist. 
-              Stay organized with customizable checklists and ready-to-use templates.
+              Create your personal checklist or autofill from popular festival templates.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild onClick={handleGetStarted}>
@@ -43,7 +43,7 @@ const Home: React.FC = () => {
               </Button>
               <Button variant="outline" size="lg" asChild>
                 <Link to="/checklist">
-                  Browse Checklists
+                  View Templates
                 </Link>
               </Button>
             </div>
@@ -71,12 +71,12 @@ const Home: React.FC = () => {
             <Card className="border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
               <CardHeader>
                 <ListChecks className="h-12 w-12 text-sky-600 mb-2" />
-                <CardTitle>Ready-to-Use Templates</CardTitle>
+                <CardTitle>Autofill from Templates</CardTitle>
                 <CardDescription>Start with professionally curated festival checklists</CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
-                  Browse our collection of checklists for different festival types, customize them, and save time on preparation.
+                  Quickly populate your checklist with items from popular festivals like Coachella, EDC, and Outside Lands.
                 </p>
               </CardContent>
             </Card>
