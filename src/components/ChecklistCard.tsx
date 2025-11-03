@@ -7,8 +7,18 @@ import ChecklistItem from './ChecklistItem';
 import OutfitItem from './OutfitItem';
 import CategoryTag from './CategoryTag';
 import { ChecklistItem as IChecklistItem, categories } from '@/utils/data';
-import { Switch } from "@/components/ui/switch";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface ChecklistCardProps {
   items: IChecklistItem[];
@@ -17,6 +27,7 @@ interface ChecklistCardProps {
   onRemoveItem: (id: string) => void;
   onEditItem?: (id: string, text: string, category: string) => void;
   onResetTemplate?: () => void;
+  hasChanges?: boolean;
   eventName?: string;
   onToggleOutfitSubItem?: (itemId: string, subItemId: string) => void;
   onAddOutfitSubItem?: (itemId: string, type: 'shoes' | 'top' | 'bottom' | 'accessories', text: string) => void;
@@ -31,6 +42,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   onRemoveItem,
   onEditItem,
   onResetTemplate,
+  hasChanges = false,
   eventName = "Festival",
   onToggleOutfitSubItem,
   onAddOutfitSubItem,
@@ -40,7 +52,6 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   const [newItemText, setNewItemText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
-  const [isRemoveMode, setIsRemoveMode] = useState(false);
   
   const filteredItems = activeFilter 
     ? items.filter(item => item.category === activeFilter)
@@ -66,43 +77,44 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
         <CardTitle className="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
           <span className="text-lg sm:text-xl">{eventName} Checklist</span>
           <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-            <div className="flex items-center gap-2">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className="flex items-center gap-2">
-                    <Switch
-                      id="remove-mode"
-                      checked={isRemoveMode}
-                      onCheckedChange={setIsRemoveMode}
-                    />
-                    <label htmlFor="remove-mode" className="text-xs sm:text-sm font-normal text-gray-500 cursor-pointer">
-                      Edit mode
-                    </label>
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Toggle to remove items you don't want on your checklist anymore</p>
-                </TooltipContent>
-              </Tooltip>
-              
-              {isRemoveMode && onResetTemplate && (
+            {onResetTemplate && hasChanges && (
+              <AlertDialog>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="text-amber-600 border-amber-600 hover:bg-amber-50"
-                    >
-                      <RotateCcw className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />
-                      <span className="text-xs sm:text-sm" onClick={onResetTemplate}>Reset to Original</span>
-                    </Button>
+                    <AlertDialogTrigger asChild>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="text-amber-600 border-amber-600 hover:bg-amber-50"
+                      >
+                        <RotateCcw className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />
+                        <span className="text-xs sm:text-sm">Reset</span>
+                      </Button>
+                    </AlertDialogTrigger>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Reset back to the original checklist template</p>
+                    <p>Reset back to the base checklist</p>
                   </TooltipContent>
                 </Tooltip>
-              )}
-            </div>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Reset Checklist?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This will permanently delete all your custom items and progress. You will lose everything and go back to the base checklist. This action cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction 
+                      onClick={onResetTemplate}
+                      className="bg-red-600 hover:bg-red-700"
+                    >
+                      Reset
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            )}
             <span className="text-xs sm:text-sm font-normal text-gray-500">
               {items.filter(i => i.isCompleted).length} of {items.length} completed
             </span>
@@ -173,7 +185,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                   onAddOutfitSubItem={onAddOutfitSubItem}
                   onRemoveOutfitSubItem={onRemoveOutfitSubItem}
                   onEditOutfitSubItem={onEditOutfitSubItem}
-                  showRemoveButton={isRemoveMode}
+                  showRemoveButton={true}
                 />
               ) : (
                 <ChecklistItem
@@ -182,7 +194,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                   onToggle={onToggleItem}
                   onRemove={onRemoveItem}
                   onEdit={onEditItem}
-                  showRemoveButton={isRemoveMode}
+                  showRemoveButton={true}
                 />
               )
             ))

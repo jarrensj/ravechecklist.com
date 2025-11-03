@@ -12,7 +12,8 @@ const Dashboard: React.FC = () => {
   
   const { 
     checklist, 
-    progressPercentage, 
+    progressPercentage,
+    hasChanges,
     handleToggleItem, 
     handleAddItem, 
     handleRemoveItem, 
@@ -67,6 +68,7 @@ const Dashboard: React.FC = () => {
               onRemoveItem={handleRemoveItem}
               onEditItem={handleEditItem}
               onResetTemplate={handleResetTemplate}
+              hasChanges={hasChanges}
               eventName={event.name}
               onToggleOutfitSubItem={handleToggleOutfitSubItem}
               onAddOutfitSubItem={handleAddOutfitSubItem}
