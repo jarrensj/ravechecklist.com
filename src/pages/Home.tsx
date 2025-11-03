@@ -41,11 +41,6 @@ const Home: React.FC = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link to="/checklist">
-                  View Templates
-                </Link>
-              </Button>
             </div>
           </div>
         </section>
