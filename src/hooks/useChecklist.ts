@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { ChecklistItem, sampleChecklist, OutfitSubItem } from '@/utils/data';
+import { ChecklistItem, sampleChecklist, OutfitSubItem, templates } from '@/utils/data';
 import { useToast } from "@/hooks/use-toast";
 import { showUpdateToast } from '@/lib/utils';
 
@@ -222,9 +222,7 @@ export const useChecklist = () => {
   };
 
   const handleAutofillFromTemplate = (templateId: string) => {
-    // Import templates dynamically to avoid circular dependency
-    const { templates } = require('@/utils/data');
-    const template = templates.find((t: any) => t.id === templateId);
+    const template = templates.find(t => t.id === templateId);
     
     if (!template) {
       toast({
@@ -241,7 +239,7 @@ export const useChecklist = () => {
     
     // Filter out items that already exist in the checklist
     const newItems = template.items.filter(
-      (item: ChecklistItem) => !existingItemTexts.has(item.text.toLowerCase())
+      item => !existingItemTexts.has(item.text.toLowerCase())
     );
     
     if (newItems.length === 0) {
@@ -254,11 +252,11 @@ export const useChecklist = () => {
     }
     
     // Add new items to checklist with fresh IDs
-    const itemsToAdd = newItems.map((item: ChecklistItem) => ({
+    const itemsToAdd = newItems.map(item => ({
       ...item,
       id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       isCompleted: false,
-      outfitItems: item.outfitItems?.map((subItem: any) => ({
+      outfitItems: item.outfitItems?.map(subItem => ({
         ...subItem,
         id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
         isCompleted: false
