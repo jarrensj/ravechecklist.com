@@ -306,9 +306,42 @@ export const useChecklist = (setEventInfo?: (event: EventInfo) => void) => {
       : 0
   );
 
+  // Check if there are changes from the base checklist
+  const hasChanges = (() => {
+    if (checklist.length !== sampleChecklist.length) return true;
+    
+    // Create normalized versions for comparison (ignore IDs and completion status)
+    const normalizeItem = (item: ChecklistItem) => ({
+      text: item.text.toLowerCase().trim(),
+      category: item.category,
+      isOutfit: item.isOutfit || false,
+      outfitItemsCount: item.outfitItems?.length || 0
+    });
+    
+    const currentNormalized = checklist.map(normalizeItem).sort((a, b) => a.text.localeCompare(b.text));
+    const baseNormalized = sampleChecklist.map(normalizeItem).sort((a, b) => a.text.localeCompare(b.text));
+    
+    // Compare each item
+    for (let i = 0; i < currentNormalized.length; i++) {
+      const current = currentNormalized[i];
+      const base = baseNormalized[i];
+      
+      if (
+        current.text !== base.text ||
+        current.category !== base.category ||
+        current.isOutfit !== base.isOutfit
+      ) {
+        return true;
+      }
+    }
+    
+    return false;
+  })();
+
   return {
     checklist,
     progressPercentage,
+    hasChanges,
     handleToggleItem,
     handleAddItem,
     handleRemoveItem,

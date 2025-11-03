@@ -27,6 +27,7 @@ interface ChecklistCardProps {
   onRemoveItem: (id: string) => void;
   onEditItem?: (id: string, text: string, category: string) => void;
   onResetTemplate?: () => void;
+  hasChanges?: boolean;
   eventName?: string;
   onToggleOutfitSubItem?: (itemId: string, subItemId: string) => void;
   onAddOutfitSubItem?: (itemId: string, type: 'shoes' | 'top' | 'bottom' | 'accessories', text: string) => void;
@@ -41,6 +42,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   onRemoveItem,
   onEditItem,
   onResetTemplate,
+  hasChanges = false,
   eventName = "Festival",
   onToggleOutfitSubItem,
   onAddOutfitSubItem,
@@ -75,7 +77,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
         <CardTitle className="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
           <span className="text-lg sm:text-xl">{eventName} Checklist</span>
           <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-            {onResetTemplate && (
+            {onResetTemplate && hasChanges && (
               <AlertDialog>
                 <Tooltip>
                   <TooltipTrigger asChild>
