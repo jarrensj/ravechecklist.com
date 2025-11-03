@@ -1,10 +1,10 @@
 
 import { useState, useEffect } from 'react';
-import { ChecklistItem, sampleChecklist, OutfitSubItem, templates } from '@/utils/data';
+import { ChecklistItem, sampleChecklist, OutfitSubItem, templates, EventInfo } from '@/utils/data';
 import { useToast } from "@/hooks/use-toast";
 import { showUpdateToast } from '@/lib/utils';
 
-export const useChecklist = () => {
+export const useChecklist = (setEventInfo?: (event: EventInfo) => void) => {
   const [checklist, setChecklist] = useState<ChecklistItem[]>([]);
   const { toast } = useToast();
 
@@ -234,6 +234,11 @@ export const useChecklist = () => {
       return;
     }
     
+    // Update event information
+    if (setEventInfo) {
+      setEventInfo(template.event);
+    }
+    
     // Get existing item texts to avoid duplicates
     const existingItemTexts = new Set(checklist.map(item => item.text.toLowerCase()));
     
@@ -244,9 +249,9 @@ export const useChecklist = () => {
     
     if (newItems.length === 0) {
       toast({
-        title: "No new items to add",
-        description: "All items from this template are already in your checklist",
-        duration: 2000,
+        title: "Template loaded",
+        description: `Event info updated. All items from ${template.name} were already in your checklist.`,
+        duration: 3000,
       });
       return;
     }
@@ -266,8 +271,8 @@ export const useChecklist = () => {
     setChecklist(prev => [...prev, ...itemsToAdd]);
     
     toast({
-      title: "Items added from template",
-      description: `Added ${newItems.length} new item${newItems.length > 1 ? 's' : ''} from ${template.name}`,
+      title: "Template loaded successfully",
+      description: `Added ${newItems.length} new item${newItems.length > 1 ? 's' : ''} and updated event info for ${template.name}`,
       duration: 3000,
     });
   };

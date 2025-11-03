@@ -8,6 +8,8 @@ import { useEventInfo } from '@/hooks/useEventInfo';
 import TemplateSelector from '@/components/TemplateSelector';
 
 const Dashboard: React.FC = () => {
+  const { event, setEvent } = useEventInfo();
+  
   const { 
     checklist, 
     progressPercentage, 
@@ -21,9 +23,7 @@ const Dashboard: React.FC = () => {
     handleRemoveOutfitSubItem,
     handleEditOutfitSubItem,
     handleAutofillFromTemplate
-  } = useChecklist();
-  
-  const { event, setEvent } = useEventInfo();
+  } = useChecklist(setEvent);
   
   return (
     <div className="min-h-screen bg-gray-50">
