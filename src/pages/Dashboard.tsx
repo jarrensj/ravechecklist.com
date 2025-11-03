@@ -22,7 +22,8 @@ const Dashboard: React.FC = () => {
     handleAddOutfitSubItem,
     handleRemoveOutfitSubItem,
     handleEditOutfitSubItem,
-    handleAutofillFromTemplate
+    handleAutofillFromTemplate,
+    handleLoadBaseChecklist
   } = useChecklist(setEvent);
   
   return (
@@ -42,6 +43,9 @@ const Dashboard: React.FC = () => {
             <TemplateSelector 
               className="w-full sm:w-auto" 
               onAutofill={handleAutofillFromTemplate}
+              onLoadBaseChecklist={handleLoadBaseChecklist}
+              currentChecklist={checklist}
+              currentEvent={event}
             />
           </div>
         </div>
