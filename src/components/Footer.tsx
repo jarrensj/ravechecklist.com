@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Separator } from "@/components/ui/separator";
-import { Mail, MessageCircle } from "lucide-react";
+import { Mail, MessageCircle, Shield } from "lucide-react";
 
 const Footer: React.FC = () => {
   return (
@@ -18,7 +19,7 @@ const Footer: React.FC = () => {
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-4 text-gray-600">
-              <a href="mailto:omakasemoney@gmail.com" className="flex items-center gap-1 hover:text-sky-600 transition-colors">
+              <a href="mailto:contact@sneakerdevs.com" className="flex items-center gap-1 hover:text-sky-600 transition-colors">
                 <Mail className="h-4 w-4" />
                 <span className="text-xs">Contact</span>
               </a>
@@ -26,6 +27,10 @@ const Footer: React.FC = () => {
                 <MessageCircle className="h-4 w-4" />
                 <span className="text-xs">Discord</span>
               </a>
+              <Link to="/privacy-policy" className="flex items-center gap-1 hover:text-gray-800 transition-colors">
+                <Shield className="h-4 w-4" />
+                <span className="text-xs">Privacy</span>
+              </Link>
             </div>
             <a 
               href="https://kwaji.com" 

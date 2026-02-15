@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Blog from "./pages/Blog";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Footer from "./components/Footer";
 import React from "react";
 
@@ -25,6 +26,7 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/checklist" element={<Dashboard />} />
                 <Route path="/blog" element={<Blog />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 {/* Redirects for backward compatibility */}
                 <Route path="/dashboard" element={<Navigate to="/checklist" replace />} />
                 <Route path="/templates" element={<Navigate to="/checklist" replace />} />
