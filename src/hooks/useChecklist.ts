@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react';
 import { ChecklistItem, sampleChecklist, OutfitSubItem, templates, EventInfo, getBaseChecklist } from '@/utils/data';
 import { useToast } from "@/hooks/use-toast";
 import { showUpdateToast } from '@/lib/utils';
+import { exportChecklist, validateAndImportChecklist, copyToClipboard, readFromClipboard, isImportError } from '@/utils/importExport';
 
-export const useChecklist = (setEventInfo?: (event: EventInfo) => void) => {
+export const useChecklist = (setEventInfo?: (event: EventInfo) => void, eventInfo?: EventInfo) => {
   const [checklist, setChecklist] = useState<ChecklistItem[]>([]);
   const { toast } = useToast();
 
@@ -300,8 +301,88 @@ export const useChecklist = (setEventInfo?: (event: EventInfo) => void) => {
     });
   };
 
+  const handleExportChecklist = async () => {
+    const currentEvent = eventInfo || {
+      name: "My Festival Checklist",
+      date: "TBD",
+      location: "TBD",
+      startTime: "TBD"
+    };
+
+    const exportedJson = exportChecklist(checklist, currentEvent);
+    const success = await copyToClipboard(exportedJson);
+
+    if (success) {
+      toast({
+        title: "Checklist exported",
+        description: "Copied to clipboard - paste it into the mobile app to import",
+        duration: 3000,
+      });
+    } else {
+      toast({
+        title: "Export failed",
+        description: "Could not copy to clipboard",
+        duration: 3000,
+        variant: "destructive"
+      });
+    }
+
+    return exportedJson;
+  };
+
+  const handleImportChecklist = async (json?: string) => {
+    let importJson = json;
+
+    if (!importJson) {
+      importJson = await readFromClipboard();
+      if (!importJson) {
+        toast({
+          title: "Import failed",
+          description: "Could not read from clipboard. Please paste your checklist manually.",
+          duration: 3000,
+          variant: "destructive"
+        });
+        return false;
+      }
+    }
+
+    const result = validateAndImportChecklist(importJson);
+
+    if (isImportError(result)) {
+      toast({
+        title: "Import failed",
+        description: result.error,
+        duration: 3000,
+        variant: "destructive"
+      });
+      return false;
+    }
+
+    // Set the imported items
+    setChecklist(result.items);
+    localStorage.setItem('mainChecklist', JSON.stringify(result.items));
+
+    // Update event name if provided
+    if (setEventInfo && result.name) {
+      setEventInfo({
+        name: result.name,
+        date: "TBD",
+        location: "TBD",
+        startTime: "TBD"
+      });
+    }
+
+    toast({
+      title: "Checklist imported",
+      description: `Successfully imported "${result.name}" with ${result.items.length} items`,
+      duration: 3000,
+    });
+
+    return true;
+  };
+
   const progressPercentage = Math.round(
-    checklist.length > 0 
+    checklist.length > 0
       ? (checklist.filter(item => item.isCompleted).length / checklist.length) * 100
       : 0
   );
@@ -352,6 +433,8 @@ export const useChecklist = (setEventInfo?: (event: EventInfo) => void) => {
     handleRemoveOutfitSubItem,
     handleEditOutfitSubItem,
     handleAutofillFromTemplate,
-    handleLoadBaseChecklist
+    handleLoadBaseChecklist,
+    handleExportChecklist,
+    handleImportChecklist
   };
 };

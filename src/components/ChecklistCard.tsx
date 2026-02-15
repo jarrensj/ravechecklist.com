@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Plus, RotateCcw } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { Plus, RotateCcw, Download, Upload } from "lucide-react";
 import ChecklistItem from './ChecklistItem';
 import OutfitItem from './OutfitItem';
 import CategoryTag from './CategoryTag';
@@ -19,6 +20,15 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface ChecklistCardProps {
   items: IChecklistItem[];
@@ -33,10 +43,12 @@ interface ChecklistCardProps {
   onAddOutfitSubItem?: (itemId: string, type: 'shoes' | 'top' | 'bottom' | 'accessories', text: string) => void;
   onRemoveOutfitSubItem?: (itemId: string, subItemId: string) => void;
   onEditOutfitSubItem?: (itemId: string, subItemId: string, text: string) => void;
+  onExportChecklist?: () => Promise<string>;
+  onImportChecklist?: (json?: string) => Promise<boolean>;
 }
 
-const ChecklistCard: React.FC<ChecklistCardProps> = ({ 
-  items, 
+const ChecklistCard: React.FC<ChecklistCardProps> = ({
+  items,
   onToggleItem,
   onAddItem,
   onRemoveItem,
@@ -47,11 +59,15 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
   onToggleOutfitSubItem,
   onAddOutfitSubItem,
   onRemoveOutfitSubItem,
-  onEditOutfitSubItem
+  onEditOutfitSubItem,
+  onExportChecklist,
+  onImportChecklist
 }) => {
   const [newItemText, setNewItemText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
+  const [importDialogOpen, setImportDialogOpen] = useState(false);
+  const [importText, setImportText] = useState("");
   
   const filteredItems = activeFilter 
     ? items.filter(item => item.category === activeFilter)
@@ -71,20 +87,135 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
     }
   };
 
+  const handleExport = async () => {
+    if (onExportChecklist) {
+      await onExportChecklist();
+    }
+  };
+
+  const handleImportFromClipboard = async () => {
+    if (onImportChecklist) {
+      const success = await onImportChecklist();
+      if (success) {
+        setImportDialogOpen(false);
+      }
+    }
+  };
+
+  const handleImportFromText = async () => {
+    if (onImportChecklist && importText.trim()) {
+      const success = await onImportChecklist(importText.trim());
+      if (success) {
+        setImportText("");
+        setImportDialogOpen(false);
+      }
+    }
+  };
+
   return (
     <Card className="w-full checklist-container">
       <CardHeader className="p-4 sm:p-6">
         <CardTitle className="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
           <span className="text-lg sm:text-xl">{eventName} Checklist</span>
           <div className="flex flex-wrap items-center gap-2 sm:gap-4">
+            {onExportChecklist && (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleExport}
+                    className="text-blue-600 border-blue-600 hover:bg-blue-50"
+                  >
+                    <Download className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />
+                    <span className="text-xs sm:text-sm">Export</span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Export checklist to clipboard (compatible with mobile app)</p>
+                </TooltipContent>
+              </Tooltip>
+            )}
+            {onImportChecklist && (
+              <Dialog open={importDialogOpen} onOpenChange={setImportDialogOpen}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-green-600 border-green-600 hover:bg-green-50"
+                      >
+                        <Upload className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />
+                        <span className="text-xs sm:text-sm">Import</span>
+                      </Button>
+                    </DialogTrigger>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Import checklist from mobile app</p>
+                  </TooltipContent>
+                </Tooltip>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Import Checklist</DialogTitle>
+                    <DialogDescription>
+                      Import a checklist from the RaveChecklist mobile app. This will replace your current checklist.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={handleImportFromClipboard}
+                    >
+                      <Upload className="h-4 w-4 mr-2" />
+                      Import from Clipboard
+                    </Button>
+                    <div className="relative">
+                      <div className="absolute inset-0 flex items-center">
+                        <span className="w-full border-t" />
+                      </div>
+                      <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-background px-2 text-muted-foreground">
+                          Or paste JSON manually
+                        </span>
+                      </div>
+                    </div>
+                    <Textarea
+                      placeholder='Paste your exported checklist JSON here...'
+                      value={importText}
+                      onChange={(e) => setImportText(e.target.value)}
+                      className="min-h-[150px] font-mono text-sm"
+                    />
+                  </div>
+                  <DialogFooter>
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setImportText("");
+                        setImportDialogOpen(false);
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      onClick={handleImportFromText}
+                      disabled={!importText.trim()}
+                    >
+                      Import
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            )}
             {onResetTemplate && hasChanges && (
               <AlertDialog>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <AlertDialogTrigger asChild>
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
+                      <Button
+                        variant="outline"
+                        size="sm"
                         className="text-amber-600 border-amber-600 hover:bg-amber-50"
                       >
                         <RotateCcw className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />
@@ -105,7 +236,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction 
+                    <AlertDialogAction
                       onClick={onResetTemplate}
                       className="bg-red-600 hover:bg-red-700"
                     >
