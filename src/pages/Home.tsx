@@ -3,10 +3,19 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCheck, ListChecks, ArrowRight, Clock, Users, SparkleIcon } from 'lucide-react';
+import { CheckCheck, ListChecks, ArrowRight, Clock, Users, SparkleIcon, Smartphone } from 'lucide-react';
 import JSConfetti from 'js-confetti';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
 
 const Home: React.FC = () => {
+  const [iosDialogOpen, setIosDialogOpen] = React.useState(false);
+
   const handleGetStarted = () => {
     const jsConfetti = new JSConfetti();
     jsConfetti.addConfetti({
@@ -37,9 +46,13 @@ const Home: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild onClick={handleGetStarted}>
                 <Link to="/checklist">
-                  Get Started
+                  Get Started on Web
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
+              </Button>
+              <Button size="lg" variant="outline" onClick={() => setIosDialogOpen(true)}>
+                <Smartphone className="mr-2 h-5 w-5" />
+                Download iOS App
               </Button>
             </div>
           </div>
@@ -110,6 +123,17 @@ const Home: React.FC = () => {
           </div>
         </section>
       </main>
+
+      <Dialog open={iosDialogOpen} onOpenChange={setIosDialogOpen}>
+        <DialogContent className="sm:max-w-md text-center">
+          <DialogHeader>
+            <DialogTitle className="text-center">iOS App Coming Soon</DialogTitle>
+            <DialogDescription className="text-center">
+              We're working on bringing RaveChecklist to your iPhone. Stay tuned for updates!
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
