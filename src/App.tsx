@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Blog from "./pages/Blog";
 import Footer from "./components/Footer";
+import AppDownloadBanner from "./components/AppDownloadBanner";
 import React from "react";
 
 // Create a client
@@ -20,6 +21,7 @@ const App = () => {
       <BrowserRouter basename="/">
         <TooltipProvider>
           <div className="flex flex-col min-h-screen bg-gray-50">
+            <AppDownloadBanner />
             <div className="flex-grow">
               <Routes>
                 <Route path="/" element={<Home />} />
