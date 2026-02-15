@@ -43,6 +43,16 @@ const Support: React.FC = () => {
       <Header />
 
       <main className="container max-w-screen-xl mx-auto px-4 sm:px-6 pb-16">
+        {/* Back Button */}
+        <div className="max-w-3xl mx-auto pt-6">
+          <Button variant="outline" asChild>
+            <Link to="/">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
+        </div>
+
         {/* Hero Section */}
         <section className="py-12 md:py-16 text-center">
           <div className="max-w-3xl mx-auto">
@@ -133,17 +143,6 @@ const Support: React.FC = () => {
           </div>
         </section>
 
-        {/* Back Button */}
-        <section className="py-8">
-          <div className="max-w-3xl mx-auto">
-            <Button variant="outline" asChild>
-              <Link to="/">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to Home
-              </Link>
-            </Button>
-          </div>
-        </section>
       </main>
     </div>
   );
