@@ -9,14 +9,14 @@ import TemplateSelector from '@/components/TemplateSelector';
 
 const Dashboard: React.FC = () => {
   const { event, setEvent } = useEventInfo();
-  
-  const { 
-    checklist, 
+
+  const {
+    checklist,
     progressPercentage,
     hasChanges,
-    handleToggleItem, 
-    handleAddItem, 
-    handleRemoveItem, 
+    handleToggleItem,
+    handleAddItem,
+    handleRemoveItem,
     handleEditItem,
     handleResetTemplate,
     handleToggleOutfitSubItem,
@@ -24,8 +24,10 @@ const Dashboard: React.FC = () => {
     handleRemoveOutfitSubItem,
     handleEditOutfitSubItem,
     handleAutofillFromTemplate,
-    handleLoadBaseChecklist
-  } = useChecklist(setEvent);
+    handleLoadBaseChecklist,
+    handleExportChecklist,
+    handleImportChecklist
+  } = useChecklist(setEvent, event);
   
   return (
     <div className="min-h-screen bg-gray-50">
@@ -61,7 +63,7 @@ const Dashboard: React.FC = () => {
           </div>
           
           <div className="md:col-span-2">
-            <ChecklistCard 
+            <ChecklistCard
               items={checklist}
               onToggleItem={handleToggleItem}
               onAddItem={handleAddItem}
@@ -74,6 +76,8 @@ const Dashboard: React.FC = () => {
               onAddOutfitSubItem={handleAddOutfitSubItem}
               onRemoveOutfitSubItem={handleRemoveOutfitSubItem}
               onEditOutfitSubItem={handleEditOutfitSubItem}
+              onExportChecklist={handleExportChecklist}
+              onImportChecklist={handleImportChecklist}
             />
           </div>
         </div>
