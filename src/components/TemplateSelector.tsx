@@ -141,13 +141,13 @@ const TemplateSelector: React.FC<TemplateSelectorProps> = ({
             {/* Base Checklist Option */}
             <DropdownMenuItem 
               onClick={handleBaseChecklistSelect}
-              className="cursor-pointer py-3 bg-blue-50 hover:bg-blue-100"
+              className="cursor-pointer py-3 bg-blue-50 hover:bg-blue-100 dark:bg-blue-950 dark:hover:bg-blue-900"
             >
               <div className="flex items-center gap-3 w-full">
-                <ListRestart className="h-5 w-5 text-blue-600" />
+                <ListRestart className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                 <div className="flex flex-col">
-                  <span className="font-medium text-blue-900">Base Checklist</span>
-                  <span className="text-xs text-blue-700">
+                  <span className="font-medium text-blue-900 dark:text-blue-100">Base Checklist</span>
+                  <span className="text-xs text-blue-700 dark:text-blue-300">
                     Start fresh with essential festival items
                   </span>
                 </div>
@@ -155,7 +155,7 @@ const TemplateSelector: React.FC<TemplateSelectorProps> = ({
             </DropdownMenuItem>
             
             <DropdownMenuSeparator />
-            <DropdownMenuLabel className="text-xs text-gray-500">Festival Templates</DropdownMenuLabel>
+            <DropdownMenuLabel className="text-xs text-muted-foreground">Festival Templates</DropdownMenuLabel>
             
             {sortedTemplates.map((template) => (
               <DropdownMenuItem 
@@ -165,11 +165,11 @@ const TemplateSelector: React.FC<TemplateSelectorProps> = ({
               >
                 <div className="flex flex-col w-full">
                   <span className="font-medium">{template.name}</span>
-                  <span className="text-xs text-gray-500">{template.event.location}</span>
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs text-muted-foreground">{template.event.location}</span>
+                  <span className="text-xs text-muted-foreground">
                     {formatDateRange(template.event.startDate, template.event.endDate)}
                   </span>
-                  <span className="text-xs text-gray-400 mt-1">
+                  <span className="text-xs text-muted-foreground/70 mt-1">
                     {template.items.length} items
                   </span>
                 </div>

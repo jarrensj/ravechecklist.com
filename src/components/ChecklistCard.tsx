@@ -125,7 +125,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                     variant="outline"
                     size="sm"
                     onClick={handleExport}
-                    className="text-blue-600 border-blue-600 hover:bg-blue-50"
+                    className="text-blue-600 border-blue-600 hover:bg-blue-600/10 dark:text-blue-400 dark:border-blue-400"
                   >
                     <Download className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />
                     <span className="text-xs sm:text-sm">Export</span>
@@ -144,7 +144,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                       <Button
                         variant="outline"
                         size="sm"
-                        className="text-green-600 border-green-600 hover:bg-green-50"
+                        className="text-green-600 border-green-600 hover:bg-green-600/10 dark:text-green-400 dark:border-green-400"
                       >
                         <Upload className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />
                         <span className="text-xs sm:text-sm">Import</span>
@@ -216,7 +216,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                       <Button
                         variant="outline"
                         size="sm"
-                        className="text-amber-600 border-amber-600 hover:bg-amber-50"
+                        className="text-amber-600 border-amber-600 hover:bg-amber-600/10 dark:text-amber-400 dark:border-amber-400"
                       >
                         <RotateCcw className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" />
                         <span className="text-xs sm:text-sm">Reset</span>
@@ -246,7 +246,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
                 </AlertDialogContent>
               </AlertDialog>
             )}
-            <span className="text-xs sm:text-sm font-normal text-gray-500">
+            <span className="text-xs sm:text-sm font-normal text-muted-foreground">
               {items.filter(i => i.isCompleted).length} of {items.length} completed
             </span>
           </div>
@@ -257,7 +257,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
         <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
           <CategoryTag 
             name="All Items" 
-            colorClass="bg-sky-100 text-sky-800"
+            colorClass="bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-200"
             isSelected={activeFilter === null} 
             onClick={() => setActiveFilter(null)} 
           />
@@ -330,7 +330,7 @@ const ChecklistCard: React.FC<ChecklistCardProps> = ({
               )
             ))
           ) : (
-            <div className="text-center py-8 text-gray-500 text-sm">
+            <div className="text-center py-8 text-muted-foreground text-sm">
               No items in this category yet
             </div>
           )}

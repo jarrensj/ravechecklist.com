@@ -100,7 +100,7 @@
 }
 
 .checklist-item.completed {
-  @apply line-through text-gray-400;
+  @apply line-through text-muted-foreground;
 }
 
 /* Add responsive adjustments */

@@ -88,7 +88,7 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
           {!isTemplateView && (
             <button 
               onClick={toggleEditEvent}
-              className="text-sky-600 hover:text-sky-700 p-1 rounded transition-colors"
+              className="text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 p-1 rounded transition-colors"
               aria-label={isEditingEvent ? "Save event details" : "Edit event details"}
             >
               {isEditingEvent ? <Save size={18} /> : <Pencil size={18} />}
@@ -100,7 +100,7 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
       <CardContent className="p-4 sm:p-6 pt-0">
         <div className="space-y-4">
           <div className="flex items-start">
-            <Music className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-sky-600 mt-0.5" />
+            <Music className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-sky-600 dark:text-sky-400 mt-0.5" />
             <div className="flex-1">
               {isEditingEvent ? (
                 <Input 
@@ -112,12 +112,12 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
               ) : (
                 <p className="text-base sm:text-lg font-medium">{event.name}</p>
               )}
-              <p className="text-xs sm:text-sm text-gray-500">Festival Name</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Festival Name</p>
             </div>
           </div>
           
           <div className="flex items-start">
-            <Calendar className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-sky-600 mt-0.5" />
+            <Calendar className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-sky-600 dark:text-sky-400 mt-0.5" />
             <div className="flex-1">
               {isEditingEvent ? (
                 <Input 
@@ -131,12 +131,12 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
                   {event.startDate ? formatDateRange() : event.date}
                 </p>
               )}
-              <p className="text-xs sm:text-sm text-gray-500">Event Dates</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Event Dates</p>
             </div>
           </div>
           
           <div className="flex items-start">
-            <MapPin className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-sky-600 mt-0.5" />
+            <MapPin className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-sky-600 dark:text-sky-400 mt-0.5" />
             <div className="flex-1">
               {isEditingEvent ? (
                 <Input 
@@ -148,12 +148,12 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
               ) : (
                 <p className="text-base sm:text-lg font-medium">{event.location}</p>
               )}
-              <p className="text-xs sm:text-sm text-gray-500">Location</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Location</p>
             </div>
           </div>
           
           <div className="flex items-start">
-            <Clock className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-sky-600 mt-0.5" />
+            <Clock className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-sky-600 dark:text-sky-400 mt-0.5" />
             <div className="flex-1">
               {isEditingEvent ? (
                 <Input 
@@ -165,7 +165,7 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
               ) : (
                 <p className="text-base sm:text-lg font-medium">{event.startTime}</p>
               )}
-              <p className="text-xs sm:text-sm text-gray-500">Gates Open</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Gates Open</p>
             </div>
           </div>
 
@@ -194,20 +194,20 @@ const EventInfoCard: React.FC<EventInfoCardProps> = ({ event, setEvent, progress
                   <p className="text-base sm:text-lg font-medium text-amber-600">No link provided</p>
                 )
               )}
-              <p className="text-xs sm:text-sm text-gray-500">Prohibited Items Link</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Prohibited Items Link</p>
             </div>
           </div>
           
           <div className="pt-2 border-t">
             <p className="font-medium text-sm sm:text-base">Packing Progress</p>
             <div className="mt-2 sm:mt-3">
-              <div className="h-2 w-full bg-gray-200 rounded-full">
+              <div className="h-2 w-full bg-muted rounded-full">
                 <div 
                   className="h-2 bg-sky-500 rounded-full" 
                   style={{ width: `${progressPercentage}%` }}
                 ></div>
               </div>
-              <p className="text-xs sm:text-sm text-gray-500 mt-1">
+              <p className="text-xs sm:text-sm text-muted-foreground mt-1">
                 {progressPercentage}% packed
               </p>
             </div>

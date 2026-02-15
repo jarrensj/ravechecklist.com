@@ -88,9 +88,9 @@ const OutfitItem: React.FC<OutfitItemProps> = ({
     <>
       <div 
         className={cn(
-          "flex flex-col p-2 sm:p-3 mb-2 bg-white rounded-lg shadow-sm border border-gray-100 transition-all hover:shadow-md",
+          "flex flex-col p-2 sm:p-3 mb-2 bg-card rounded-lg shadow-sm border border-border transition-all hover:shadow-md",
           "checklist-item relative",
-          allSubItemsCompleted ? "bg-gray-50 completed" : ""
+          allSubItemsCompleted ? "bg-muted completed" : ""
         )}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
@@ -106,20 +106,20 @@ const OutfitItem: React.FC<OutfitItemProps> = ({
               htmlFor={`item-${item.id}`}
               className={cn(
                 "text-xs sm:text-sm font-medium cursor-pointer truncate",
-                allSubItemsCompleted ? "line-through text-gray-400" : ""
+                allSubItemsCompleted ? "line-through text-muted-foreground" : ""
               )}
             >
               {item.text}
             </label>
             <Collapsible open={isOpen} onOpenChange={setIsOpen}>
               <CollapsibleTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-5 w-5 p-0 hover:bg-gray-100 flex-shrink-0">
+                <Button variant="ghost" size="icon" className="h-5 w-5 p-0 hover:bg-muted flex-shrink-0">
                   <ChevronDown className={cn("h-4 w-4 transition-transform", isOpen ? "" : "-rotate-90")} />
                 </Button>
               </CollapsibleTrigger>
             </Collapsible>
             {totalSubItems > 0 && (
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-muted-foreground">
                 ({completedSubItems}/{totalSubItems})
               </span>
             )}
@@ -145,7 +145,7 @@ const OutfitItem: React.FC<OutfitItemProps> = ({
                 <Button 
                   variant="ghost" 
                   size="icon" 
-                  className="h-6 w-6 sm:h-7 sm:w-7 text-gray-400 hover:text-blue-500 hover:bg-blue-50 p-1"
+                  className="h-6 w-6 sm:h-7 sm:w-7 text-muted-foreground hover:text-blue-500 hover:bg-blue-500/10 p-1"
                   onClick={handleEditClick}
                   title="Edit outfit"
                 >
@@ -156,7 +156,7 @@ const OutfitItem: React.FC<OutfitItemProps> = ({
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="h-6 w-6 sm:h-7 sm:w-7 text-gray-400 hover:text-red-500 hover:bg-red-50 p-1"
+                className="h-6 w-6 sm:h-7 sm:w-7 text-muted-foreground hover:text-red-500 hover:bg-red-500/10 p-1"
                 onClick={() => onRemove(item.id)}
                 title="Remove outfit"
               >
@@ -169,7 +169,7 @@ const OutfitItem: React.FC<OutfitItemProps> = ({
         <Collapsible open={isOpen} onOpenChange={setIsOpen}>
           <CollapsibleContent className="mt-2 ml-7 space-y-1">
             {outfitItems.map(subItem => (
-              <div key={subItem.id} className="flex items-center justify-between p-2 bg-gray-50 rounded border border-gray-200">
+              <div key={subItem.id} className="flex items-center justify-between p-2 bg-muted rounded border border-border">
                 <div className="flex items-center space-x-2 flex-1">
                   <Checkbox 
                     id={`subitem-${subItem.id}`}
@@ -180,17 +180,17 @@ const OutfitItem: React.FC<OutfitItemProps> = ({
                     htmlFor={`subitem-${subItem.id}`}
                     className={cn(
                       "text-xs font-medium cursor-pointer",
-                      subItem.isCompleted ? "line-through text-gray-400" : ""
+                      subItem.isCompleted ? "line-through text-muted-foreground" : ""
                     )}
                   >
-                    <span className="text-gray-500 capitalize">{subItem.type}:</span> {subItem.text}
+                    <span className="text-muted-foreground capitalize">{subItem.type}:</span> {subItem.text}
                   </label>
                 </div>
                 {showRemoveButton && (
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="h-5 w-5 text-gray-400 hover:text-red-500 hover:bg-red-50 p-0.5"
+                    className="h-5 w-5 text-muted-foreground hover:text-red-500 hover:bg-red-500/10 p-0.5"
                     onClick={() => onRemoveOutfitSubItem?.(item.id, subItem.id)}
                     title="Remove item"
                   >
@@ -201,7 +201,7 @@ const OutfitItem: React.FC<OutfitItemProps> = ({
             ))}
             
             {isAddingSubItem ? (
-              <div className="flex flex-col gap-2 p-2 bg-blue-50 rounded border border-blue-200">
+              <div className="flex flex-col gap-2 p-2 bg-primary/10 rounded border border-primary/20">
                 <div className="flex gap-2">
                   <select 
                     className="h-8 rounded-md border border-input bg-background px-2 py-1 text-xs flex-shrink-0"

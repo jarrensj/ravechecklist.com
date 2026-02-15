@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Blog from "./pages/Blog";
+import Settings from "./pages/Settings";
 import Footer from "./components/Footer";
 import AppDownloadBanner from "./components/AppDownloadBanner";
 import React from "react";
@@ -20,13 +21,14 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter basename="/">
         <TooltipProvider>
-          <div className="flex flex-col min-h-screen bg-gray-50">
+          <div className="flex flex-col min-h-screen bg-background">
             <AppDownloadBanner />
             <div className="flex-grow">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/checklist" element={<Dashboard />} />
                 <Route path="/blog" element={<Blog />} />
+                <Route path="/settings" element={<Settings />} />
                 {/* Redirects for backward compatibility */}
                 <Route path="/dashboard" element={<Navigate to="/checklist" replace />} />
                 <Route path="/templates" element={<Navigate to="/checklist" replace />} />
