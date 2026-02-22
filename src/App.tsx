@@ -8,6 +8,8 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Blog from "./pages/Blog";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Support from "./pages/Support";
 import Footer from "./components/Footer";
 import AppDownloadBanner from "./components/AppDownloadBanner";
 import React from "react";
@@ -27,6 +29,8 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/checklist" element={<Dashboard />} />
                 <Route path="/blog" element={<Blog />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/support" element={<Support />} />
                 {/* Redirects for backward compatibility */}
                 <Route path="/dashboard" element={<Navigate to="/checklist" replace />} />
                 <Route path="/templates" element={<Navigate to="/checklist" replace />} />
