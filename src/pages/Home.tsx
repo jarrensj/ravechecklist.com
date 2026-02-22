@@ -5,16 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCheck, ListChecks, ArrowRight, Clock, Users, SparkleIcon, Smartphone } from 'lucide-react';
 import JSConfetti from 'js-confetti';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
 
 const Home: React.FC = () => {
-  const [iosDialogOpen, setIosDialogOpen] = React.useState(false);
 
   const handleGetStarted = () => {
     const jsConfetti = new JSConfetti();
@@ -50,9 +42,11 @@ const Home: React.FC = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" onClick={() => setIosDialogOpen(true)}>
-                <Smartphone className="mr-2 h-5 w-5" />
-                Download iOS App
+              <Button size="lg" variant="outline" asChild>
+                <a href="https://apps.apple.com/us/app/rave-checklist/id6759148010" target="_blank" rel="noopener noreferrer">
+                  <Smartphone className="mr-2 h-5 w-5" />
+                  Download iOS App
+                </a>
               </Button>
             </div>
           </div>
@@ -124,16 +118,6 @@ const Home: React.FC = () => {
         </section>
       </main>
 
-      <Dialog open={iosDialogOpen} onOpenChange={setIosDialogOpen}>
-        <DialogContent className="sm:max-w-md text-center">
-          <DialogHeader>
-            <DialogTitle className="text-center">iOS App Coming Soon</DialogTitle>
-            <DialogDescription className="text-center">
-              We're working on bringing RaveChecklist to your iPhone. Stay tuned for updates!
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };
